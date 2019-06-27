@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/The-framework-of-blockchain.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/The-Structure-of-Blocks.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/5-Figure1-1.png">
-<meta property="og:updated_time" content="2019-06-27T09:52:46.624Z">
+<meta property="og:updated_time" content="2019-06-27T12:07:36.372Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="周记录-week2">
 <meta name="twitter:description" content="从零开始的区块链与域名系统的学习 老师留下的问题：若要将域名系统使用区块链技术实现，应该如何设计区块链账本？">
@@ -122,7 +122,7 @@
 <p>大概知道一点点关于区块链的知识后，就看一下专业的介绍性文章吧</p>
 <p><a href="http://ir.ia.ac.cn/handle/173211/11975" target="_blank" rel="noopener">袁勇,王飞跃. 区块链技术发展现状与展望[J]. 自动化学报,2016,42(4):481-494.</a></p>
 <p><a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_zh_cn.pdf" target="_blank" rel="noopener">比特币工作原理-bitcoin.org</a></p>
-<p><a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">上文英文原版</a></p>
+<p><a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">比特币工作原理（英文原版）-bitcoin.org</a></p>
 <p><a href="https://bbs.huaweicloud.com/blogs/405becb21d1c11e89fc57ca23e93a89f" target="_blank" rel="noopener">《深入区块链原理》系列-华为云社区</a></p>
 <!--其实我一开始找的就是这篇文章，但是看了2遍都看不懂，于是就随便上知乎找了一点更加面向小白的文章来看。之后又看了两遍，总算对比特币和区块链技术有一点眉目了，但还是有不少不懂的东西。
 
@@ -138,7 +138,7 @@
 <li>网络层：网络层包括了P2P结构的网络、数据广播和验证机制，提供了数据共享的服务</li>
 <li>共识层：共识层有多种实现方式，比如比特币的PoW、以太坊的PoS、比特股的DPOS等，解决了如何分配任务的问题。</li>
 <li>激励层：主要包含比特币的发行和分配，规定了什么时候发行货币、具体怎么向矿工分配比特币，已经属于金融领域的范畴了。</li>
-<li>合约层：也就是可编程的复杂条款,比特币中采用P2PKH以及UTXO体制</li>
+<li>合约层：也就是可编程的复杂条款,比特币中采用P2PKH脚本语言以及UTXO体制</li>
 <li>应用层：可编程货币、可变成金融、可编程社会</li>
 </ol>
 <h2 id="区块链各层的具体架构"><a class="markdownIt-Anchor" href="#区块链各层的具体架构"></a> 区块链各层的具体架构</h2>
@@ -150,10 +150,10 @@
 <p>轻量节点与全量节点的区别就在于存储区块体的多少数据，轻量节点只需存储少量区块体中的与之相关联的一条树链即可。</p>
 <h3 id="网络层"><a class="markdownIt-Anchor" href="#网络层"></a> 网络层</h3>
 <p>区块链网络使用P2P作为组网方式，来组织全球参与数据验证和记账的节点。</p>
-<p>比特币交易节点会将每一个得到的新生成的交易数据存储在一个区块中，同时每个节点都一直在找一个从比特网络中得到的一个要求的哈希值，找到之后就向全网节点广播此区块。其他节点收到区块之后都将对新生成的区块内所有的交易进行认证，认证通过后将链条延长，否则直接丢弃。</p>
+<p>比特币交易节点会将每一个得到的新生成的交易数据存储在一个区块中，同时每个节点都一直在找一个从比特网络中得到的一个要求的哈希值，找到之后就向全网节点广播此区块。其他节点收到区块之后都将对新生成的区块内所有的交易进行验证，验证通过后将链条延长，否则直接丢弃。</p>
 <h3 id="共识层"><a class="markdownIt-Anchor" href="#共识层"></a> 共识层</h3>
 <p>共识层，我的理解就是解决由谁开始广播新区块的数据的问题。</p>
-<p>比特币使用了PoW(Proof of Work)的机制，首先比特币网络会给出一个随机的目标哈希(Target Difficulty)。它要求找到一个数，它的哈希值小于目标哈希，所以当目标哈希值的前导零越多表示这个数越难找。如果某节点首先找到了这个数，并记录这个数字为Nonce，然后向全网节点广播新区块，该节点可以获得该区块的比特币奖励。</p>
+<p>比特币使用了PoW(Proof of Work)的机制，首先比特币网络会给出一个随机的目标哈希(Target Difficulty)。它要求找到一个数，它的哈希值小于目标哈希，所以当目标哈希值的前导零越多表示这个数越难找。如果某节点首先找到了这个数，并记录这个数字为Nonce，然后向全网节点广播新区块，该节点可以获得该区块的比特币奖励。PoW机制就是使用这种方式，将区块链的高度控制在每10分钟左右加1，但缺点就是这些大量的无任何社会意义的计算浪费了不少的计算资源。</p>
 <h3 id="合约层"><a class="markdownIt-Anchor" href="#合约层"></a> 合约层</h3>
 <p>合约层解释了数据层中存储的数据是什么，比特币中的数据其实就是一份一份的交易，这里的交易采用UTXO体制，UTXO体制其实就是以类似于支票的形式存储各笔帐，可能对于中国人来说相对会比较难理解。</p>
 <p>UTXO体制的每份交易中，包含了该交易输入和输出。就像我有一张100块钱的支票A，我现在想给你20块；我就会先给你写一张20块前的支票B，然后再给我自己写一张80块的支票C。那三张支票的编号会被写进一个交易中，输入是支票A，输出就是支票B得到20块，支票C得到80块。若这份交易验证通过后，支票A就会作废。</p>
@@ -172,8 +172,8 @@
 <!--这篇文章提到了一个重要的内容，ADR(Alternative DNS root)，其实就是没有在IANA那里登记的TLD，包括Namecoin(.bit)、-->
 <p>这篇文章主要讲到了namecoin及.bit的一些特点。</p>
 <ol>
-<li>namecoin是一个基于区块链技术，作用于DNS解析的系统；</li>
-<li>由于他们的结构非常相似，所以namecoin和比特币一样，具有很强的安全性。至少无法只从该域名解析系统查到相对应的用户；</li>
+<li>namecoin是一个基于区块链技术，可作用于DNS解析的系统；</li>
+<li>由于他们的结构非常相似，所以namecoin和比特币一样，具有很强的安全性。至少无法直接从该域名解析系统查到相对应的用户真实身份；</li>
 <li>也由于其安全性，许多的恶意软件制造者喜欢在这里活动，为他们提供了一个有利的空间；</li>
 <li>由于.bit是一个ADR(Alternative DNS root)，并没有在IANA登记，所以必须得设置不少东西才能使用。比如挂VPN、运行namecoind服务、使用特定的dns等。</li>
 </ol>
@@ -197,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/" data-id="cjxehosfz000omzu3jhjmfy03" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/" data-id="cjxemiczw000nddu32ta89y48" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
