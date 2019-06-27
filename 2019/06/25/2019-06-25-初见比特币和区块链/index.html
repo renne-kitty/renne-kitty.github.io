@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/The-framework-of-blockchain.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/The-Structure-of-Blocks.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/5-Figure1-1.png">
-<meta property="og:updated_time" content="2019-06-27T09:00:01.371Z">
+<meta property="og:updated_time" content="2019-06-27T09:52:46.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="周记录-week2">
 <meta name="twitter:description" content="从零开始的区块链与域名系统的学习 老师留下的问题：若要将域名系统使用区块链技术实现，应该如何设计区块链账本？">
@@ -129,7 +129,7 @@
 这篇文章直接从比特币开始，然后到实现的大体架构，介绍区块链。-->
 <h2 id="比特币生态圈"><a class="markdownIt-Anchor" href="#比特币生态圈"></a> 比特币生态圈</h2>
 <p><img src="bitcoin-env.jpeg" alt="比特币生态圈"></p>
-<p>首先介绍一下比特币的生态圈：一开始，比特币的开发组开发出原始的比特币网络，商家和投资商可以通过比特币交易的平台进行比特币的交易，这些交易信息都会存储在比特币网络中。但是，仅仅依靠这些计算力是不够的，所以，可以允许那些成天说挖矿的人提供自己的计算力来进行运算。没有人会白给你干活，你必须给工资给那些提供挖矿机的人，也就是比特币。</p>
+<p>首先简要描述一下比特币的生态圈：商家和投资商可以通过比特币交易的平台进行比特币的交易，这些交易信息都会存储在比特币网络中。比特币网络可以允许各组织提供自己的计算力来进行运算，没有人会白给你干活，你必须给工资给那些提供挖矿机的人，也就是比特币激励，现在(2019-06-27)每开发一个区块大概能得到13.9比特币。</p>
 <p><img src="The-framework-of-blockchain.png" alt="基本结构"></p>
 <h2 id="区块链的总体架构"><a class="markdownIt-Anchor" href="#区块链的总体架构"></a> 区块链的总体架构</h2>
 <p>根据这篇文章的介绍，比特币区块链的主要架构主要分为六层</p>
@@ -150,10 +150,10 @@
 <p>轻量节点与全量节点的区别就在于存储区块体的多少数据，轻量节点只需存储少量区块体中的与之相关联的一条树链即可。</p>
 <h3 id="网络层"><a class="markdownIt-Anchor" href="#网络层"></a> 网络层</h3>
 <p>区块链网络使用P2P作为组网方式，来组织全球参与数据验证和记账的节点。</p>
-<p>比特币交易节点会将每一个新生成的交易数据存储在一个区块中，同时每个节点都一直在找一个从比特网络中得到的一个工作量证明，找到之后就向全网节点广播此区块。其他节点收到区块之后都将对所有的交易进行认证，认证通过后将链条延长，否则直接丢弃。</p>
+<p>比特币交易节点会将每一个得到的新生成的交易数据存储在一个区块中，同时每个节点都一直在找一个从比特网络中得到的一个要求的哈希值，找到之后就向全网节点广播此区块。其他节点收到区块之后都将对新生成的区块内所有的交易进行认证，认证通过后将链条延长，否则直接丢弃。</p>
 <h3 id="共识层"><a class="markdownIt-Anchor" href="#共识层"></a> 共识层</h3>
 <p>共识层，我的理解就是解决由谁开始广播新区块的数据的问题。</p>
-<p>比特币使用了PoW(Proof of Work)的机制，首先比特币网络会给出一个随机的目标哈希(Target Difficulty)。要求找到一个数，它的哈希值小于目标哈希。如果某节点找到了这个数，记录这个数字为Nonce，然后向全网节点广播这个区块。</p>
+<p>比特币使用了PoW(Proof of Work)的机制，首先比特币网络会给出一个随机的目标哈希(Target Difficulty)。它要求找到一个数，它的哈希值小于目标哈希，所以当目标哈希值的前导零越多表示这个数越难找。如果某节点首先找到了这个数，并记录这个数字为Nonce，然后向全网节点广播新区块，该节点可以获得该区块的比特币奖励。</p>
 <h3 id="合约层"><a class="markdownIt-Anchor" href="#合约层"></a> 合约层</h3>
 <p>合约层解释了数据层中存储的数据是什么，比特币中的数据其实就是一份一份的交易，这里的交易采用UTXO体制，UTXO体制其实就是以类似于支票的形式存储各笔帐，可能对于中国人来说相对会比较难理解。</p>
 <p>UTXO体制的每份交易中，包含了该交易输入和输出。就像我有一张100块钱的支票A，我现在想给你20块；我就会先给你写一张20块前的支票B，然后再给我自己写一张80块的支票C。那三张支票的编号会被写进一个交易中，输入是支票A，输出就是支票B得到20块，支票C得到80块。若这份交易验证通过后，支票A就会作废。</p>
@@ -197,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/" data-id="cjxefuv4l000oduu3qzwdw70i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/" data-id="cjxehosfz000omzu3jhjmfy03" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
