@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>周记录-week2 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="从零开始的区块链与域名系统的学习 老师留下的问题：若要将域名系统使用区块链技术实现，应该如何设计区块链账本？">
+<meta name="keywords" content="区块链,比特币,DNS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="周记录-week2">
+<meta property="og:url" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="从零开始的区块链与域名系统的学习 老师留下的问题：若要将域名系统使用区块链技术实现，应该如何设计区块链账本？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/bitcoin-env.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/The-framework-of-blockchain.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/The-Structure-of-Blocks.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/5-Figure1-1.png">
+<meta property="og:updated_time" content="2019-06-27T09:00:01.371Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="周记录-week2">
+<meta name="twitter:description" content="从零开始的区块链与域名系统的学习 老师留下的问题：若要将域名系统使用区块链技术实现，应该如何设计区块链账本？">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/bitcoin-env.jpeg">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2019-06-25-初见比特币和区块链" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/25/2019-06-25-初见比特币和区块链/" class="article-date">
+  <time datetime="2019-06-25T09:06:14.000Z" itemprop="datePublished">2019-06-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/方班周记录/">方班周记录</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      周记录-week2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="从零开始的区块链与域名系统的学习"><a class="markdownIt-Anchor" href="#从零开始的区块链与域名系统的学习"></a> 从零开始的区块链与域名系统的学习</h1>
+<p><strong>老师留下的问题：若要将域名系统使用区块链技术实现，应该如何设计区块链账本？</strong></p>
+<a id="more"></a>
+<p>首先，随便看篇面向非专业人群的介绍性文章，看看区块链到底是什么</p>
+<p><a href="https://zhuanlan.zhihu.com/p/22228902" target="_blank" rel="noopener">简单易懂地介绍什么是区块链-知乎</a></p>
+<p>这篇文章从金融的角度简要介绍了区块链。简单来说，区块链系统就是一个权力分散完全自治，并具有较强安全性的系统。</p>
+<p>然后再看一篇稍稍面向专业人群的同样是介绍性的文章，大致了解一下大概有什么内容。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/22609209" target="_blank" rel="noopener">区块链以及区块链技术总结-知乎</a></p>
+<p>好的，看完之后还是一头雾水，简单总结一下它说了什么</p>
+<ol>
+<li>区块链技术基于非对称加密的公私钥验证保障安全性</li>
+<li>区块链中的所有核心节点都应包含该条区块链数据的全副本</li>
+<li>区块链只对添加操作有效，对其它操作无效</li>
+<li>提交的操作不可篡改</li>
+<li>分为联盟链和公有链</li>
+</ol>
+<p>大概知道一点点关于区块链的知识后，就看一下专业的介绍性文章吧</p>
+<p><a href="http://ir.ia.ac.cn/handle/173211/11975" target="_blank" rel="noopener">袁勇,王飞跃. 区块链技术发展现状与展望[J]. 自动化学报,2016,42(4):481-494.</a></p>
+<p><a href="https://bitcoin.org/files/bitcoin-paper/bitcoin_zh_cn.pdf" target="_blank" rel="noopener">比特币工作原理-bitcoin.org</a></p>
+<p><a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener">上文英文原版</a></p>
+<p><a href="https://bbs.huaweicloud.com/blogs/405becb21d1c11e89fc57ca23e93a89f" target="_blank" rel="noopener">《深入区块链原理》系列-华为云社区</a></p>
+<!--其实我一开始找的就是这篇文章，但是看了2遍都看不懂，于是就随便上知乎找了一点更加面向小白的文章来看。之后又看了两遍，总算对比特币和区块链技术有一点眉目了，但还是有不少不懂的东西。
+
+这篇文章直接从比特币开始，然后到实现的大体架构，介绍区块链。-->
+<h2 id="比特币生态圈"><a class="markdownIt-Anchor" href="#比特币生态圈"></a> 比特币生态圈</h2>
+<p><img src="bitcoin-env.jpeg" alt="比特币生态圈"></p>
+<p>首先介绍一下比特币的生态圈：一开始，比特币的开发组开发出原始的比特币网络，商家和投资商可以通过比特币交易的平台进行比特币的交易，这些交易信息都会存储在比特币网络中。但是，仅仅依靠这些计算力是不够的，所以，可以允许那些成天说挖矿的人提供自己的计算力来进行运算。没有人会白给你干活，你必须给工资给那些提供挖矿机的人，也就是比特币。</p>
+<p><img src="The-framework-of-blockchain.png" alt="基本结构"></p>
+<h2 id="区块链的总体架构"><a class="markdownIt-Anchor" href="#区块链的总体架构"></a> 区块链的总体架构</h2>
+<p>根据这篇文章的介绍，比特币区块链的主要架构主要分为六层</p>
+<ol>
+<li>数据层：这层包括了区块、链结构、时间戳、hash函数、Merkle树、非对称加密法。其中区块结构中包含版本号、链接结构(前后区块信息)、随机数(PoW结果)、Merkle树的根节点、目标哈希(比特币网络给出的难度系数)作为区块头，Merkle哈希树和各份交易作为区块体。总体来说，数据层描述了单个节点所包含的数据。</li>
+<li>网络层：网络层包括了P2P结构的网络、数据广播和验证机制，提供了数据共享的服务</li>
+<li>共识层：共识层有多种实现方式，比如比特币的PoW、以太坊的PoS、比特股的DPOS等，解决了如何分配任务的问题。</li>
+<li>激励层：主要包含比特币的发行和分配，规定了什么时候发行货币、具体怎么向矿工分配比特币，已经属于金融领域的范畴了。</li>
+<li>合约层：也就是可编程的复杂条款,比特币中采用P2PKH以及UTXO体制</li>
+<li>应用层：可编程货币、可变成金融、可编程社会</li>
+</ol>
+<h2 id="区块链各层的具体架构"><a class="markdownIt-Anchor" href="#区块链各层的具体架构"></a> 区块链各层的具体架构</h2>
+<p>这里只描述数据层、网络层、共识层、合约层的基本架构，有很多金融相关的东西就不多描述了</p>
+<h3 id="数据层"><a class="markdownIt-Anchor" href="#数据层"></a> 数据层</h3>
+<p>这一部分包含了区块链数据在单一节点上的存储状况。首先，整个区块链的数据是一个有序的双链表式的结构，由一个个区块按照登记的时间戳顺序前后链接而成。每一个节点可以存储所有的数据，也可以存储部分数据，存储全部数据的叫做全量节点，只存储全部区块头和部分数据的成为轻量节点。</p>
+<p><img src="The-Structure-of-Blocks.png" alt="区块结构"></p>
+<p>而每个单独的区块分为区块头和区块体两部分。图中的是比特币的存储格式，区块头仅仅记录前后区块、时间戳、比特网络声明的随机数、PoW结果、Merkle哈希树的根；而区块体记录了完整的Merkle树，Merkle树中每个父节点都是其子节点的哈希值，哈希值的来源是每一份被成为交易(Transcation)的数据。</p>
+<p>轻量节点与全量节点的区别就在于存储区块体的多少数据，轻量节点只需存储少量区块体中的与之相关联的一条树链即可。</p>
+<h3 id="网络层"><a class="markdownIt-Anchor" href="#网络层"></a> 网络层</h3>
+<p>区块链网络使用P2P作为组网方式，来组织全球参与数据验证和记账的节点。</p>
+<p>比特币交易节点会将每一个新生成的交易数据存储在一个区块中，同时每个节点都一直在找一个从比特网络中得到的一个工作量证明，找到之后就向全网节点广播此区块。其他节点收到区块之后都将对所有的交易进行认证，认证通过后将链条延长，否则直接丢弃。</p>
+<h3 id="共识层"><a class="markdownIt-Anchor" href="#共识层"></a> 共识层</h3>
+<p>共识层，我的理解就是解决由谁开始广播新区块的数据的问题。</p>
+<p>比特币使用了PoW(Proof of Work)的机制，首先比特币网络会给出一个随机的目标哈希(Target Difficulty)。要求找到一个数，它的哈希值小于目标哈希。如果某节点找到了这个数，记录这个数字为Nonce，然后向全网节点广播这个区块。</p>
+<h3 id="合约层"><a class="markdownIt-Anchor" href="#合约层"></a> 合约层</h3>
+<p>合约层解释了数据层中存储的数据是什么，比特币中的数据其实就是一份一份的交易，这里的交易采用UTXO体制，UTXO体制其实就是以类似于支票的形式存储各笔帐，可能对于中国人来说相对会比较难理解。</p>
+<p>UTXO体制的每份交易中，包含了该交易输入和输出。就像我有一张100块钱的支票A，我现在想给你20块；我就会先给你写一张20块前的支票B，然后再给我自己写一张80块的支票C。那三张支票的编号会被写进一个交易中，输入是支票A，输出就是支票B得到20块，支票C得到80块。若这份交易验证通过后，支票A就会作废。</p>
+<p>比特币的模型在这种交易上还增加了解锁脚本和锁定脚本。每一份交易中的每一个输入都对应一个解锁脚本(输入脚本)，用于向来源的交易说明交易的来源的目标是我，也就是支票A是我的。每一个交易的输出对对应一个锁定脚本(输出脚本)，我要让使用者证明，使用的人是你而不是别人。你在使用这张支票时，要编写解锁脚本来解除我的锁定。</p>
+<p>比特币的解锁脚本和锁定脚本使用P2PKH(Pay-to-Public-Key-Hash)，一种堆栈语言。比如：</p>
+<p>当前交易的解锁脚本：<code>&lt;Sig&gt;&lt;PubKey&gt;</code></p>
+<p>前置交易的锁定脚本：<code>OP_DUP OP_HASH160 &lt;PubkeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG</code></p>
+<p>交易的验证方式就是运行脚本<code>&lt;Sig&gt;&lt;PubKey&gt;OP_DUP OP_HASH160 &lt;PubkeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG</code>，看结果是否为TRUE。说到底，它的主要工作如下：</p>
+<ol>
+<li>验证前一份交易目标的公钥与后一份交易使用者公钥是否相等</li>
+<li>验证后一份交易给出来的签名是否与前一份交易目标对应</li>
+</ol>
+<h2 id="关于namecoin"><a class="markdownIt-Anchor" href="#关于namecoin"></a> 关于Namecoin</h2>
+<p>这东西的中文资料不是很多，所以看下来还是挺吃力的，老师给了一篇文章，总结一下它的内容。</p>
+<p><a href="https://www.trendmicro.de/cloud-content/us/pdfs/security-intelligence/white-papers/wp-bitcoin-domains.pdf" target="_blank" rel="noopener">Bitcoin Domains-Forward-Looking Threat Research Team</a></p>
+<!--这篇文章提到了一个重要的内容，ADR(Alternative DNS root)，其实就是没有在IANA那里登记的TLD，包括Namecoin(.bit)、-->
+<p>这篇文章主要讲到了namecoin及.bit的一些特点。</p>
+<ol>
+<li>namecoin是一个基于区块链技术，作用于DNS解析的系统；</li>
+<li>由于他们的结构非常相似，所以namecoin和比特币一样，具有很强的安全性。至少无法只从该域名解析系统查到相对应的用户；</li>
+<li>也由于其安全性，许多的恶意软件制造者喜欢在这里活动，为他们提供了一个有利的空间；</li>
+<li>由于.bit是一个ADR(Alternative DNS root)，并没有在IANA登记，所以必须得设置不少东西才能使用。比如挂VPN、运行namecoind服务、使用特定的dns等。</li>
+</ol>
+<p>看完了这些文章，其实对基于区块链的域名系统的设计已经稍有眉目了，大概就是在区块链的交易里面登记关于域名变动的信息，然后在原本比特币里面的解锁脚本和锁定脚本里作出相应的操作。为了佐证自己的猜想，我再去找了一篇关于namecoin的文章和一篇关于电子钱包中NameScript的介绍</p>
+<p><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.698.4605&amp;rep=rep1&amp;type=pdf" target="_blank" rel="noopener">Kalodner, Harry A., et al. “An Empirical Study of Namecoin and Lessons for Decentralized Namespace Design.” WEIS. 2015.</a></p>
+<p><a href="https://namecoin.org/2018/07/15/electrumx-name-scripts.html" target="_blank" rel="noopener">ElectrumX: Name Scripts-namecoin.org</a></p>
+<p>根据上面这篇文章的描述，namecoin为了实现域名的更新，使用了下面这几种操作。这些操作都在输出脚本里面执行</p>
+<p><img src="5-Figure1-1.png" alt="namecoin关于域名的操作"></p>
+<ol>
+<li><code>OP_NAME_NEW</code> 申请域名，需要附带一笔0.01NMC的交易，解锁脚本一般格式为<code>OP_NAME_NEW hash(nonce,&lt;name&gt;) OP_2DROP OP_DUP OP_HASH160 &lt;PubkeyHash&gt; OP_EQUALVERIFY OP_CHECKSIG</code>，其实就是在比特币解锁脚本的前面加入域名新建的操作。</li>
+<li><code>OP_NAME_FIRSTUPDATE</code> 首次更新，其实与下面的更新作用几乎相同。需要在NEW操作的12个区块以后执行,额外脚本<code>OP_NAME_FIRSTUPDATE &lt;name&gt; nonce &lt;value&gt; OP_2DROP OP_2DROP</code></li>
+<li><code>OP_NAME_UPDATE</code> 更新域名，额外脚本<code>OP_NAME_UPDATE &lt;name&gt; &lt;value&gt; OP_2DROP OP_DROP</code></li>
+</ol>
+<p>域名的信息期限是36000个区块，当超过期限时需要手动更新。</p>
+<p>实例：<a href="https://namecha.in/" target="_blank" rel="noopener">namecoin交易数据-namecha.in</a></p>
+<p>其实，到这里我还有一些很重要的疑问没有解决：</p>
+<p><strong>在布置了区块链系统后，namecoin是如何有效率地解决域名访问的问题的？</strong></p>
+<p>猜想：使用一个与区块链系统逻辑上独立的数据库，在收到区块更新并验证通过后，将新区块的数据更新到数据库内，而实际上的域名解析是在该数据库上执行的而非区块链系统。也就是，原本DNS服务器的逻辑依然存在，而区块链系统只是接收更新指令而不需要解析。</p>
+<p>这一部分的猜想并未找到相应的资料佐证。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/" data-id="cjxefuv4l000oduu3qzwdw70i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/23/2019-06-23-linux-github免密码/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用ssh-key实现github的免密码上传</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/斯坦福大学公开课记录/">斯坦福大学公开课记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/方班周记录/">方班周记录</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DNS/" style="font-size: 10px;">DNS</a> <a href="/tags/arch/" style="font-size: 10px;">arch</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/区块链/" style="font-size: 10px;">区块链</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 10px;">根域名</a> <a href="/tags/比特币/" style="font-size: 10px;">比特币</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/25/2019-06-25-初见比特币和区块链/">周记录-week2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/23/2019-06-23-linux-github免密码/">使用ssh-key实现github的免密码上传</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/2019-06-20-archlinux/">Arch+KDE桌面安装流程记录</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/ML-week1/">机器学习-week1</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/weekly-record-week1/">周记录-week1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
