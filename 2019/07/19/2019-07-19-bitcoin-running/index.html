@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>周记录-week4 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。">
+<meta name="keywords" content="区块链,比特币">
+<meta property="og:type" content="article">
+<meta property="og:title" content="周记录-week4">
+<meta property="og:url" content="http://yoursite.com/2019/07/19/2019-07-19-bitcoin-running/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-19T04:33:14.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="周记录-week4">
+<meta name="twitter:description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2019-07-19-bitcoin-running" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/19/2019-07-19-bitcoin-running/" class="article-date">
+  <time datetime="2019-07-19T03:59:03.000Z" itemprop="datePublished">2019-07-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/方班周记录/">方班周记录</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      周记录-week4
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。</p>
+<p>本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。</p>
+<a id="more"></a>
+<p>首先得了解一下bitcoin的运行方式和开发方式，了解运行方式的最重要方式就是布置好环境跑一遍命令行环境，了解开发方式最重要的就是找到源码并适当阅读。</p>
+<h2 id="编译比特币源码"><a class="markdownIt-Anchor" href="#编译比特币源码"></a> 编译比特币源码</h2>
+<p>先从github上下载bitcoin核心源码，然后跑起来。由于比特币的核心代码是C++写的，我的系统是linux，所以跑起来应该相对比较简单。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/bitcoin/bitcoin.git</span><br><span class="line">git checkout 0.18 <span class="comment">#切换到现在的版本</span></span><br><span class="line">du -d 0 -h <span class="comment">#记录一下现在的大小155M，以防万一</span></span><br></pre></td></tr></table></figure>
+<p>先大概阅读一下啊目录结构，找到里面的doc文件夹，跟着./doc/build-unix.md一步一步安装就可以了。看到configure.ac和makefile.am大概就知道是用autoconf部署的。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pacman -S boost <span class="comment">#依赖库</span></span><br><span class="line">yay db4.8 <span class="comment">#Berkeley DB</span></span><br><span class="line">./autogen.sh</span><br><span class="line">./configure --<span class="built_in">disable</span>-hardening --without-gui --without-miniupnpc</span><br><span class="line"><span class="comment"># 因为我搞这东西不是为了炒币，只是用于运行在本地了解一下bitcoin的真实账本格式，所以什么随机地址、GUI、UPNP网络都可以不要</span></span><br><span class="line">make</span><br><span class="line"><span class="comment"># make完了之后在看一下大小，发现变成了2.7G</span></span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/ffzhihua/article/details/80695886" target="_blank" rel="noopener">BTC安装和使用笔记</a></p>
+<p><a href="https://bitcoin.org/en/developer-examples" target="_blank" rel="noopener">开发者指南-bitcoin.org(in English)</a></p>
+<h2 id="bitcoind回归测试"><a class="markdownIt-Anchor" href="#bitcoind回归测试"></a> bitcoind回归测试</h2>
+<p>由于比特币网络太大了，同步下来要需要下载180G数据，而且测试网络也需要下载18G数据。因此这里只在本地运行bitcoind。</p>
+<h3 id="配置并运行bitcoind服务"><a class="markdownIt-Anchor" href="#配置并运行bitcoind服务"></a> 配置并运行bitcoind服务</h3>
+<p>根据上面的开发者指南，我们需要在<code>$HOME/.bitcoin/bitcoin.conf</code>构建配置文件，根据<code>bitcoin/share/examples/bitcoin.conf</code>的内容改写。在配置文件里添加以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server=1 #开启RPC</span><br><span class="line">#由于想要更方便地查看，所以不能像其他教程选择使用守护进程运行</span><br><span class="line">rpcpassword=********</span><br><span class="line">rpcport=8332</span><br><span class="line">datadir=~/opt/bit-data</span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitcoind -regtest -rpcpassword=**** <span class="comment">#开启在本地回归网络的测试</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用bitcoin-cli连接bitcoind并执行简单操作"><a class="markdownIt-Anchor" href="#使用bitcoin-cli连接bitcoind并执行简单操作"></a> 使用bitcoin-cli连接bitcoind并执行简单操作</h3>
+<p>需要注意的就只有交易费的限制和创币费用，其他都是跟着流程走就行了</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** <span class="built_in">help</span></span><br><span class="line"><span class="comment">#查看帮助</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getnewaddress <span class="string">"123"</span></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getnewaddress <span class="string">"789"</span></span><br><span class="line">    2MyM4iE42bSWUfsi3XcvmuPte95gw2xepr1</span><br><span class="line">    2MtEZtjTXBFW9raDevAWnU2tDi2Gcxn5BSz</span><br><span class="line"><span class="comment">#创建2个地址待之后测试用</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getaddressinfo <span class="string">"2MyM4iE42bSWUfsi3XcvmuPte95gw2xepr1"</span></span><br><span class="line"><span class="comment">#查看对应地址信息，结果为一个json串</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getblockcount</span><br><span class="line"><span class="comment">#刚开始时，区块数为0</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getblockhash 0</span><br><span class="line">    0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206</span><br><span class="line"><span class="comment">#获取高度为0的区块hash</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getblock 0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206</span><br><span class="line"><span class="comment">#返回区块信息，结果为json串</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest generate 102</span><br><span class="line"><span class="comment">#生成102个区块</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getbalance</span><br><span class="line">    100.00</span><br><span class="line"><span class="comment">#挖矿所得100BTC，创币交易在得到100个确认后就会得到50BTC的奖励，生成102个区块后，前两个区块得到100个确认，故能得到100BTC的奖励</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** sendtoaddress <span class="string">"<span class="variable">$addr1</span>"</span> 10.00</span><br><span class="line">    901dcc9b20c76bf12dba55f73cbadfc79ba8911b56e574dfbff066d3fea94f27</span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** sendtoaddress <span class="string">"<span class="variable">$addr2</span>"</span> 20.00</span><br><span class="line">    473f17d22b070409bd661061bdff2739dabb021da3af03068ed0e7408221d219</span><br><span class="line"><span class="comment">#给地址1转10BTC，地址2转20BTC</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** getwalletinfo</span><br><span class="line"><span class="comment">#此时查看一下钱包信息，显示交易数104,余额99.99992520</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest listunspent 0</span><br><span class="line"><span class="comment">#此时查看有0个确认交易信息，看到刚刚搞的那两笔UTXO格式写的交易</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** listaddressgroupings</span><br><span class="line"><span class="comment">#查看本钱包下所有地址余额</span></span><br><span class="line"></span><br><span class="line">bitcoin-cli -regtest generate 1</span><br><span class="line"><span class="comment">#生成新区块，确认刚刚的交易</span></span><br></pre></td></tr></table></figure>
+<p>现在钱包里一共有5笔交易，我们先拿了2个区块的挖矿奖励，共有两笔50BTC的交易。然后，向A转了10BTC，向B转了20BTC，则变成了一笔给自己的40BTC一笔给A的10BTC，和一笔给自己的30BTC一笔给B的20BTC的交易。接下来我们确认这两份交易，又得到新的挖矿奖励50BTC。</p>
+<p>生成了新区块后，刚刚两笔转账被确认，查询余额，BTC被转了过去。接下来，我们使用刚刚的交易，让B向A转15BTC。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">UTXO_txid=473f17d22b070409bd661061bdff2739dabb021da3af03068ed0e7408221d219</span><br><span class="line">UTXO_vout=1</span><br><span class="line"><span class="comment"># 记录向B输出20BTC的交易项的txid(交易ID)和vout(一笔交易中的输出序号)</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** createrawtransaction <span class="string">''</span><span class="string">'[&#123;"txid":"'</span><span class="variable">$UTXO_txid</span><span class="string">'","vout":'</span><span class="variable">$UTXO_vout</span><span class="string">'&#125;]'</span><span class="string">''</span> <span class="string">''</span><span class="string">'[&#123;"'</span><span class="variable">$addr1</span><span class="string">'":15.00&#125;,&#123;"'</span><span class="variable">$addr2</span><span class="string">'":4.999998&#125;]'</span><span class="string">''</span></span><br><span class="line">    020000000119d2218240e7d08e0603afa31d02bbda3927ffbd611066bd0904072bd2173f470100000000ffffffff01002f68590000000017a91442eb81ac71678bc3a4cec2cad79f4c858a2ec8d68700000000</span><br><span class="line"><span class="comment">#创建交易，得到原生交易ID，此时交易仍未正式被创建</span></span><br><span class="line"></span><br><span class="line">RAW_tx=020000000119d2218240e7d08e0603afa31d02bbda3927ffbd611066bd0904072bd2173f470100000000ffffffff01002f68590000000017a91442eb81ac71678bc3a4cec2cad79f4c858a2ec8d68700000000</span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** decoderawtransaction <span class="variable">$RAW_tx</span></span><br><span class="line"><span class="comment">#查看原生交易的信息</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** signrawtransactionwithwallet <span class="variable">$RAW_tx</span></span><br><span class="line"><span class="comment">#使用钱包，对原生交易签名</span></span><br><span class="line"></span><br><span class="line">SIGNED_tx=0200000000010119d2218240e7d08e0603afa31d02bbda3927ffbd611066bd0904072bd2173f47010000001716001409b5d10e9bc55c5f29109cd4fdfc415ec04ac4bbffffffff01002f68590000000017a91442eb81ac71678bc3a4cec2cad79f4c858a2ec8d6870247304402204847927282fcb021cca9b89be45301ba733ddc1c08b80c15bfecdedc7681acc102203c19670c4e938353ba0ddc31b2483a8965cbff82a593e7153e4fc3e8c564ae2e01210249b76931642ab57425fb3dfe38091f7c05214aad4632887613a9403387a3769200000000</span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** decoderawtransaction <span class="string">"<span class="variable">$SIGNED_tx</span>"</span></span><br><span class="line"><span class="comment">#再查看签名后的交易信息，交易信息已经完整</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** sendrawtransaction <span class="string">"<span class="variable">$SIGNED_tx</span>"</span></span><br><span class="line">    eb88318e8fcbbb25dd38144dfd31538066e9e12421882e8b44c6fc7b03b01628</span><br><span class="line"><span class="comment">#广播签名后的交易信息</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** listunspent 0</span><br><span class="line"><span class="comment">#确认一下刚刚生成的交易</span></span><br><span class="line"></span><br><span class="line">sudo bitcoin-cli -regtest -rpcpassword=**** generate 1</span><br><span class="line"><span class="comment">#生成新区块</span></span><br></pre></td></tr></table></figure>
+<p>到这里为止转账已经成功，查询余额交易已生效。需要注意的就是交易费的问题，这里的交易费指的就是输入交易总金额-输出交易总金额，放我这里就是20-(15+4.999998)BTC=200 satoshis(1e-8btc)。转账15BTC交易费必须在[166,10000000]范围内。</p>
+<p>另外说一下创币交易的问题，创币交易需要经过100个确认才能使用，比如在回归网络生成101个区块时，新生成的第一个区块的创币交易得到了100个确认，得到50BTC的创币交易奖励。</p>
+<h3 id="总结比特币节点回归测试流程"><a class="markdownIt-Anchor" href="#总结比特币节点回归测试流程"></a> 总结比特币节点回归测试流程</h3>
+<p>首先要配置bitcoind服务：</p>
+<ol>
+<li>写配置文件，写入密码等信息</li>
+<li>开启bitcoind服务，此时创世区块已建立，但未确认</li>
+</ol>
+<p>接着是使用bitcoin-cli执行操作</p>
+<ol>
+<li>先生成A和B两个地址</li>
+<li>由于默认需要100次区块确认后才能得到50BTC的创币交易奖励，所以要生成101个区块</li>
+<li>将挖矿得到的50BTC分别向A转10BTC，向B转20BTC。</li>
+<li>创建交易，输入为B挖矿所得的那笔交易，输出为给 A 15BTC，给 B 4.999998BTC。剩下的0.000002BTC就是给比特币网络的小费。小费被限制在0.00000166～0.1BTC，超出该范围的全部验证不通过</li>
+<li>使用钱包对该交易进行签名，并确认是否签名成功</li>
+<li>广播该交易</li>
+<li>生成新区块，确认(Confirm)此交易</li>
+<li>查询各地址余额，检查是否转账成功</li>
+</ol>
+<p>到这里就大概了解了区块链网络是如何使用的</p>
+<h2 id="代码研读"><a class="markdownIt-Anchor" href="#代码研读"></a> 代码研读</h2>
+<p><a href="https://juejin.im/post/5ae0722e6fb9a07aa047ad88" target="_blank" rel="noopener">比特币源码研读-juejin.im-by chaors</a></p>
+<p><a href="https://blog.csdn.net/pure_lady/article/list/2?t=1&amp;" target="_blank" rel="noopener">比特币源码解析-blog.csdn.net-by --Splay–</a></p>
+<p>由于本周课题为探究账本模型和共识方式，所以优先阅读那一部分的代码。</p>
+<p>首先阅读区块和交易部分的代码，此部分重点放在数据结构。这部分的数据结构在<code>src/primitives</code>里面，有block.cpp和transcation.cpp两个文件。顺带提一句primitives是创世者的意思，应该一切都从这里开始。</p>
+<h3 id="区块结构srcprimitivesblockh"><a class="markdownIt-Anchor" href="#区块结构srcprimitivesblockh"></a> 区块结构(src/primitives/block.h)</h3>
+<h4 id="区块头信息"><a class="markdownIt-Anchor" href="#区块头信息"></a> 区块头信息</h4>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nVersion</td>
+<td>int_32t</td>
+<td>版本</td>
+</tr>
+<tr>
+<td>hashPrevBlock</td>
+<td>uint256</td>
+<td>上一区块哈希值</td>
+</tr>
+<tr>
+<td>hashMerkleRoot</td>
+<td>uint256</td>
+<td>Merkle树根</td>
+</tr>
+<tr>
+<td>nTime</td>
+<td>uint32_t</td>
+<td>时间戳</td>
+</tr>
+<tr>
+<td>nBits</td>
+<td>uint32_t</td>
+<td>工作量难度，前导零位数</td>
+</tr>
+<tr>
+<td>nNonce</td>
+<td>uint32_t</td>
+<td>找到的随机数</td>
+</tr>
+</tbody>
+</table>
+<h4 id="区块信息继承自区块头"><a class="markdownIt-Anchor" href="#区块信息继承自区块头"></a> 区块信息(继承自区块头)</h4>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vtx</td>
+<td><code>vector&lt;CTransactionRef&gt;</code></td>
+<td>交易集合</td>
+</tr>
+<tr>
+<td>fChecked</td>
+<td>bool</td>
+<td>交易是否已被检查</td>
+</tr>
+</tbody>
+</table>
+<h3 id="交易结构srcprimitivestranscationh"><a class="markdownIt-Anchor" href="#交易结构srcprimitivestranscationh"></a> 交易结构(src/primitives/transcation.h)</h3>
+<p>交易的数据结构比区块结构复杂一点点</p>
+<h4 id="交易单项输入对应原来的输出点coutpoint"><a class="markdownIt-Anchor" href="#交易单项输入对应原来的输出点coutpoint"></a> 交易单项输入对应原来的输出点(COutPoint)</h4>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hash</td>
+<td>uint256</td>
+<td>该交易的哈希值</td>
+</tr>
+<tr>
+<td>n</td>
+<td>uint32_t</td>
+<td>该交易点在交易中的号(vout)</td>
+</tr>
+</tbody>
+</table>
+<p>说句明白话，就是刚刚测试时的创建新交易时用到的输入交易id号和序号，也就是<code>$UTXO_txid</code>和<code>$UTXO_vout</code></p>
+<h4 id="交易中的单项输入ctxin"><a class="markdownIt-Anchor" href="#交易中的单项输入ctxin"></a> 交易中的单项输入(CTxIn)</h4>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>prevout</td>
+<td>COutPoint</td>
+<td>该输入对应的前置交易和序号</td>
+</tr>
+<tr>
+<td>scriptSig</td>
+<td>CScript</td>
+<td>签名脚本，也就是解锁脚本(输入脚本)</td>
+</tr>
+<tr>
+<td>nSequence</td>
+<td>uint32_t</td>
+<td>？</td>
+</tr>
+<tr>
+<td>scriptWitness</td>
+<td>CScriptWitness</td>
+<td>好像只是用于保存输入脚本详细信息(就是类似’OP_DUP’那几个字母而已，不知道是否正确)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="交易中的单项输出ctxout"><a class="markdownIt-Anchor" href="#交易中的单项输出ctxout"></a> 交易中的单项输出(CTxOut)</h4>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nValue</td>
+<td>CAmount</td>
+<td>金额，单位1e-8BTC</td>
+</tr>
+<tr>
+<td>scriptPubKey</td>
+<td>CScript</td>
+<td>输出脚本</td>
+</tr>
+</tbody>
+</table>
+<h4 id="交易ctransaction"><a class="markdownIt-Anchor" href="#交易ctransaction"></a> 交易(CTransaction)</h4>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vin</td>
+<td><code>vector&lt;CTxIn&gt;</code></td>
+<td>输入脚本列表</td>
+</tr>
+<tr>
+<td>vout</td>
+<td><code>vector&lt;CTxOut&gt;</code></td>
+<td>输出脚本列表</td>
+</tr>
+<tr>
+<td>nVersion</td>
+<td>const int32_t</td>
+<td>协议版本</td>
+</tr>
+<tr>
+<td>nLockTime</td>
+<td>const uint32_t</td>
+<td>锁定时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="交易内存池srctxmempoolh"><a class="markdownIt-Anchor" href="#交易内存池srctxmempoolh"></a> 交易内存池(src/txmempool.h)</h3>
+<p>先介绍几个概念：</p>
+<ol>
+<li>父交易和子交易：该交易的输入交易，该交易的输出交易</li>
+<li>先祖交易和子孙交易：父交易、父交易的父交易、父交易的父交易等都为先祖交易；子孙交易同理</li>
+<li>某交易被删除时，其子孙交易需要全部被删除</li>
+<li>某交易发生更新时，其先祖交易需要全部更新</li>
+</ol>
+<h4 id="内存池单个交易ctxmempoolentry"><a class="markdownIt-Anchor" href="#内存池单个交易ctxmempoolentry"></a> 内存池单个交易(CTxMemPoolEntry)</h4>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tx</td>
+<td><code>const shared_ptr&lt;const CTranscation&gt;</code></td>
+<td>交易的指针</td>
+</tr>
+<tr>
+<td>nFee</td>
+<td>const CAmount</td>
+<td>交易费用(TODO:搞清楚怎么算的)</td>
+</tr>
+<tr>
+<td>nTxWeight</td>
+<td>const size_t</td>
+<td>交易空间大小</td>
+</tr>
+<tr>
+<td>nUsageSize</td>
+<td>const size_t</td>
+<td>交易占用总空间</td>
+</tr>
+<tr>
+<td>nTime</td>
+<td>const int64_t</td>
+<td>进入内存池的时间戳</td>
+</tr>
+<tr>
+<td>entryHeight</td>
+<td>const unsigned int</td>
+<td>进入内存池时区块链高度</td>
+</tr>
+<tr>
+<td>spendsCoinbase</td>
+<td>const bool</td>
+<td>前置交易是否有创币交易</td>
+</tr>
+<tr>
+<td>sigOpCost</td>
+<td>const int64_t</td>
+<td>？</td>
+</tr>
+<tr>
+<td>feeDelta</td>
+<td>int64_t</td>
+<td>交易优先级</td>
+</tr>
+<tr>
+<td>lockPoints</td>
+<td>LockPoints</td>
+<td>包含其高度和时间，用于判断是否末端交易</td>
+</tr>
+<tr>
+<td>nCountWithDescendants</td>
+<td>uint64_t</td>
+<td>子孙交易数(当一个交易被删除时，它的子孙交易需要全部删除)</td>
+</tr>
+<tr>
+<td>nSizeWithDescendants</td>
+<td>uint64_t</td>
+<td>子孙交易总大小</td>
+</tr>
+<tr>
+<td>nModFeesWithDescendants</td>
+<td>CAmount</td>
+<td>包括自己在内的子孙交易总额</td>
+</tr>
+<tr>
+<td>nCountWithAncestors</td>
+<td>uint64_t</td>
+<td>父交易数量</td>
+</tr>
+<tr>
+<td>nSizeWithAncestors</td>
+<td>uint64_t</td>
+<td>父交易总大小</td>
+</tr>
+<tr>
+<td>nModFeesWithAncestors</td>
+<td>CAmount</td>
+<td>父交易额大小</td>
+</tr>
+<tr>
+<td>nSigOpCostWithAncestors</td>
+<td>int64_t</td>
+<td>？</td>
+</tr>
+</tbody>
+</table>
+<h3 id="内存交易池ctxmempool"><a class="markdownIt-Anchor" href="#内存交易池ctxmempool"></a> 内存交易池(CTxMemPool)</h3>
+<table>
+<thead>
+<tr>
+<th>数据项</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nCheckFrequency</td>
+<td>uint32_t</td>
+<td>交易池被检查的概率 n/(2^32)</td>
+</tr>
+<tr>
+<td>nTransactionsUpdated</td>
+<td>unsigned int</td>
+<td></td>
+</tr>
+<tr>
+<td>minerPolicyEstimator</td>
+<td>CBlockPolicyEstimator*</td>
+<td>可能是个估算交易费的东西</td>
+</tr>
+<tr>
+<td>totalTxSize</td>
+<td>uint64_t</td>
+<td>交易总大小(虚)</td>
+</tr>
+<tr>
+<td>cachedInnerUsage</td>
+<td>uint64_t</td>
+<td>占用内存</td>
+</tr>
+<tr>
+<td>mapTx</td>
+<td>indexed_transaction_set</td>
+<td>存放交易的含多重索引的集合(索引包括txid,交易费率,进池时间,父交易费率)</td>
+</tr>
+<tr>
+<td>cs</td>
+<td>RecursiveMutex</td>
+<td>交易池集合的并发锁</td>
+</tr>
+<tr>
+<td>vTxHashes</td>
+<td><code>std::vector&lt;std::pair&lt;uint256, txiter&gt; &gt;</code></td>
+<td>交易的哈希值，随机顺序</td>
+</tr>
+<tr>
+<td>mapLinks</td>
+<td><code>std::map&lt;txiter, TxLinks, CompareIteratorByHash&gt;</code></td>
+<td>交易-交易链的map</td>
+</tr>
+<tr>
+<td>mapNextTx</td>
+<td><code>indirectmap&lt;COutPoint, const CTransaction*&gt;</code></td>
+<td>交易输出点-交易</td>
+</tr>
+<tr>
+<td>mapDeltas</td>
+<td><code>std::map&lt;uint256, CAmount&gt;</code></td>
+<td>交易Hash-交易费</td>
+</tr>
+</tbody>
+</table>
+<br>
+<table>
+<thead>
+<tr>
+<th>成员函数(只列举重点部分)</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UpdateParent(entry,child,add)</td>
+<td>更新父节点信息，添加删除mapLinks信息，更改存储大小</td>
+</tr>
+<tr>
+<td>UpdateChild(entry,child,add)</td>
+<td>更新子节点信息，其余同上</td>
+</tr>
+<tr>
+<td>GetSortedDepthAndScore()</td>
+<td>获取按交易费率排序的交易列表</td>
+</tr>
+<tr>
+<td>check(pcoins)</td>
+<td>检查池子中交易一致性，禁止重复</td>
+</tr>
+<tr>
+<td>setSanityCheck(dFrequency)</td>
+<td>设置检查的概率</td>
+</tr>
+<tr>
+<td>addUnchecked(entry,setAncestors,validFeeEstimate)</td>
+<td>把新交易插进池子，并更新其直接父交易和直接子交易的数据</td>
+</tr>
+<tr>
+<td>removeRecursive(tx,reason)</td>
+<td>从内存池删除某交易及其所有子孙</td>
+</tr>
+<tr>
+<td>removeForReorg</td>
+<td>Remove transactions spending a coinbase which are now immature and no-longer-final transactions(文字没看懂，看代码大概是只保留未生成区块的且没有子交易的交易)</td>
+</tr>
+<tr>
+<td>removeConflicts(tx)</td>
+<td>从内存池删除该交易的全部前置交易，因为该交易产生了冲突</td>
+</tr>
+<tr>
+<td>removeForBlock(vtx)</td>
+<td>从内存池删除新生成区块的交易</td>
+</tr>
+<tr>
+<td>clear()</td>
+<td>内存池完全清空</td>
+</tr>
+<tr>
+<td>HasNoInputsOf(tx)</td>
+<td>检查tx前置输入是否在内存池</td>
+</tr>
+<tr>
+<td>PrioritiseTransaction(hash,nFeeDelta)</td>
+<td>调整tx加入区块时的优先级</td>
+</tr>
+<tr>
+<td>UpdateTransactionsFromBlock(vHashesToUpdate)</td>
+<td>在更新block时调整数据</td>
+</tr>
+<tr>
+<td>GetMinFee(sizelimit)</td>
+<td>返回进入池子所需最小交易费</td>
+</tr>
+<tr>
+<td>TrimToSize(sizelimit)</td>
+<td>移除大小太大的交易</td>
+</tr>
+<tr>
+<td>Expire(time)</td>
+<td>移除超时交易</td>
+</tr>
+</tbody>
+</table>
+<br>
+<p>总结一下内存交易池的关键操作及数据：</p>
+<ol>
+<li>内存池记录的是接收到广播的交易</li>
+<li>当某一交易被删除的时候，其子孙交易都必须被删除</li>
+<li>当接收到新block时，内存池中的数据会被删除，只保留未被确认在区块的，且为末端交易。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/19/2019-07-19-bitcoin-running/" data-id="cjy9kxbdo00126ou3krdo3n2e" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/16/2019-07-15-arch-linux-exteral-screen/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">arch linux 扩展显示器折腾记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/斯坦福大学公开课记录/">斯坦福大学公开课记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/方班周记录/">方班周记录</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 10px;">根域名</a> <a href="/tags/比特币/" style="font-size: 15px;">比特币</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/19/2019-07-19-bitcoin-running/">周记录-week4</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/16/2019-07-15-arch-linux-exteral-screen/">arch linux 扩展显示器折腾记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/10/2019-07-10-blockstack-firstmeet/">周记录-week3</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/25/2019-06-25-初见比特币和区块链/">周记录-week2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/23/2019-06-23-linux-github免密码/">使用ssh-key实现github的免密码上传</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
