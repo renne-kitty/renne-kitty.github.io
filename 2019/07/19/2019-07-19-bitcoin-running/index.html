@@ -8,18 +8,18 @@
   
   <title>周记录-week4 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。">
+  <meta name="description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。 首先得了解一下bitcoin的运行方式和开发方式，了解运行方式的最重要方式就是布置好环境跑一遍命令行环境，了解开发方式最重要的就是找到源码并适当阅读。">
 <meta name="keywords" content="区块链,比特币">
 <meta property="og:type" content="article">
 <meta property="og:title" content="周记录-week4">
 <meta property="og:url" content="http://yoursite.com/2019/07/19/2019-07-19-bitcoin-running/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。">
+<meta property="og:description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。 首先得了解一下bitcoin的运行方式和开发方式，了解运行方式的最重要方式就是布置好环境跑一遍命令行环境，了解开发方式最重要的就是找到源码并适当阅读。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-19T04:33:14.347Z">
+<meta property="og:updated_time" content="2019-07-19T08:50:07.918Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="周记录-week4">
-<meta name="twitter:description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。">
+<meta name="twitter:description" content="本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。 首先得了解一下bitcoin的运行方式和开发方式，了解运行方式的最重要方式就是布置好环境跑一遍命令行环境，了解开发方式最重要的就是找到源码并适当阅读。">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -100,8 +100,8 @@
       
         <p>本周老师提出了一组问题：现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。</p>
 <p>本周的主要工作是研究bitcoin的运行方式，以及源码中基本的账本实现方式。</p>
-<a id="more"></a>
 <p>首先得了解一下bitcoin的运行方式和开发方式，了解运行方式的最重要方式就是布置好环境跑一遍命令行环境，了解开发方式最重要的就是找到源码并适当阅读。</p>
+<a id="more"></a>
 <h2 id="编译比特币源码"><a class="markdownIt-Anchor" href="#编译比特币源码"></a> 编译比特币源码</h2>
 <p>先从github上下载bitcoin核心源码，然后跑起来。由于比特币的核心代码是C++写的，我的系统是linux，所以跑起来应该相对比较简单。</p>
 <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/bitcoin/bitcoin.git</span><br><span class="line">git checkout 0.18 <span class="comment">#切换到现在的版本</span></span><br><span class="line">du -d 0 -h <span class="comment">#记录一下现在的大小155M，以防万一</span></span><br></pre></td></tr></table></figure>
@@ -445,7 +445,7 @@
 <tr>
 <td>nTransactionsUpdated</td>
 <td>unsigned int</td>
-<td></td>
+<td><code>Used by getblocktemplate to trigger CreateNewBlock() invocation</code>？</td>
 </tr>
 <tr>
 <td>minerPolicyEstimator</td>
@@ -584,7 +584,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/19/2019-07-19-bitcoin-running/" data-id="cjy9kxbdo00126ou3krdo3n2e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/19/2019-07-19-bitcoin-running/" data-id="cjy9v2imh0014uvu342pcswx6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
