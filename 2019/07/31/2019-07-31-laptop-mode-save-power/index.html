@@ -6,15 +6,20 @@
   
 
   
-  <title>Tag: 根域名 | Renne&#39;s Blog</title>
+  <title>笔记本省电设置 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/根域名/index.html">
+  <meta name="description" content="省电设置 之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。 1yay laptop-mode-tools 在aur上安装即可，之后在导航栏">
+<meta name="keywords" content="linux,arch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记本省电设置">
+<meta property="og:url" content="http://yoursite.com/2019/07/31/2019-07-31-laptop-mode-save-power/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="省电设置 之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。 1yay laptop-mode-tools 在aur上安装即可，之后在导航栏">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-31T03:06:47.450Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="笔记本省电设置">
+<meta name="twitter:description" content="省电设置 之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。 1yay laptop-mode-tools 在aur上安装即可，之后在导航栏">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,40 +72,62 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/06/21/weekly-record-week1/" class="archive-article-date">
-  <time datetime="2019-06-21T08:53:38.000Z" itemprop="datePublished">6月 21</time>
+        <section id="main"><article id="post-2019-07-31-laptop-mode-save-power" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/31/2019-07-31-laptop-mode-save-power/" class="article-date">
+  <time datetime="2019-07-31T03:05:26.000Z" itemprop="datePublished">2019-07-31</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/21/weekly-record-week1/">周记录-week1</a>
+    <h1 class="article-title" itemprop="name">
+      笔记本省电设置
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="省电设置"><a class="markdownIt-Anchor" href="#省电设置"></a> 省电设置</h2>
+<p>之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay laptop-mode-tools</span><br></pre></td></tr></table></figure>
+<p>在aur上安装即可，之后在导航栏找到laptop_mode就可以使用了，听说laptop_mode开启的时候会禁用独显，如果要使用的话可以laptop_mode stop/start，开关模块。</p>
+<p>安装了这个东西之后实测鼠标出了点问题，找到了一篇<a href="https://askubuntu.com/questions/760887/installed-laptop-mode-tool-16-04-now-usb-mouse-not-working-after-rebooting-unti" target="_blank" rel="noopener">文章</a>，待检验。</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/31/2019-07-31-laptop-mode-save-power/" data-id="cjyqo5pey0002fuu3z1n7s3ie" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/19/2019-07-19-bitcoin-running/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">周记录-week4</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
