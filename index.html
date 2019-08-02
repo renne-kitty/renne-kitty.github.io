@@ -96,119 +96,20 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。</p>
-<p>这周的内容有两个：</p>
+<p>这周的主要内容有两个：</p>
 <ol>
 <li>比特币difficulty是什么</li>
 <li>了解以太坊的基本架构</li>
 </ol>
-<h1 id="比特币difficulty"><a class="markdownIt-Anchor" href="#比特币difficulty"></a> 比特币difficulty</h1>
-<p>挖矿难度和target成反比，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi>y</mi><mi mathvariant="normal">_</mi><mn>1</mn><mi mathvariant="normal">_</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">difficulty\_1\_target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord">1</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span></span>指难度为1时的target值，写成公式如下：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi>y</mi><mo>=</mo><mfrac><mrow><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi>y</mi><mi mathvariant="normal">_</mi><mn>1</mn><mi mathvariant="normal">_</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">difficulty=\frac{difficulty\_1\_target}{target} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.27488em;vertical-align:-0.8804400000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.39444em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.6999999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord">1</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804400000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>比特币期望每10分钟挖出1个区块，平均两个星期会挖出2016个区块。每两个星期会根据期望值更新一次挖矿难度：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>e</mi><mi>x</mi><mi>t</mi><mi mathvariant="normal">_</mi><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi>y</mi><mo>=</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>v</mi><mi mathvariant="normal">_</mi><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mo>∗</mo><mfrac><mrow><mn>2</mn><mtext> </mtext><mi>w</mi><mi>e</mi><mi>e</mi><mi>k</mi><mi>s</mi></mrow><mrow><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mtext> </mtext><mi>t</mi><mi>o</mi><mtext> </mtext><mi>l</mi><mi>a</mi><mi>s</mi><mi>t</mi><mtext> </mtext><mn>2016</mn><mtext> </mtext><mi>b</mi><mi>l</mi><mi>o</mi><mi>c</mi><mi>k</mi><mi>s</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">next\_difficulty=prev\_diff * \frac{2\ weeks}{time\ to\ last\ 2016\ blocks} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">e</span><span class="mord mathdefault">x</span><span class="mord mathdefault">t</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.05744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.37144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mspace"> </span><span class="mord mathdefault">t</span><span class="mord mathdefault">o</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mspace"> </span><span class="mord">2</span><span class="mord">0</span><span class="mord">1</span><span class="mord">6</span><span class="mspace"> </span><span class="mord mathdefault">b</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord mathdefault">e</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<h1 id="以太坊"><a class="markdownIt-Anchor" href="#以太坊"></a> 以太坊</h1>
-<p>以太坊是維塔利克·布特林受到比特币启发提出的一种加密货币，主要使用golang进行开发，于2015年7月30日上线。相比比特币，以太坊在合约、区块结构、共识方式等方面都有着极大幅度的变化，是作者在完全理解比特币原理后，从头开始优化的产物。</p>
-<p><a href="https://zh.wikipedia.org/wiki/%E4%BB%A5%E5%A4%AA%E5%9D%8A" target="_blank" rel="noopener">以太坊的wikipedia</a></p>
-<p><a href="https://github.com/ethereum/wiki/wiki/%5B%E4%B8%AD%E6%96%87%5D-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%99%BD%E7%9A%AE%E4%B9%A6" target="_blank" rel="noopener">以太坊的中文白皮书</a></p>
-<p><a href="https://github.com/yuange1024/ethereum_yellowpaper/blob/master/ethereum_yellow_paper_cn.pdf" target="_blank" rel="noopener">以太坊中文黄皮书</a></p>
-<p><a href="https://www.jianshu.com/p/10a7b6a67232" target="_blank" rel="noopener">以太坊黄皮书详解-简书-yuan1028</a></p>
-<p>先就使用上面4篇文章简要了解一下以太坊，由于黄皮书中用的是混合程序员和数学家两种难以读懂的风格写出来的，所以需要一点额外的资料辅助阅读。</p>
-<h2 id="以太坊合约"><a class="markdownIt-Anchor" href="#以太坊合约"></a> 以太坊合约</h2>
-<p>比特币的智能合约基于一种图灵非完备的堆栈语言，它没有函数、循环等结构；出发点是缩短恶意执行的时间，防止浪费资源。以太坊引入了合约(Contract)的概念，以太坊合约也是一段代码，它基于图灵完备的语言，于EVM虚拟机运行，因此能够使用高级语言实现，现常用Solidity(一种类js的高级语言)实现。以太坊合约在被创建之后就不能更改，这和比特币的脚本一样。</p>
-<p>以太坊合约是理解以太坊所需要的首要内容。必须深刻理解一个地址既可以代表一个用户，也可以代表一段合约代码</p>
-<p>果要搞类似DNS那样的项目，以太坊合约应该是个无法避开的知识点。</p>
-<h3 id="以太坊地址"><a class="markdownIt-Anchor" href="#以太坊地址"></a> 以太坊地址</h3>
-<p>比特币的地址由同时持有公私钥的用户拥有，使用公私钥可以操作自己的交易，基于以太币交易的以太坊也同样有着这样的功能。但是，以太坊地址不仅可以由用户拥有，也可以由以太坊合约所拥有。当合约被创建的时候，它就会被赋予一个地址，当该地址收到被执行交易时，合约的代码就会被执行。</p>
-<h3 id="evm和gas"><a class="markdownIt-Anchor" href="#evm和gas"></a> EVM和gas</h3>
-<p>Java代码在编译时，会产生class文件，里面有着JVM虚拟机对应的编码，接着JVM执行class文件的内容使得Java代码得到执行。EVM也一样，合约代码像java代码一样，先可以被编译为EVM语言，然后再被执行，这使得智能合约甚至能被弄成高级语言那样。</p>
-<p>合约示例(Solidity语言)：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用自 https://blog.csdn.net/loy_184548/article/details/78010371</span></span><br><span class="line"><span class="comment">// 简单的公开拍卖系统</span></span><br><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.11</span>;</span><br><span class="line"></span><br><span class="line">contract SimpleAuction &#123;</span><br><span class="line"></span><br><span class="line">    address public beneficiary; <span class="comment">//拍卖发起人</span></span><br><span class="line">    uint public auctionStart;  <span class="comment">//记录开始时间，秒为单位</span></span><br><span class="line">    uint public biddingTime;  <span class="comment">//拍卖时长</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//当前拍卖状态</span></span><br><span class="line">    address public highestBidder;</span><br><span class="line">    uint public highestBid;</span><br><span class="line"></span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> uint) pendingReturns; <span class="comment">//用户存在该合约（需退回）的金额</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//在结束时设置为true来拒绝任何改变</span></span><br><span class="line">    bool ended;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当改变时将会触发的Event</span></span><br><span class="line">    event HighestBidIncreased(address bidder, uint amount);</span><br><span class="line">    event AuctionEnded(address winner, uint amount);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初始化：发起人，开始时间，拍卖时长。</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">SimpleAuction</span>(<span class="params">uint _biddingTime, address _beneficiary</span>) </span>&#123;</span><br><span class="line">        beneficiary = _beneficiary;</span><br><span class="line">        auctionStart = now;</span><br><span class="line">        biddingTime = _biddingTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bid</span>(<span class="params"></span>) <span class="title">payable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">require</span>(now &lt;= (auctionStart + biddingTime));  <span class="comment">//要求拍卖未结束</span></span><br><span class="line">        <span class="built_in">require</span>(msg.value &gt; highestBid); <span class="comment">// 如果给出的金额小于当前最高价，会退回钱</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//退回上一位最高价</span></span><br><span class="line">        <span class="keyword">if</span> (highestBidder != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//上一位出最高价的人，需退回的金额加上他出的价。</span></span><br><span class="line">            pendingReturns[highestBidder] += highestBid;  </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//修改最高价</span></span><br><span class="line">        highestBidder = msg.sender;</span><br><span class="line">        highestBid = msg.value;</span><br><span class="line">        HighestBidIncreased(msg.sender, msg.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//提现</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params"></span>) <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        uint amount = pendingReturns[msg.sender]; <span class="comment">//用户需退回的金额</span></span><br><span class="line">        <span class="keyword">if</span> (amount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            pendingReturns[msg.sender] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!msg.sender.send(amount)) &#123;</span><br><span class="line">                pendingReturns[msg.sender] = amount;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//拍卖结束，最高价的金额发送给拍卖者</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">auctionEnd</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//要求拍卖结束</span></span><br><span class="line">        <span class="built_in">require</span>(now &gt;= (auctionStart + biddingTime)); </span><br><span class="line">        <span class="built_in">require</span>(!ended);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//修改拍卖参数，设置为结束</span></span><br><span class="line">        ended = <span class="literal">true</span>;</span><br><span class="line">        AuctionEnded(highestBidder, highestBid);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//发送金额给拍卖者</span></span><br><span class="line">        beneficiary.transfer(highestBid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>图灵完备语言带来方便性的同时也带来了麻烦，循环操作可能会恶意浪费计算资源，这也是比特币设计图灵非完备语言时想要避免的。以太坊为了避免这种麻烦设计了gas机制，每在EVM使用计算资源时都会消耗gas值，当gas消耗完毕后，合约就会终止。而每单位的gas都对应着一部分的交易费。</p>
-<h3 id="以太坊合约的利用场景示例"><a class="markdownIt-Anchor" href="#以太坊合约的利用场景示例"></a> 以太坊合约的利用场景示例</h3>
-<ol>
-<li>以太坊官方客户端中有多人钱包的功能，比如某合约由3个地址拥有，可以从该地址每天转出100ETC，需要2人确认</li>
-<li>某人想要规避加密货币大幅度的涨价跌价的风险，则与商人(风险承担者)创建一个合约，首先两人各转价值1000CNY的ETC到合约地址；1个月后，无论ETC的价格波动如何，都会将价值1000CNY的ETC重新转回原地址，剩下的部分则转会风险承担者的地址</li>
-<li>完全公开透明的赌博行业</li>
-</ol>
-<h2 id="以太坊区块结构"><a class="markdownIt-Anchor" href="#以太坊区块结构"></a> 以太坊区块结构</h2>
-<p><a href="http://v1.8btc.com/books/834/ethereum/_book/" target="_blank" rel="noopener">以太坊官方文档中文版-巴别特图书</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/30922425" target="_blank" rel="noopener">以太坊的数据结构-知乎-NoBoundary</a></p>
-<p><a href="https://blog.csdn.net/weixin_41545330/article/details/79394153" target="_blank" rel="noopener">以太坊数据结构、存储、区块头的关系与分析-csdn-Pony_chen</a></p>
-<p><a href="https://blog.csdn.net/t46414704152abc/article/details/81191804" target="_blank" rel="noopener">以太坊中的Ghost协议-csdn-train_for_skills</a></p>
-<p><a href="https://study.163.com/course/courseLearn.htm?courseId=1006145002#/learn/video?lessonId=1053593061&amp;courseId=1006145002" target="_blank" rel="noopener">北京大学区块链公开课-网易云课堂 （强烈推荐）</a></p>
-<p>以太坊最基本的交易存储也和比特币不一样。比特币中的交易是以UTXO的方式存储的，当我们需要知道自己的余额的时候，需要统计自己所有的末端交易，将末端交易累加才会得到自己最终的余额。以太坊改进了这种统计方式，它将类似银行转账的方式记录交易。然后再对每笔交易增加一个nouce值表示该账户转账的次数，由用户的私钥签名保护。</p>
-<p>以太坊区块存储的信息和比特币类似，但相比与比特币，以太坊增加了gas、状态树、收据树等复杂的概念。</p>
-<p>以太坊区块新增的数据结构主要包括了状态树、交易树和收据树</p>
-<ol>
-<li>状态树：用于存储每个用户(合约)地址对应的信息，比如余额等。</li>
-<li>交易树：用于打包单个区块对应的交易，和比特币的类似，只不过格式不同。</li>
-<li>收据树：我的理解就是每笔交易的详细信息，它与交易树是一一对应的。</li>
-</ol>
-<p><img src="ethereum-block-header.jpg" alt="区块头"></p>
-<h3 id="mptmerkle-patricia-trie"><a class="markdownIt-Anchor" href="#mptmerkle-patricia-trie"></a> MPT(Merkle Patricia Trie)</h3>
-<p>这里只简略介绍这个数据结构。首先介绍一下Trie，字典树，一般可以压缩储存多个具有相同前缀的字符串，使用它很容易实现多字符串的查询、匹配等操作；之后是Patricia树，也就是路径压缩后的字典树，解决了字典树中孤立节点过多的导致空间存储过大的问题；MPT，在压缩字典树中增加了对子节点哈希值的存储，根哈希值会被存储在区块中。这样只要存在某两个节点的哈希值相同，那么它的子树完全相同。</p>
-<p>总而言之，MPT就是一棵压缩字典哈希树</p>
-<p><img src="mpt-bl.jpg" alt="区块MPT"></p>
-<h3 id="世界状态树"><a class="markdownIt-Anchor" href="#世界状态树"></a> 世界状态树</h3>
-<p>与基于UTXO的比特币不同，以太坊是基于状态的，所谓状态就是每个对应账户、合约的详细信息，一般比较重要的就是账户余额、合约EVM代码。每次交易产生时，都必须验证账户余额或者是gas是否足够。</p>
-<p>由于MPT和线段树之类的一样，是那种更改时只更改树上一条链的节点内容，且逻辑结构不发生变化的树形数据结构。故可对它进行可持久化操作。每次区块更新时，记录其变更的节点即可完成状态的可持久化存储。</p>
-<p>世界状态树本质上是一颗key-value(address-account)存储的可持久化MPT</p>
-<p><img src="MPT-blocks.png" alt="世界状态MPT"></p>
-<h3 id="交易树和收据树"><a class="markdownIt-Anchor" href="#交易树和收据树"></a> 交易树和收据树</h3>
-<p>交易树和收据树用Merkle树维护，其结构和比特币类似。</p>
-<p>交易树存储的是该区块中所有的交易信息，提供可轻量化操作。储存交易的格式和比特币的UTXO不同，以太坊的交易使用类似<code>from A to B value X</code>的转账格式存储交易。</p>
-<p>收据树存储的是该笔交易的结果，包括用掉合约的gas值、该交易的类型、交易的日志等。</p>
-<h2 id="以太坊的共识机制"><a class="markdownIt-Anchor" href="#以太坊的共识机制"></a> 以太坊的共识机制</h2>
-<h3 id="ghost协议"><a class="markdownIt-Anchor" href="#ghost协议"></a> Ghost协议</h3>
-<p><img src="ghost-protocol.png" alt="ghost协议"></p>
-<p>在比特币网络中，当出现两个矿池同时挖出一个区块后，各自会往自己相近的节点传播，区块链出现分叉。当下一个区块被挖出的时候，它会接上它认为的上一个区块，然后再把新的区块再次传播出去。这时，原本出现分叉的区块就会被抛弃，挖到的区块奖励也会消失，而12.5BTC按现在的价格大概是86万人民币，损失可谓是相当惨重的。</p>
-<p>由于以太坊将期望出块间隔从比特币的10分钟调整为了15秒，在这么短的时间内，全网难以达成共识，孤块(orphan blocks)的数量大大增加。以太坊规定，一个区块生成的时候可以包含最多两个6代以内的叔父区块。每当有一个叔父区块被包含时，区块生成的奖励就会增加1/32，而被包含的叔父区块也能得到一定的奖励，具体就是(8-相隔代数)/8。以太坊使用这样的方式，能大幅度减少挖出孤块矿工的损失。</p>
-<h3 id="以太坊挖矿算法"><a class="markdownIt-Anchor" href="#以太坊挖矿算法"></a> 以太坊挖矿算法</h3>
-<p>传统的挖矿算法就是尝试不同的数字，计算</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>u</mi><mi>t</mi><mo>:</mo><mo>=</mo><mi>H</mi><mi>A</mi><mi>S</mi><mi>H</mi><mo stretchy="false">(</mo><mi>p</mi><mi>r</mi><mi>e</mi><mi>v</mi><mi mathvariant="normal">_</mi><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mo separator="true">,</mo><mi>m</mi><mi>e</mi><mi>r</mi><mi>k</mi><mi>l</mi><mi>e</mi><mi>r</mi><mi>o</mi><mi>o</mi><mi>t</mi><mo separator="true">,</mo><mi>n</mi><mi>o</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">output := HASH(prev\_hash,merkleroot,nonce) 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.06em;vertical-align:-0.31em;"></span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault">o</span><span class="mord mathdefault">t</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mclose">)</span></span></span></span></span></p>
-<p>使得<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>u</mi><mi>t</mi><mo>&lt;</mo><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">output&lt;target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mord mathdefault">p</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span></span>成立</p>
-<p>比特币使用这样的算法使得不少人使用专门的挖矿芯片去挖矿，也导致了算力越来越趋于中心化。为此，以太坊学习莱特币对output再增加了使用大量内存的混淆，寄希望于算力运行在普通的服务器上。以太坊的想法是很好的，但由于聪明的人们想出了用GPU挖矿之后，它的改进作用就大大缩水了。</p>
-<h3 id="难度调整"><a class="markdownIt-Anchor" href="#难度调整"></a> 难度调整</h3>
-<p>以太坊对于难度动态调整的方式比较简单，大概就3行代码：</p>
-<ol>
-<li>难度调整 = parent_diff / 2048 * MAX(1 - (block_timestamp - parent_timestamp) / 10, -99)</li>
-<li>难度炸弹 = INT(2**((block_number / 100000) - 2))</li>
-<li>block_diff = parent_diff + 难度调整 + 难度炸弹</li>
-</ol>
-<p>其实就是根据与上一区块的间隔时间和区块高度进行调整</p>
-<h3 id="posproof-of-stake"><a class="markdownIt-Anchor" href="#posproof-of-stake"></a> PoS(Proof of Stake)</h3>
-<p><a href="https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ" target="_blank" rel="noopener">Proof of Stake FAQ - github - ethereum</a></p>
-<p>PoS就是权益证明的意思，它其实也是一种基于挖矿的共识算法。先介绍“币龄”这个概念，当某人持有a以太b天，他就获得了a*b币龄，当他挖出新区块时，币龄就会清空。pow算法在同一时间，对于不同对象，难度是一致的；而pos算法对于持有币龄多的矿池难度相对会比较低。</p>
-<p>以太坊采用了PoS的机制来代替单纯的PoW，看下来的时候感觉发明者应该历史学得不错。毕竟对比一下就知道了，PoW似乎代表封建地主阶级的利益，也就是矿主；而PoS类似于资产阶级，也就是拥有大量该种币的人。因此我觉得PoS以后会受到各种各样的金融学的挑战，比如金融寡头之类的。</p>
-<h1 id="其他加密货币"><a class="markdownIt-Anchor" href="#其他加密货币"></a> 其他加密货币</h1>
-<h2 id="莱特币litecoinltc"><a class="markdownIt-Anchor" href="#莱特币litecoinltc"></a> 莱特币(Litecoin,LTC)</h2>
-<p>莱特币和比特币都是主要用C++编写的，而且翻看一下它的目录就知道了，莱特币基本上可以说是基于比特币源码进行更改的。相较于比特币，它的创新点在于使用了Scrypt作为pow的哈希算法，Scrypt算法的特点是运行过程中内存使用量特别大，使得莱特币不能直接使用挖矿芯片去计算。除此之外，莱特币的挖矿速度是比特币的4倍，也就是平均2分半一个区块。</p>
-<h2 id="eos"><a class="markdownIt-Anchor" href="#eos"></a> EOS</h2>
-<p><a href="http://www.oheos.com/archives/426" target="_blank" rel="noopener">EOS白皮书2.0中文版-oheos.com</a></p>
-<p>EOS是一种在2018年6月才发行的加密货币，它也是主要用C++编写的，在以太坊对比特币优化的基础上继续优化其功能，包括帐号权限管理、DPOS共识算法、EOSIO存储等。应该是个值得深入研究的区块链系统。</p>
-<h2 id="基于比特币的加密货币"><a class="markdownIt-Anchor" href="#基于比特币的加密货币"></a> 基于比特币的加密货币</h2>
-<p>由于在新建加密货币时，总算力很低，很容易遭受51%攻击，使市值在短时间内大幅度降低甚至降为零；因此产生了不少直接在比特币的基础上搭建的加密货币，他们的运作直接依附在比特币网络，然后执行自己的协议，比如彩色币(Color Coins)、元币(Meta Coins)。</p>
-<h1 id="关于dns服务器在类以太坊平台上架设的思考空想"><a class="markdownIt-Anchor" href="#关于dns服务器在类以太坊平台上架设的思考空想"></a> 关于DNS服务器在类以太坊平台上架设的思考(空想。。。)</h1>
-<h2 id="数据结构"><a class="markdownIt-Anchor" href="#数据结构"></a> 数据结构</h2>
-<p>也许可以使用上面提到的MPT，可持久化压缩字典哈希树。以太坊在世界状态使用了MPT来同步address-account_info，那我们也可以用MPT来同步domain-IP，然后将根哈希存到区块头中。</p>
-<p>因为MPT这一数据结构，虽然还没有自行编写一遍，但感觉它和可持久化k-v系统是绝配。毕竟既保证了效率，又保证了共识，还能保留以往的历史记录。</p>
-<h2 id="合约实现"><a class="markdownIt-Anchor" href="#合约实现"></a> 合约实现</h2>
-<p>在EVM里面，添加类似变更世界状态树的，用于变更domain-IP MPT的操作，然后使用增加高级语言对其的支持。</p>
-<h2 id="账本设计"><a class="markdownIt-Anchor" href="#账本设计"></a> 账本设计</h2>
-<p>如果是普通的民用项目，也许需要增加代币的设计以激励算力增长，使用gas的费用作为dns的运行经费？那么或许得提高gas的费用，毕竟dns服务器的访问量是巨大的。</p>
-<p>账本的具体设计大概率和以太坊的差不多，包括普通的转账与合约。而DNS相关的内容则是一类特殊类型的合约，包括创建、更改、充值gas(续约)、终止等功能。</p>
-<h2 id="共识方式"><a class="markdownIt-Anchor" href="#共识方式"></a> 共识方式</h2>
-<p>也许能够直接沿用现有的方式譬如pow、pos。</p>
-<h2 id="缺点"><a class="markdownIt-Anchor" href="#缺点"></a> 缺点</h2>
-<p>工程量极大且复杂，需要极度深刻地理解以太坊源码、编译原理，甚至有可能需要重新设计整个系统。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/08/01/2019-08-01-ethereum/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/01/2019-08-01-ethereum/" data-id="cjytnrioz0019swu3ewrr1og4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/01/2019-08-01-ethereum/" data-id="cjyturtod001bgxu3l5dyx39s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
@@ -255,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/31/2019-07-31-laptop-mode-save-power/" data-id="cjytnrio90002swu3a65llkd8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/31/2019-07-31-laptop-mode-save-power/" data-id="cjyturtnp0008gxu3salf0bcw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -304,7 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/19/2019-07-19-bitcoin-running/" data-id="cjytnrip0001cswu3ovtyybg9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/19/2019-07-19-bitcoin-running/" data-id="cjyturtoc0018gxu3rgnv1tyu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
@@ -352,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/16/2019-07-15-arch-linux-exteral-screen/" data-id="cjytnriof0008swu3a6cpu9te" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/16/2019-07-15-arch-linux-exteral-screen/" data-id="cjyturtnn0006gxu3ycmgcjde" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -406,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/2019-07-10-blockstack-firstmeet/" data-id="cjytnriod0006swu3yng7y726" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/2019-07-10-blockstack-firstmeet/" data-id="cjyturtnk0002gxu3659oc1y9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
@@ -454,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/" data-id="cjytnrioy0017swu34soblnz2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/25/2019-06-25-初见比特币和区块链/" data-id="cjyturtob0016gxu36elo130p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
@@ -502,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/23/2019-06-23-linux-github免密码/" data-id="cjytnrio40000swu3rxodup6p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/23/2019-06-23-linux-github免密码/" data-id="cjyturtne0000gxu31okxgx78" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
@@ -549,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/21/2019-06-20-archlinux/" data-id="cjytnriox0016swu3dunipe2t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/21/2019-06-20-archlinux/" data-id="cjyturto80015gxu3lc4yhlu4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -596,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/21/ML-week1/" data-id="cjytnrioh000aswu395p3hjw9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/21/ML-week1/" data-id="cjyturtnr000agxu3dklbdul8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
@@ -645,7 +546,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/21/weekly-record-week1/" data-id="cjytnrioj000dswu390u8991i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/21/weekly-record-week1/" data-id="cjyturtnt000dgxu37ellzfmc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>

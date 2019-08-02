@@ -8,22 +8,22 @@
   
   <title>周记录-week5 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 这周的内容有两个：  比特币difficulty是什么 了解以太坊的基本架构   比特币difficulty 挖矿难度和target成反比，difficulty_1_targetdifficulty\_1\_">
+  <meta name="description" content="由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 这周的主要内容有两个：  比特币difficulty是什么 了解以太坊的基本架构">
 <meta name="keywords" content="区块链,DNS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="周记录-week5">
 <meta property="og:url" content="http://yoursite.com/2019/08/01/2019-08-01-ethereum/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 这周的内容有两个：  比特币difficulty是什么 了解以太坊的基本架构   比特币difficulty 挖矿难度和target成反比，difficulty_1_targetdifficulty\_1\_">
+<meta property="og:description" content="由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 这周的主要内容有两个：  比特币difficulty是什么 了解以太坊的基本架构">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/08/01/2019-08-01-ethereum/ethereum-block-header.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/08/01/2019-08-01-ethereum/mpt-bl.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/08/01/2019-08-01-ethereum/MPT-blocks.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/01/2019-08-01-ethereum/ghost-protocol.png">
-<meta property="og:updated_time" content="2019-08-02T05:25:14.687Z">
+<meta property="og:updated_time" content="2019-08-02T16:16:44.262Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="周记录-week5">
-<meta name="twitter:description" content="由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 这周的内容有两个：  比特币difficulty是什么 了解以太坊的基本架构   比特币difficulty 挖矿难度和target成反比，difficulty_1_targetdifficulty\_1\_">
+<meta name="twitter:description" content="由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。 这周的主要内容有两个：  比特币difficulty是什么 了解以太坊的基本架构">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/01/2019-08-01-ethereum/ethereum-block-header.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
@@ -104,11 +104,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>由于上周犯了个时间分配不当的严重错误，所以本周依然干上周的活。现今的区块链平台主要有那些，他们是如何达成共识的，他们的账本模型有什么调节空间，对于分布式的DNS系统，可以怎么样设计账本模型。</p>
-<p>这周的内容有两个：</p>
+<p>这周的主要内容有两个：</p>
 <ol>
 <li>比特币difficulty是什么</li>
 <li>了解以太坊的基本架构</li>
 </ol>
+<a id="more"></a>
 <h1 id="比特币difficulty"><a class="markdownIt-Anchor" href="#比特币difficulty"></a> 比特币difficulty</h1>
 <p>挖矿难度和target成反比，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi>y</mi><mi mathvariant="normal">_</mi><mn>1</mn><mi mathvariant="normal">_</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">difficulty\_1\_target</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00444em;vertical-align:-0.31em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord">1</span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord mathdefault">t</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span></span></span>指难度为1时的target值，写成公式如下：</p>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi>y</mi><mo>=</mo><mfrac><mrow><mi>d</mi><mi>i</mi><mi>f</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi>y</mi><mi mathvariant="normal">_</mi><mn>1</mn><mi mathvariant="normal">_</mi><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow><mrow><mi>t</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>e</mi><mi>t</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">difficulty=\frac{difficulty\_1\_target}{target} 
@@ -216,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/01/2019-08-01-ethereum/" data-id="cjytnrioz0019swu3ewrr1og4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/01/2019-08-01-ethereum/" data-id="cjyturtod001bgxu3l5dyx39s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
