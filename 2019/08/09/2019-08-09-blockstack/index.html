@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>周记录-week6 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入">
+<meta name="keywords" content="区块链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="周记录-week6">
+<meta property="og:url" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/blockstack%20structure.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/brain%20hole.jpg">
+<meta property="og:updated_time" content="2019-08-09T04:52:06.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="周记录-week6">
+<meta name="twitter:description" content="以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/blockstack%20structure.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2019-08-09-blockstack" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/09/2019-08-09-blockstack/" class="article-date">
+  <time datetime="2019-08-09T04:31:34.000Z" itemprop="datePublished">2019-08-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/方班周记录/">方班周记录</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      周记录-week6
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="以太坊智能合约"><a class="markdownIt-Anchor" href="#以太坊智能合约"></a> 以太坊智能合约</h2>
+<p>以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。</p>
+<p>以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入攻击，也就是循环调用，将the DAO合约账户里的基金盗取到自己账户中，价值约五千万美金，使得以太坊社区必须采取硬分叉的措施回滚区块。</p>
+<h2 id="以太坊过滤器"><a class="markdownIt-Anchor" href="#以太坊过滤器"></a> 以太坊过滤器</h2>
+<p><a href="https://www.badykov.com/ethereum/2017/10/29/ethereum-bloom-filter/" target="_blank" rel="noopener">Bloom filters in Ethereum-www.badykov.com</a></p>
+<p>以太坊使用bloom filter作为交易收据过滤器，上星期的报告也说过，有时我们需要在区块链中找到所有和捐款有关的智能合约创建交易。</p>
+<p>bloom filter是一个用于解决&quot;某个元素是否在集合m中的问题&quot;。在开发的时候，我们常用哈希函数解决这类问题，但无论如何变更哈希函数，想要在有限的空间里存放几乎无限大小的数据，难免会产生哈希碰撞。bloom filter算法使用了多个哈希值的方法存储，当所有哈希值同时存在时，才判断该数存在。</p>
+<p>以太坊中的log bloom存放在区块头中，能让节点快速查询该区块中是否有某种类型的交易。</p>
+<h2 id="blockstack-10"><a class="markdownIt-Anchor" href="#blockstack-10"></a> Blockstack 1.0</h2>
+<p>阅读论文：<a href="https://www.usenix.org/system/files/conference/atc16/atc16_paper-ali.pdf" target="_blank" rel="noopener">Blockstack: A Global Naming and Storage System Secured by Blockchains</a></p>
+<p>本周为了尝试设计基于以太坊的k-v系统，去广泛了解区块链存储的资料。本文主要介绍了2016年时blockstack的架构。</p>
+<p>1.0版本的blockstack与现在的系统相差甚远，但依然有着不错的研究价值。它是一个吸收了namecoin的开发经验后研发的第二代的名称和存储系统(naming and storge system)。它依旧能够提供与namecoin相同的功能，只不过优化了存储。</p>
+<p>blockstack 1.0是一个基于比特币平台的名称系统，它并没有产生自己的代币，甚至连底层交易都是使用比特币的，它的开发主要分为4层。区块链层、虚拟链层、路由层、存储层，每一层执行其相应的操作。</p>
+<p><img src="blockstack%20structure.png" alt="blockstack 1.0四层架构图"></p>
+<h3 id="1-区块链层"><a class="markdownIt-Anchor" href="#1-区块链层"></a> 1. 区块链层</h3>
+<p>因为在新创建区块链的几个月内，算力非常低下，此时很容易就能发动51%攻击，很容易会让项目总值为0。因此我们可以利用现有的区块链平台强大的算力来支撑我们的交易，现在已经有不少币种使用了这种做法。</p>
+<p>该层是blockstack的最底层，它其实就是存放在底层区块链上的数据，包含对blockstack交易的识别等。</p>
+<h3 id="2-虚拟链层"><a class="markdownIt-Anchor" href="#2-虚拟链层"></a> 2. 虚拟链层</h3>
+<p>类似于java语言为跨平台化建立的jvm，blockstack为跨区块链平台化建立了虚拟链层，使得blockstack上层能够在不同区块链平台跨平台运行。</p>
+<p>虚拟链为区块链提供了新操作，比如blockstack相较于bitcoin的名称系统，但又不改变原本bitcoin的底层结构。blockstack的操作逻辑基本在这里实现。</p>
+<h3 id="3-路由层"><a class="markdownIt-Anchor" href="#3-路由层"></a> 3. 路由层</h3>
+<p>路由层用于定义如何寻找数据的物理位置，使用类似与dns区文件的格式，总区文件的hash会被记录在虚拟链上。区块链使用分布式哈希的方式分布存储节点。</p>
+<p>用户不需要信任路由层的数据，因为路由层会将区文件内容的哈希值存放在虚拟链上的交易中，用户只需要验证虚拟链上的数据就可以确定路由层的数据。</p>
+<h3 id="4-存储层"><a class="markdownIt-Anchor" href="#4-存储层"></a> 4. 存储层</h3>
+<p>存储层用于实际存储数据，主要分为两部分，可变存储和不可变存储。可变存储一般存放用户私有数据，数据一般由用户签名保护；不可变动存储会将存储文件的内容的哈希值存放在区文件中，使得内容不可篡改。</p>
+<h2 id="脑洞系统"><a class="markdownIt-Anchor" href="#脑洞系统"></a> 脑洞系统</h2>
+<p><img src="brain%20hole.jpg" alt="结构图"></p>
+<p>本系统的结构和blockstack 1.0类似，是一个基于别的区块链平台的名称系统。</p>
+<h3 id="底层区块链"><a class="markdownIt-Anchor" href="#底层区块链"></a> 底层区块链</h3>
+<p>这里以基于以太坊平台为例，此处原本想了几个方案，由于到最后都被设计成了中心化系统，所以都抛弃了。</p>
+<ol>
+<li>创建该系统的合约账户，合约伪代码如下：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">constract test&#123;</span><br><span class="line">    address[] public 参与者</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> 创建 <span class="title">payable</span>(<span class="params">string name</span>)</span>&#123;&#125; <span class="comment">//支付给合约账户</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> 更新 <span class="title">payable</span>(<span class="params">string name</span>)</span>&#123;&#125; <span class="comment">//支付给合约账户</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> 贩卖 (<span class="params">string name,uint price</span>)</span>&#123;&#125;  <span class="comment">//卖家上架自己的名称</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> 购买 <span class="title">payable</span> (<span class="params">address 卖家,string name</span>)</span>&#123;&#125; <span class="comment">//买家购买已上架名称</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其实就是支付特定金额，向合约账户或者卖家购买域名，可以更新自己域名的信息。</p>
+<ol start="2">
+<li>用户以特定的数据格式与合约账户进行交易，执行相应的操作。</li>
+</ol>
+<h3 id="虚拟链"><a class="markdownIt-Anchor" href="#虚拟链"></a> 虚拟链</h3>
+<p>虚拟链层的操作与底层区块链上定义的操作一一对应。我们需要用户使用客户端，或者使用特定的格式与合约账户交易。每两个底层区块链区块发布时，将操作同步到虚拟链上。在更新区块信息的时候，更新存储MPT。</p>
+<h3 id="mpt存储"><a class="markdownIt-Anchor" href="#mpt存储"></a> MPT存储</h3>
+<p>使用MPT数据结构维护名称系统的状态信息，查询名称时，将从该mpt上查询，mpt的根哈希储存在虚拟链上。</p>
+<p>该部分其实只是一个弱化版的blockstack存储</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/09/2019-08-09-blockstack/" data-id="cjz3ma7lk0006t4u36o9tmh3o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/01/2019-08-01-ethereum/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">周记录-week5</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/斯坦福大学公开课记录/">斯坦福大学公开课记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/方班周记录/">方班周记录</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 17.5px;">linux</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 10px;">根域名</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/09/2019-08-09-blockstack/">周记录-week6</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/01/2019-08-01-ethereum/">周记录-week5</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/31/2019-07-31-laptop-mode-save-power/">笔记本省电设置</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/19/2019-07-19-bitcoin-running/">周记录-week4</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/16/2019-07-15-arch-linux-exteral-screen/">arch linux 扩展显示器折腾记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
