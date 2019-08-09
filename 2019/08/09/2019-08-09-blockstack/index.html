@@ -8,20 +8,20 @@
   
   <title>周记录-week6 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入">
+  <meta name="description" content="本周的主要任务是简略设计上周考虑的系统。为此，了解了以太坊合约、过滤器、以及blockstack 1.0的相关知识。  以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要">
 <meta name="keywords" content="区块链">
 <meta property="og:type" content="article">
 <meta property="og:title" content="周记录-week6">
 <meta property="og:url" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入">
+<meta property="og:description" content="本周的主要任务是简略设计上周考虑的系统。为此，了解了以太坊合约、过滤器、以及blockstack 1.0的相关知识。  以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/blockstack%20structure.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/brain%20hole.jpg">
-<meta property="og:updated_time" content="2019-08-09T04:52:06.569Z">
+<meta property="og:updated_time" content="2019-08-09T08:14:24.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="周记录-week6">
-<meta name="twitter:description" content="以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入">
+<meta name="twitter:description" content="本周的主要任务是简略设计上周考虑的系统。为此，了解了以太坊合约、过滤器、以及blockstack 1.0的相关知识。  以太坊智能合约 以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。 以太坊合约最重要">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/09/2019-08-09-blockstack/blockstack%20structure.png">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
@@ -101,7 +101,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="以太坊智能合约"><a class="markdownIt-Anchor" href="#以太坊智能合约"></a> 以太坊智能合约</h2>
+        <p>本周的主要任务是简略设计上周考虑的系统。为此，了解了以太坊合约、过滤器、以及blockstack 1.0的相关知识。</p>
+<h2 id="以太坊智能合约"><a class="markdownIt-Anchor" href="#以太坊智能合约"></a> 以太坊智能合约</h2>
 <p>以太坊合约是一段图灵完备的代码，所以它能由高级语言编译而成，常用Solidity来编写智能合约。在实际执行中，合约不能够自动执行，必须由用户使用外部交易间接执行，合约执行产生的汽油费gas由执行者支付。当执行出错时，gas不会回滚给外部交易账户。</p>
 <p>以太坊合约最重要的特性就是不可篡改性，这是它最大的优点也是最大的缺点。the DAO事件，即是一名黑客利用合约不可篡改的漏洞，使用重入攻击，也就是循环调用，将the DAO合约账户里的基金盗取到自己账户中，价值约五千万美金，使得以太坊社区必须采取硬分叉的措施回滚区块。</p>
 <h2 id="以太坊过滤器"><a class="markdownIt-Anchor" href="#以太坊过滤器"></a> 以太坊过滤器</h2>
@@ -148,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/09/2019-08-09-blockstack/" data-id="cjz3ma7lk0006t4u36o9tmh3o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/09/2019-08-09-blockstack/" data-id="cjz3tz9zl000agyu3pt79smon" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
