@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>node.js学习总结 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="从eth实验学习node.js各种特性 这段时间一直都在夏令营和搞eth的实验性项目，ctf学的不是很好，代码也写的一塌糊涂，故记录下编写node.js时遇到的坑，引以为戒。 初次使用node.js写代码，感觉node.js和以往用过的所有语言都有着很大的不同，其中很大部分原因能归结于其异步机制。异步机制给程序运行的效率带来了大幅度的提升，但也给程序编写者带来了极大的麻烦。">
+<meta name="keywords" content="编程语言,node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js学习总结">
+<meta property="og:url" content="http://yoursite.com/2019/08/30/2019-08-30-nodejs/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="从eth实验学习node.js各种特性 这段时间一直都在夏令营和搞eth的实验性项目，ctf学的不是很好，代码也写的一塌糊涂，故记录下编写node.js时遇到的坑，引以为戒。 初次使用node.js写代码，感觉node.js和以往用过的所有语言都有着很大的不同，其中很大部分原因能归结于其异步机制。异步机制给程序运行的效率带来了大幅度的提升，但也给程序编写者带来了极大的麻烦。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-30T08:02:12.788Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node.js学习总结">
+<meta name="twitter:description" content="从eth实验学习node.js各种特性 这段时间一直都在夏令营和搞eth的实验性项目，ctf学的不是很好，代码也写的一塌糊涂，故记录下编写node.js时遇到的坑，引以为戒。 初次使用node.js写代码，感觉node.js和以往用过的所有语言都有着很大的不同，其中很大部分原因能归结于其异步机制。异步机制给程序运行的效率带来了大幅度的提升，但也给程序编写者带来了极大的麻烦。">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2019-08-30-nodejs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/30/2019-08-30-nodejs/" class="article-date">
+  <time datetime="2019-08-30T07:58:41.000Z" itemprop="datePublished">2019-08-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      node.js学习总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="从eth实验学习nodejs各种特性"><a class="markdownIt-Anchor" href="#从eth实验学习nodejs各种特性"></a> 从eth实验学习node.js各种特性</h2>
+<p>这段时间一直都在夏令营和搞eth的实验性项目，ctf学的不是很好，代码也写的一塌糊涂，故记录下编写node.js时遇到的坑，引以为戒。</p>
+<p>初次使用node.js写代码，感觉node.js和以往用过的所有语言都有着很大的不同，其中很大部分原因能归结于其异步机制。异步机制给程序运行的效率带来了大幅度的提升，但也给程序编写者带来了极大的麻烦。</p>
+<a id="more"></a>
+<h3 id="nodejs异步操作"><a class="markdownIt-Anchor" href="#nodejs异步操作"></a> nodejs异步操作</h3>
+<p><a href="https://medium.com/tkssharma/writing-neat-asynchronous-node-js-code-with-promises-async-await-fa8d8b0bcd7c" target="_blank" rel="noopener">Writing neat asynchronous Node JS code with Promises &amp; Async/Await - medium - Tarun Sharma</a></p>
+<p>学习node.js异步操作时参考了上面这篇文章，非常有用，故作记录</p>
+<h3 id="promiseasyncawait"><a class="markdownIt-Anchor" href="#promiseasyncawait"></a> Promise,async,await</h3>
+<ul>
+<li>Promise定义某种方式，在同意与不同意时会执行不同的选择，用户需要调用then函数传入选择</li>
+<li>async指定了该函数为异步函数，可以执行。</li>
+<li>await操作，指传入参数执行Promise，并等待其被同意</li>
+</ul>
+<h3 id="将异步代码同步的简单代码"><a class="markdownIt-Anchor" href="#将异步代码同步的简单代码"></a> 将异步代码同步的简单代码</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params">options</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            resolve(options.number+<span class="number">1</span>)</span><br><span class="line">        &#125;,<span class="number">1000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    ret1 = <span class="keyword">await</span> a(<span class="number">1</span>)</span><br><span class="line">    ret2 = <span class="keyword">await</span> a(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line">main().then().catch(<span class="function"><span class="params">e</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="定时任务"><a class="markdownIt-Anchor" href="#定时任务"></a> 定时任务</h3>
+<p>在写心跳同步的时候遇到了这个问题，原本还真打算while(1)解决的，结果进程直接崩掉了，所幸问斯宇大佬解决了这个问题。</p>
+<p>node.js里写定时任务主要有几种：</p>
+<ul>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>crontab(linux)</li>
+</ul>
+<p>对于前两者的差别，斯宇pedia说timeout是只执行一次，而interval是一直不停执行，直到进程结束。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// setTimeout示例</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">heart</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    masterHeart();</span><br><span class="line">    setTimeout(heart,<span class="number">5000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">heart();</span><br></pre></td></tr></table></figure>
+<h3 id="简单的web服务使用express包"><a class="markdownIt-Anchor" href="#简单的web服务使用express包"></a> 简单的web服务，使用express包</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line">app.get(<span class="string">'/reccmd'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//    var example = &#123;type:"sendTransaction",number:100,data:"f**kyouverymuch"&#125;;</span></span><br><span class="line">    <span class="keyword">var</span> type = req.query.type;</span><br><span class="line">    <span class="keyword">var</span> number = req.query.number;</span><br><span class="line">    <span class="keyword">var</span> dataString = req.query.data;</span><br><span class="line"></span><br><span class="line">    res.end(<span class="string">'success send transactions'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(<span class="number">7701</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"slave's http listener is listening on port 7701"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="简单的请求发送"><a class="markdownIt-Anchor" href="#简单的请求发送"></a> 简单的请求发送</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> request = <span class="built_in">require</span>(<span class="string">"request"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHeartRet</span>(<span class="params">err,res,body</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(body);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">request(<span class="string">`http://<span class="subst">$&#123;ipAddr&#125;</span>:7701/heart?type=heart&amp;status=initialized`</span>,getHeartRet);</span><br></pre></td></tr></table></figure>
+<h3 id="nodejs解析json以及文件读写"><a class="markdownIt-Anchor" href="#nodejs解析json以及文件读写"></a> nodejs解析json以及文件读写</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipListJson = <span class="built_in">JSON</span>.parse(fs.readFileSync(ipListFile));</span><br><span class="line">fs.writeFileSync(ipListFile,<span class="built_in">JSON</span>.stringify(ipListJson))</span><br></pre></td></tr></table></figure>
+<h3 id="判断输入的参数"><a class="markdownIt-Anchor" href="#判断输入的参数"></a> 判断输入的参数</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(process.argv.length &gt;= <span class="number">3</span>)&#123;</span><br><span class="line">    ipAddr = process.argv[<span class="number">2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取客户端ip地址"><a class="markdownIt-Anchor" href="#获取客户端ip地址"></a> 获取客户端IP地址</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getClientIp</span>(<span class="params">req</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ip = req.headers[<span class="string">'x-forwarded-for'</span>] ||</span><br><span class="line">        req.ip ||</span><br><span class="line">        req.connection.remoteAddress ||</span><br><span class="line">        req.socket.remoteAddress ||</span><br><span class="line">        req.connection.socket.remoteAddress || <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">if</span>(ip.split(<span class="string">','</span>).length&gt;<span class="number">0</span>)&#123;</span><br><span class="line">        ip = ip.split(<span class="string">','</span>)[<span class="number">0</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    ip = ip.substr(ip.lastIndexOf(<span class="string">':'</span>)+<span class="number">1</span>,ip.length);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"ip:"</span>+ip);</span><br><span class="line">    <span class="keyword">return</span> ip;  </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//因为有时ip地址格式会是"::ffff::127.0.0.1"</span></span><br><span class="line">ipv4 = ip.subsring(ip.lastIndexOf(<span class="string">':'</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/30/2019-08-30-nodejs/" data-id="cjzxtvus9000ef9u3wpdax152" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/14/2019-08-14-blockstack-src-code/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">方班周记录-week7</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/斯坦福大学公开课记录/">斯坦福大学公开课记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/方班周记录/">方班周记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码阅读/">源码阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/arch/" style="font-size: 17.5px;">arch</a> <a href="/tags/blockstack/" style="font-size: 10px;">blockstack</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/node-js/" style="font-size: 10px;">node.js</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 10px;">根域名</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码阅读/" style="font-size: 10px;">源码阅读</a> <a href="/tags/编程语言/" style="font-size: 10px;">编程语言</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/30/2019-08-30-nodejs/">node.js学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/14/2019-08-14-blockstack-src-code/">方班周记录-week7</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/12/2019-08-12-arch-eyes-protect/">KDE 5.12(xorg)护眼模式</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/12/2019-08-12-vscode-cpp/">ArchLinux中使用VSC编写c++代码</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/09/2019-08-09-blockstack/">周记录-week6</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
