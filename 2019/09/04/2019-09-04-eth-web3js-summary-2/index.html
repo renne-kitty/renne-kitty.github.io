@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>以太坊web3.js实验总结（二） | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验介绍  master节点和slave节点 实验用的节点分为两类，包括1个master节点，和n个slave节点。  master节点  master节点主要功能包括接收slaves心跳包、同步区块、向slaves节点发送发交易的命令。  slave节点  slave节点主要功能包括向master发送心跳包、同步区块、根据master的命令发送交易">
+<meta name="keywords" content="区块链,node.js,以太坊,实验,根域名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊web3.js实验总结（二）">
+<meta property="og:url" content="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-2/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="实验介绍  master节点和slave节点 实验用的节点分为两类，包括1个master节点，和n个slave节点。  master节点  master节点主要功能包括接收slaves心跳包、同步区块、向slaves节点发送发交易的命令。  slave节点  slave节点主要功能包括向master发送心跳包、同步区块、根据master的命令发送交易">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-04T06:48:06.467Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以太坊web3.js实验总结（二）">
+<meta name="twitter:description" content="实验介绍  master节点和slave节点 实验用的节点分为两类，包括1个master节点，和n个slave节点。  master节点  master节点主要功能包括接收slaves心跳包、同步区块、向slaves节点发送发交易的命令。  slave节点  slave节点主要功能包括向master发送心跳包、同步区块、根据master的命令发送交易">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2019-09-04-eth-web3js-summary-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="article-date">
+  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">2019-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/根域名/">根域名</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      以太坊web3.js实验总结（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实验介绍"><a class="markdownIt-Anchor" href="#实验介绍"></a> 实验介绍</h2>
+<h3 id="master节点和slave节点"><a class="markdownIt-Anchor" href="#master节点和slave节点"></a> master节点和slave节点</h3>
+<p>实验用的节点分为两类，包括1个master节点，和n个slave节点。</p>
+<ul>
+<li>master节点</li>
+</ul>
+<p>master节点主要功能包括接收slaves心跳包、同步区块、向slaves节点发送发交易的命令。</p>
+<ul>
+<li>slave节点</li>
+</ul>
+<p>slave节点主要功能包括向master发送心跳包、同步区块、根据master的命令发送交易</p>
+<a id="more"></a>
+<h3 id="启动脚本master_initsh和slave_initsh"><a class="markdownIt-Anchor" href="#启动脚本master_initsh和slave_initsh"></a> 启动脚本(<code>master_init.sh</code>和<code>slave_init.sh</code>)</h3>
+<p>启动脚本使用bash和node.js编写。实际执行时，通过执行master-init.sh和slave-init.sh两个bash脚本，他们会调用init_njs.js执行初始化操作。</p>
+<p>bash脚本的主要逻辑包括：</p>
+<ol>
+<li>设定配置文件、数据文件路径，slave节点还需配置master节点enode地址和ip地址</li>
+<li>如果数据文件没有被创建或文件夹为空就调用geth init创建新的数据文件</li>
+<li>先启动一次节点并创建两个账户，然后kill掉</li>
+<li>再次启动节点，并将master节点添加进bootnode</li>
+<li>启动http接口</li>
+</ol>
+<h3 id="内容同步机制realtimesynctransactionjs"><a class="markdownIt-Anchor" href="#内容同步机制realtimesynctransactionjs"></a> 内容同步机制(RealTimeSyncTransaction.js)</h3>
+<p>这次的内容同步机制设计地非常简单，甚至可以说并没有进行同步。<br>
+在本地建立一个区文件和一个区块高度记录，区块高度记录使用json的形式存储高度和交易总数。<br>
+如果高度发生了更新，则直接使用for循环，将新加入的内容append到区文件末尾。如果高度发生了回滚，则直接删除区文件的所有内容。</p>
+<p>这个机制其实是本系统最大的问题；</p>
+<p>第一，它实际上并没有完成区文件同步，它只是尽量保证他们一样而已。在实验中，也出现了一些bug，区块是相同的，但区文件长度不同。这是由于重复更新文件导致的，毕竟连一个布尔数组都没有记录。</p>
+<p>第二，就算完成了刚刚的布尔数组记录，他们也不一定同步，应该要增加一些基于区块更新的哈希值记录</p>
+<h3 id="http请求和http接口"><a class="markdownIt-Anchor" href="#http请求和http接口"></a> http请求和http接口</h3>
+<p>master节点和slave节点的http接口和请求不相同，所以分开讨论：</p>
+<h4 id="slave节点"><a class="markdownIt-Anchor" href="#slave节点"></a> slave节点</h4>
+<p>slave节点的http接口主要包括接收命令，根据命令的内容(也就是数量和data)调用jsonrpc接口连续发送交易。</p>
+<p>这一部分是本系统最大的不稳定点，由于经常连续调用json rpc</p>
+<p>slave节点需要向master节点发送心跳同步，其主要目的是让master节点知道其ip地址，以便发送交易命令。</p>
+<h4 id="master节点"><a class="markdownIt-Anchor" href="#master节点"></a> master节点</h4>
+<p>master节点的http接口主要包括接收心跳包，记录已连接的ip地址。其实这里或许应该增加对slave节点信息的记录，包括区文件哈希值、节点是否存活、超时删除等功能。</p>
+<p>master节点需要向slave节点们发送发交易的命令，内容很简单，就是从slave节点的帐号0，向帐号1转一笔很小的金额，里面的input项里存放区文件内容。</p>
+<p>这部分本来其实是想实现类似于namecoin的功能，但奈何不太会调用用户的私钥，不知道怎么样进行加密。其实应该对input里面的内容进行私钥加密，之后的节点可以根据是否合法来实现其同步。</p>
+<p>另外，这里还有一个bug，就是当某slave节点没有挖到矿，没钱转账，实验就会失败。</p>
+<h3 id="实验过程"><a class="markdownIt-Anchor" href="#实验过程"></a> 实验过程</h3>
+<ol>
+<li>将master-init.sh和slave-init.sh添加进rc.local里面，设为开机启动</li>
+<li>启动master节点，记录下enode地址和ip地址</li>
+<li>将master节点的enode地址端口和ip地址端口填写到slave节点的配置文件内。然后保存slave节点镜像，批量部署</li>
+<li>等待区块同步后，发送命令，让所有节点连续发布命令。</li>
+<li>因为完全完成的概率很低，所以需要手动记录数据，也就是最后同步的时间和发送命令的时间。<strong>这点导致了实验效率及其低下</strong></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-2/" data-id="ck04wh4ve0013h3u3bbrwtopl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">以太坊实验总结（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/斯坦福大学公开课记录/">斯坦福大学公开课记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/方班周记录/">方班周记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码阅读/">源码阅读</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DNS/" style="font-size: 14px;">DNS</a> <a href="/tags/arch/" style="font-size: 16px;">arch</a> <a href="/tags/blockstack/" style="font-size: 10px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/github/" style="font-size: 12px;">github</a> <a href="/tags/linux/" style="font-size: 18px;">linux</a> <a href="/tags/node-js/" style="font-size: 14px;">node.js</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/以太坊/" style="font-size: 12px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/实验/" style="font-size: 12px;">实验</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 14px;">根域名</a> <a href="/tags/比特币/" style="font-size: 12px;">比特币</a> <a href="/tags/源码阅读/" style="font-size: 10px;">源码阅读</a> <a href="/tags/编程语言/" style="font-size: 10px;">编程语言</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/30/2019-08-30-nodejs/">node.js学习总结</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
