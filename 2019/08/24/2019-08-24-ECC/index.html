@@ -6,15 +6,22 @@
   
 
   
-  <title>Tag: 机器学习 | Renne&#39;s Blog</title>
+  <title>椭圆曲线加密简单理解 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/机器学习/index.html">
+  <meta name="description" content="加法运算 我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。 当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。  数乘运算 定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。  公钥私钥生成 首先选取椭圆曲线上的一个起点G，设经过n步之">
+<meta name="keywords" content="数学,密码学,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="椭圆曲线加密简单理解">
+<meta property="og:url" content="http://yoursite.com/2019/08/24/2019-08-24-ECC/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="加法运算 我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。 当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。  数乘运算 定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。  公钥私钥生成 首先选取椭圆曲线上的一个起点G，设经过n步之">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/08/24/2019-08-24-ECC/ECC.jpg">
+<meta property="og:updated_time" content="2019-09-04T07:04:00.390Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="椭圆曲线加密简单理解">
+<meta name="twitter:description" content="加法运算 我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。 当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。  数乘运算 定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。  公钥私钥生成 首先选取椭圆曲线上的一个起点G，设经过n步之">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/24/2019-08-24-ECC/ECC.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,40 +74,78 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/06/21/ML-week1/" class="archive-article-date">
-  <time datetime="2019-06-21T09:22:30.000Z" itemprop="datePublished">6月 21</time>
+        <section id="main"><article id="post-2019-08-24-ECC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/24/2019-08-24-ECC/" class="article-date">
+  <time datetime="2019-08-24T07:00:04.000Z" itemprop="datePublished">2019-08-24</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数学/">数学</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/21/ML-week1/">机器学习-week1</a>
+    <h1 class="article-title" itemprop="name">
+      椭圆曲线加密简单理解
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="ECC.jpg" alt="椭圆曲线"></p>
+<h4 id="加法运算"><a class="markdownIt-Anchor" href="#加法运算"></a> 加法运算</h4>
+<p>我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。</p>
+<p>当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。</p>
+<h4 id="数乘运算"><a class="markdownIt-Anchor" href="#数乘运算"></a> 数乘运算</h4>
+<p>定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。</p>
+<h4 id="公钥私钥生成"><a class="markdownIt-Anchor" href="#公钥私钥生成"></a> 公钥私钥生成</h4>
+<p>首先选取椭圆曲线上的一个起点G，设经过n步之后走到Q，写成数学形式就是Q = nG。我们很容易能从n和G推出Q，但知道G和Q推出n却非常难。</p>
+<p>所以，我们能将n设为私钥，将Q设为公钥，G作为公共已知数字。</p>
+<h4 id="数据加解密"><a class="markdownIt-Anchor" href="#数据加解密"></a> 数据加解密</h4>
+<p>加密方知道Q和原点G，所以自己定义，从Q点再继续往前走k步达到OFFSET=(x2,y2)，即OFFSET = Q + kG。将原文数据m映射为图上的点(Xm,Ym)，再偏移OFFSET，达到C=(x2,y2)+(Xm,Ym)就是密文。接下来计算从原点G走k步后的(x1,y1)，(x1,y1)=kG。</p>
+<p>接下来将密文C和(x1,y1)发送给私钥拥有者。解密方拥有私钥n，由于OFFSET=(n+K)G=(x1,y1)+nG。所以直接计算就能得到OFFSET，将密文重新做偏移就能达到明文。</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/24/2019-08-24-ECC/" data-id="ck04x2qmb001thlu3d5mmbvjf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/30/2019-08-30-nodejs/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node.js学习总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/14/2019-08-14-blockstack-src-code/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">方班周记录-week7</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
