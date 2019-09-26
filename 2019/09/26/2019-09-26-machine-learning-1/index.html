@@ -6,15 +6,23 @@
   
 
   
-  <title>Renne&#39;s Blog</title>
+  <title>机器学习记录(查准率、查全率、假设检验) | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="查准率、查全率  定义 首先是那个蛋痛的表：    真实\预测 真 假     真 TP FN   假 FP TN    查准率：你猜它是真的，到底有几个是真的，你猜测的准确率是多少 P=TPTP+FPP = \frac{TP}{TP + FP}  P=TP+FPTP​ 查全率：这堆东西都是真的，你猜到了几个是真的 R=TPTP+FNR = \frac{TP}{TP + FN}  R=TP+FN">
+<meta name="keywords" content="机器学习,概率论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习记录(查准率、查全率、假设检验)">
+<meta property="og:url" content="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="查准率、查全率  定义 首先是那个蛋痛的表：    真实\预测 真 假     真 TP FN   假 FP TN    查准率：你猜它是真的，到底有几个是真的，你猜测的准确率是多少 P=TPTP+FPP = \frac{TP}{TP + FP}  P=TP+FPTP​ 查全率：这堆东西都是真的，你猜到了几个是真的 R=TPTP+FNR = \frac{TP}{TP + FN}  R=TP+FN">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/PR.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/check.png">
+<meta property="og:updated_time" content="2019-09-26T13:43:01.246Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="机器学习记录(查准率、查全率、假设检验)">
+<meta name="twitter:description" content="查准率、查全率  定义 首先是那个蛋痛的表：    真实\预测 真 假     真 TP FN   假 FP TN    查准率：你猜它是真的，到底有几个是真的，你猜测的准确率是多少 P=TPTP+FPP = \frac{TP}{TP + FP}  P=TP+FPTP​ 查全率：这堆东西都是真的，你猜到了几个是真的 R=TPTP+FNR = \frac{TP}{TP + FN}  R=TP+FN">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/PR.png">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,9 +75,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-2019-09-26-machine-learning-1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2019-09-26-machine-learning-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/09/26/2019-09-26-machine-learning-1/" class="article-date">
   <time datetime="2019-09-26T13:38:21.000Z" itemprop="datePublished">2019-09-26</time>
@@ -86,8 +92,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/26/2019-09-26-machine-learning-1/">机器学习记录(查准率、查全率、假设检验)</a>
+    <h1 class="article-title" itemprop="name">
+      机器学习记录(查准率、查全率、假设检验)
     </h1>
   
 
@@ -174,463 +180,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-2019-09-04-eth-web3js-summary-2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="article-date">
-  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">2019-09-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/根域名/">根域名</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
-    </h1>
+    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">以太坊web3.js实验总结（二）</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="实验介绍"><a class="markdownIt-Anchor" href="#实验介绍"></a> 实验介绍</h2>
-<h3 id="master节点和slave节点"><a class="markdownIt-Anchor" href="#master节点和slave节点"></a> master节点和slave节点</h3>
-<p>实验用的节点分为两类，包括1个master节点，和n个slave节点。</p>
-<ul>
-<li>master节点</li>
-</ul>
-<p>master节点主要功能包括接收slaves心跳包、同步区块、向slaves节点发送发交易的命令。</p>
-<ul>
-<li>slave节点</li>
-</ul>
-<p>slave节点主要功能包括向master发送心跳包、同步区块、根据master的命令发送交易</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-2/" data-id="ck10qxcpm0015gvu3ur328d7g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-2019-09-04-eth-web3js-summary-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" class="article-date">
-  <time datetime="2019-09-04T06:35:24.000Z" itemprop="datePublished">2019-09-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/根域名/">根域名</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个实验做的简直都不是一般的烂，烂到不知道用什么词语去形容比较好。由于还有下一部分的实验要完成，所以写一篇总结引以为戒。</p>
-<p>上一份这么烂的代码是我在大二时写出来的，所以本身表达不这么丰富的我真的找不到什么文明的词语来形容此次的代码。</p>
-<p>这一部分主要介绍geth和其对应的web3.js库的运用。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-1/" data-id="ck10qxcpk000vgvu345atjjyx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-03-ctf-summary" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/2019-09-03-ctf-summary/" class="article-date">
-  <time datetime="2019-09-03T08:16:44.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>8月20日开始，我们来到了鹏城实验室参加了夏令营。由于一直适应着之前那种轻松的氛围，突然来到了这种那么紧张的环境让我有点不习惯。早上8点半到晚上10点的生活，让我一开始特别不适应。幸好，这点用了四五天时间就调整过来了。</p>
-<p>这段时间我们主要学习了不少网安的知识，由于自己之前对网安的了解仅限于那14天的课程，对知识的理解非常不深入。这次的夏令营让我巩固了之前学到的知识，这次的授课内容根据ctf竞赛的题型分类，主要包括web、密码学、misc、二进制漏洞、逆向五部分。授课的时候讲的比较快，有不少东西不太听得明白。</p>
-<p>学习了这几天课程的最主要收获就是知道了熟练运用工具的重要性，无论是干开发还是搞研究，运用了正确的工具能使开发效率提升数倍。而且熟练运用各种工具对学习基础知识也会有非常大的帮助。</p>
-<p>因为我个人对ctf这种竞赛不太感兴趣，所以基本专注于与实际开发有直接关系的知识。学习web部分得到的最大的收获就是深刻知晓了php这语言在实现上具有非常多的漏洞，如果在实际开发时有安全需求，选择这门语言做开发时必须谨慎。其次就是知道了hackbar这浏览器插件，在实际开发过程中，经常会运用到各种各样的编解码，请求包的发送等，这工具已经大幅度提升了我的开发效率。</p>
-<p>学习密码学部分最主要的收获就是懂得了椭圆形曲线算法的原理，等有空的时候，也许可以尝试试着敲一遍深入理解。</p>
-<p>misc这部分就像是在玩一样，也许winhex能让我们更好判断文件类型吧。pwn和reverse这部分就让我懂得了怎么样使用gdb和吾爱破解的工具包。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-ctf-summary/" data-id="ck10qxcpi000ngvu3n18l1s9s" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-03-gitignore" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/2019-09-03-gitignore/" class="article-date">
-  <time datetime="2019-09-03T08:10:46.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先，先创建.gitignore。之后运行git忽略文件即可</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'update .gitignore'</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-gitignore/" data-id="ck10qxcpl0011gvu3b6ub83eo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-30-nodejs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/30/2019-08-30-nodejs/" class="article-date">
-  <time datetime="2019-08-30T07:58:41.000Z" itemprop="datePublished">2019-08-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/30/2019-08-30-nodejs/">node.js学习总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="从eth实验学习nodejs各种特性"><a class="markdownIt-Anchor" href="#从eth实验学习nodejs各种特性"></a> 从eth实验学习node.js各种特性</h2>
-<p>这段时间一直都在夏令营和搞eth的实验性项目，ctf学的不是很好，代码也写的一塌糊涂，故记录下编写node.js时遇到的坑，引以为戒。</p>
-<p>初次使用node.js写代码，感觉node.js和以往用过的所有语言都有着很大的不同，其中很大部分原因能归结于其异步机制。异步机制给程序运行的效率带来了大幅度的提升，但也给程序编写者带来了极大的麻烦。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/30/2019-08-30-nodejs/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/30/2019-08-30-nodejs/" data-id="ck10qxcpj000rgvu3nz630jzb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-24-ECC" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/24/2019-08-24-ECC/" class="article-date">
-  <time datetime="2019-08-24T07:00:04.000Z" itemprop="datePublished">2019-08-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/数学/">数学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/24/2019-08-24-ECC/">椭圆曲线加密简单理解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="ECC.jpg" alt="椭圆曲线"></p>
-<h4 id="加法运算"><a class="markdownIt-Anchor" href="#加法运算"></a> 加法运算</h4>
-<p>我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。</p>
-<p>当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。</p>
-<h4 id="数乘运算"><a class="markdownIt-Anchor" href="#数乘运算"></a> 数乘运算</h4>
-<p>定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。</p>
-<h4 id="公钥私钥生成"><a class="markdownIt-Anchor" href="#公钥私钥生成"></a> 公钥私钥生成</h4>
-<p>首先选取椭圆曲线上的一个起点G，设经过n步之后走到Q，写成数学形式就是Q = nG。我们很容易能从n和G推出Q，但知道G和Q推出n却非常难。</p>
-<p>所以，我们能将n设为私钥，将Q设为公钥，G作为公共已知数字。</p>
-<h4 id="数据加解密"><a class="markdownIt-Anchor" href="#数据加解密"></a> 数据加解密</h4>
-<p>加密方知道Q和原点G，所以自己定义，从Q点再继续往前走k步达到OFFSET=(x2,y2)，即OFFSET = Q + kG。将原文数据m映射为图上的点(Xm,Ym)，再偏移OFFSET，达到C=(x2,y2)+(Xm,Ym)就是密文。接下来计算从原点G走k步后的(x1,y1)，(x1,y1)=kG。</p>
-<p>接下来将密文C和(x1,y1)发送给私钥拥有者。解密方拥有私钥n，由于OFFSET=(n+K)G=(x1,y1)+nG。所以直接计算就能得到OFFSET，将密文重新做偏移就能达到明文。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/24/2019-08-24-ECC/" data-id="ck10qxcph000kgvu3i8jkan8m" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-14-blockstack-src-code" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/14/2019-08-14-blockstack-src-code/" class="article-date">
-  <time datetime="2019-08-14T09:24:59.000Z" itemprop="datePublished">2019-08-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/方班周记录/">方班周记录</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/14/2019-08-14-blockstack-src-code/">方班周记录-week7</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本周的任务是研究blockstack的开发，尽快上手blockstack的源码。还是那个原则，想要搞源码，必先会开发。</p>
-<h2 id="blockstack开发环境配置"><a class="markdownIt-Anchor" href="#blockstack开发环境配置"></a> Blockstack开发环境配置</h2>
-<h3 id="基本环境安装"><a class="markdownIt-Anchor" href="#基本环境安装"></a> 基本环境安装</h3>
-<p><a href="https://docs.blockstack.org/browser/hello-blockstack.html" target="_blank" rel="noopener">Blockstack development tutorial</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/14/2019-08-14-blockstack-src-code/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/14/2019-08-14-blockstack-src-code/" data-id="ck10qxcpg000igvu30l519i8b" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码阅读/">源码阅读</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-12-arch-eyes-protect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/12/2019-08-12-arch-eyes-protect/" class="article-date">
-  <time datetime="2019-08-12T05:23:52.000Z" itemprop="datePublished">2019-08-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/12/2019-08-12-arch-eyes-protect/">KDE 5.12(xorg)护眼模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>由于原本的外界显示器自带过滤蓝光功能，所以一直都没管它，拔掉后发现6500K的色温太太太刺眼了。俗话说：“blue lignt make you foolish”，故必须采取措施。</p>
-<p>如果是基于Wayland的KDE，它会自带Night Mode功能，我这种坚定的Xorg党，是不可能有的。</p>
-<p>首先安装redshift，直接pacman就可以了。接下来增添GTK插件，右键右下角菜单Add Widgets，然后Get new widgets，找到跟redshift的安装就可以了。</p>
-<p>添加好了之后，在左下角会出现一个电灯泡一样的图标，我们就可以使用它来实现更方便的调整了。右键灯泡，设置一下。</p>
-<p>我的眼睛一般是早上5000K晚上3500K，这样比较舒服。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/12/2019-08-12-arch-eyes-protect/" data-id="ck10qxcpc000agvu3yl70znkz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-12-vscode-cpp" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/12/2019-08-12-vscode-cpp/" class="article-date">
-  <time datetime="2019-08-12T01:15:45.000Z" itemprop="datePublished">2019-08-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/12/2019-08-12-vscode-cpp/">ArchLinux中使用VSC编写c++代码</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>为以后系统挂掉恢复提供便捷的私人教程。。</p>
-<p>首先，下载clang和lldb，pacman -S一下就可以了。分别是编译器和调试器(Compiler and Debuger)，我先pacman -Syu更新之后才看得到lldb的安装包。</p>
-<p>之后，在vscode里安装三个插件&quot;C/C++&quot;、“vscode-clangd&quot;和&quot;Code Runner”。安装好后配置一下配置文件</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/12/2019-08-12-vscode-cpp/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/12/2019-08-12-vscode-cpp/" data-id="ck10qxcpe000egvu3oyy5qvnl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
 
 </section>
         
