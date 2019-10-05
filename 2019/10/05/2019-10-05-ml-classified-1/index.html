@@ -6,15 +6,24 @@
   
 
   
-  <title>Renne&#39;s Blog</title>
+  <title>机器学习-极大似然和对数几率回归（浅入） | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="极大似然估计法 极大似然估计详解  贝叶斯公式 贝叶斯公式讲述了一个条件概率的问题，公式如下： P(A∣B)=P(A)P(B∣A)P(B)P(A|B) = P(A) \frac{P(B|A)}{P(B)}  P(A∣B)=P(A)P(B)P(B∣A)​ P(A∣B)P(A|B)P(A∣B) 指在BBB发生的前提下，AAA发生的概率 怎样用非数学语言讲解贝叶斯定理（Bayes’s theorem）">
+<meta name="keywords" content="机器学习,概率论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习-极大似然和对数几率回归（浅入）">
+<meta property="og:url" content="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="极大似然估计法 极大似然估计详解  贝叶斯公式 贝叶斯公式讲述了一个条件概率的问题，公式如下： P(A∣B)=P(A)P(B∣A)P(B)P(A|B) = P(A) \frac{P(B|A)}{P(B)}  P(A∣B)=P(A)P(B)P(B∣A)​ P(A∣B)P(A|B)P(A∣B) 指在BBB发生的前提下，AAA发生的概率 怎样用非数学语言讲解贝叶斯定理（Bayes’s theorem）">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/vm-map.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/vm-map2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/unit-step.jpg">
+<meta property="og:updated_time" content="2019-10-05T03:59:40.647Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="机器学习-极大似然和对数几率回归（浅入）">
+<meta name="twitter:description" content="极大似然估计法 极大似然估计详解  贝叶斯公式 贝叶斯公式讲述了一个条件概率的问题，公式如下： P(A∣B)=P(A)P(B∣A)P(B)P(A|B) = P(A) \frac{P(B|A)}{P(B)}  P(A∣B)=P(A)P(B)P(B∣A)​ P(A∣B)P(A|B)P(A∣B) 指在BBB发生的前提下，AAA发生的概率 怎样用非数学语言讲解贝叶斯定理（Bayes’s theorem）">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/vm-map.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,9 +76,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-2019-10-05-ml-classified-1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2019-10-05-ml-classified-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/10/05/2019-10-05-ml-classified-1/" class="article-date">
   <time datetime="2019-10-05T03:52:04.000Z" itemprop="datePublished">2019-10-05</time>
@@ -86,8 +93,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/05/2019-10-05-ml-classified-1/">机器学习-极大似然和对数几率回归（浅入）</a>
+    <h1 class="article-title" itemprop="name">
+      机器学习-极大似然和对数几率回归（浅入）
     </h1>
   
 
@@ -161,523 +168,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-2019-09-26-machine-learning-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/26/2019-09-26-machine-learning-1/" class="article-date">
-  <time datetime="2019-09-26T13:38:21.000Z" itemprop="datePublished">2019-09-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/26/2019-09-26-machine-learning-1/">机器学习记录(查准率、查全率、假设检验)</a>
-    </h1>
+    <a href="/2019/09/26/2019-09-26-machine-learning-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">机器学习记录(查准率、查全率、假设检验)</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="查准率-查全率"><a class="markdownIt-Anchor" href="#查准率-查全率"></a> 查准率、查全率</h2>
-<h3 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h3>
-<p>首先是那个蛋痛的表：</p>
-<table>
-<thead>
-<tr>
-<th>真实\预测</th>
-<th>真</th>
-<th>假</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>真</td>
-<td>TP</td>
-<td>FN</td>
-</tr>
-<tr>
-<td>假</td>
-<td>FP</td>
-<td>TN</td>
-</tr>
-</tbody>
-</table>
-<p>查准率：你猜它是真的，到底有几个是真的，你猜测的准确率是多少</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>P</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">P = \frac{TP}{TP + FP} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>查全率：这堆东西都是真的，你猜到了几个是真的</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">R = \frac{TP}{TP + FN} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>两者十分矛盾，往往一个高时，另一个就低。</p>
-<ol>
-<li>假如你想提高查全率，你可以猜测我硬盘里全部avi文件都是av。那么你肯定猜到了我所有的av。但查准率十分低，因为你猜了我全部是av，但其实99.9%都是动物世界。因此你查全率有100%，而查准率只有0.1%。</li>
-<li>假如你想提高查准率，你可以只把你看过的是av的avi文件标为av，这样查准率有100%，因为你猜的全部都对。但由于硬盘里片子其实挺多的，所以其实有很多的av，你只猜对了一部，所以查全率极低。</li>
-</ol>
-<p>所以，我们需要平衡查准率和查全率</p>
-<h3 id="prprecision-and-recall图"><a class="markdownIt-Anchor" href="#prprecision-and-recall图"></a> PR(precision and recall)图</h3>
-<p><img src="PR.png" alt="查准率和查全率"></p>
-<h4 id="1-bep度量"><a class="markdownIt-Anchor" href="#1-bep度量"></a> 1. BEP度量</h4>
-<p>直接取查准率和查全率相等的点，比较简单。例如学习器C的BEP是0.64</p>
-<h4 id="2-f1度量"><a class="markdownIt-Anchor" href="#2-f1度量"></a> 2. F1度量</h4>
-<p>简单的F1度量就是将查准率和查全率做调和平均，因为做调和平均时，如果其中一项很低，则结果就会很低</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>1</mn><mrow><mi>F</mi><mn>1</mn></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mi>P</mi></mfrac><mo>+</mo><mfrac><mn>1</mn><mi>R</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{F1} = \frac{1}{P} + \frac{1}{R}  
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord">1</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mn>1</mn><mo>=</mo><mfrac><mrow><mn>2</mn><mo>∗</mo><mi>P</mi><mo>∗</mo><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">F1 = \frac{2 * P * R}{P+R} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p>有时，我们对查准率和查全率的权重有要求，有时其中一者权重比较高</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>F</mi><mi>β</mi></msub><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><msup><mi>β</mi><mn>2</mn></msup><mo stretchy="false">)</mo><mo>∗</mo><mi>P</mi><mo>∗</mo><mi>R</mi></mrow><mrow><msup><mi>β</mi><mn>2</mn></msup><mo>∗</mo><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">F_\beta = \frac{(1+\beta^2)*P*R}{\beta^2*P + R} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05278em;">β</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.371548em;vertical-align:-0.8804400000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.491108em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804400000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<h3 id="roc表"><a class="markdownIt-Anchor" href="#roc表"></a> ROC表</h3>
-<p>很多时候，一个样本值域在[0.0-1.0]之间，我们可以设样本值小于t的为正例，而大于t的为反例。当t越小，正例的样本数量越少，反例的样本数量越多；反之亦可。</p>
-<p>如何定义t，让正例反例的分类更加科学，这就是一门学问了。这里有人提出了使用ROC曲线来研究学习器的泛化性能。</p>
-<p>ROC(Recevier Operating Characteristic)全称“受试者工作特征”。横纵坐标轴分别表示真正例率(TPR)和假正例率(FPR)。</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mi>P</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mi>P</mi></mrow><mrow><mi>T</mi><mi>P</mi><mo>+</mo><mi>F</mi><mi>N</mi></mrow></mfrac><mi mathvariant="normal">，</mi><mi mathvariant="normal">查</mi><mi mathvariant="normal">全</mi><mi mathvariant="normal">率</mi></mrow><annotation encoding="application/x-tex">TPR = \frac{TP}{TP+FN}，查全率 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">查</span><span class="mord cjk_fallback">全</span><span class="mord cjk_fallback">率</span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>F</mi><mi>P</mi><mi>R</mi><mo>=</mo><mfrac><mrow><mi>F</mi><mi>P</mi></mrow><mrow><mi>F</mi><mi>P</mi><mo>+</mo><mi>T</mi><mi>N</mi></mrow></mfrac><mi mathvariant="normal">，</mi><mi mathvariant="normal">错</mi><mi mathvariant="normal">误</mi><mi mathvariant="normal">查</mi><mi mathvariant="normal">全</mi><mi mathvariant="normal">率</mi></mrow><annotation encoding="application/x-tex">FPR = \frac{FP}{FP+TN}，错误查全率
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.1296600000000003em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">错</span><span class="mord cjk_fallback">误</span><span class="mord cjk_fallback">查</span><span class="mord cjk_fallback">全</span><span class="mord cjk_fallback">率</span></span></span></span></span></p>
-<p>判断的依据即ROC曲线的面积</p>
-<h2 id="假设检验"><a class="markdownIt-Anchor" href="#假设检验"></a> 假设检验</h2>
-<p>泛化错误率<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>表示某宏观事件犯错的概率是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>。所以，若样本总数量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>。那么出现错误数量为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>的概率：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>=</mo><mi>C</mi><mo stretchy="false">(</mo><mi>m</mi><mo separator="true">,</mo><mi>i</mi><mo stretchy="false">)</mo><msup><mi>ϵ</mi><mi>i</mi></msup><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>ϵ</mi><msup><mo stretchy="false">)</mo><mrow><mi>m</mi><mo>−</mo><mi>i</mi></mrow></msup></mrow><annotation encoding="application/x-tex">P(i) = C(m,i) \epsilon^i(1-\epsilon)^{m-i} 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.1246639999999999em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mclose">)</span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8746639999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.124664em;vertical-align:-0.25em;"></span><span class="mord mathdefault">ϵ</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.874664em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">Σ</mi><mo stretchy="false">(</mo><mi>i</mi><mtext> </mtext><mi>m</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mi>α</mi><mo separator="true">,</mo><msub><mi>ϵ</mi><mn>0</mn></msub><mo>=</mo><mi>i</mi><mi mathvariant="normal">/</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">\Sigma(i~m) P(i) &lt; \alpha , \epsilon_0 = i/m 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mspace nobreak"> </span><span class="mord mathdefault">m</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">i</span><span class="mord">/</span><span class="mord mathdefault">m</span></span></span></span></span></p>
-<p>则可认为置信度在(1-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>)时，测试错误率不大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>ϵ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\epsilon_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></p>
-<p><img src="check.png" alt="假设检验"></p>
-<p>看图举例最清楚了，其实将上面一句话翻译一下就是：误分类样本数量在6以下，也就是测试样本误分类的概率在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>ϵ</mi></mrow><annotation encoding="application/x-tex">\epsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">ϵ</span></span></span></span>以下，的概率是(1-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>)。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/" data-id="ck1d0zr38001gyou3v3zij6op" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-2019-09-04-eth-web3js-summary-2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="article-date">
-  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">2019-09-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/根域名/">根域名</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="实验介绍"><a class="markdownIt-Anchor" href="#实验介绍"></a> 实验介绍</h2>
-<h3 id="master节点和slave节点"><a class="markdownIt-Anchor" href="#master节点和slave节点"></a> master节点和slave节点</h3>
-<p>实验用的节点分为两类，包括1个master节点，和n个slave节点。</p>
-<ul>
-<li>master节点</li>
-</ul>
-<p>master节点主要功能包括接收slaves心跳包、同步区块、向slaves节点发送发交易的命令。</p>
-<ul>
-<li>slave节点</li>
-</ul>
-<p>slave节点主要功能包括向master发送心跳包、同步区块、根据master的命令发送交易</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-2/" data-id="ck1d0zr360016you3uuid1iu7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-04-eth-web3js-summary-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" class="article-date">
-  <time datetime="2019-09-04T06:35:24.000Z" itemprop="datePublished">2019-09-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/根域名/">根域名</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个实验做的简直都不是一般的烂，烂到不知道用什么词语去形容比较好。由于还有下一部分的实验要完成，所以写一篇总结引以为戒。</p>
-<p>上一份这么烂的代码是我在大二时写出来的，所以本身表达不这么丰富的我真的找不到什么文明的词语来形容此次的代码。</p>
-<p>这一部分主要介绍geth和其对应的web3.js库的运用。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-1/" data-id="ck1d0zr33000wyou3tft36nif" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-03-ctf-summary" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/2019-09-03-ctf-summary/" class="article-date">
-  <time datetime="2019-09-03T08:16:44.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>8月20日开始，我们来到了鹏城实验室参加了夏令营。由于一直适应着之前那种轻松的氛围，突然来到了这种那么紧张的环境让我有点不习惯。早上8点半到晚上10点的生活，让我一开始特别不适应。幸好，这点用了四五天时间就调整过来了。</p>
-<p>这段时间我们主要学习了不少网安的知识，由于自己之前对网安的了解仅限于那14天的课程，对知识的理解非常不深入。这次的夏令营让我巩固了之前学到的知识，这次的授课内容根据ctf竞赛的题型分类，主要包括web、密码学、misc、二进制漏洞、逆向五部分。授课的时候讲的比较快，有不少东西不太听得明白。</p>
-<p>学习了这几天课程的最主要收获就是知道了熟练运用工具的重要性，无论是干开发还是搞研究，运用了正确的工具能使开发效率提升数倍。而且熟练运用各种工具对学习基础知识也会有非常大的帮助。</p>
-<p>因为我个人对ctf这种竞赛不太感兴趣，所以基本专注于与实际开发有直接关系的知识。学习web部分得到的最大的收获就是深刻知晓了php这语言在实现上具有非常多的漏洞，如果在实际开发时有安全需求，选择这门语言做开发时必须谨慎。其次就是知道了hackbar这浏览器插件，在实际开发过程中，经常会运用到各种各样的编解码，请求包的发送等，这工具已经大幅度提升了我的开发效率。</p>
-<p>学习密码学部分最主要的收获就是懂得了椭圆形曲线算法的原理，等有空的时候，也许可以尝试试着敲一遍深入理解。</p>
-<p>misc这部分就像是在玩一样，也许winhex能让我们更好判断文件类型吧。pwn和reverse这部分就让我懂得了怎么样使用gdb和吾爱破解的工具包。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-ctf-summary/" data-id="ck1d0zr32000ryou3a6k0ajgv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-03-gitignore" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/2019-09-03-gitignore/" class="article-date">
-  <time datetime="2019-09-03T08:10:46.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先，先创建.gitignore。之后运行git忽略文件即可</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'update .gitignore'</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-gitignore/" data-id="ck1d0zr350012you3txg6n3gg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-30-nodejs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/30/2019-08-30-nodejs/" class="article-date">
-  <time datetime="2019-08-30T07:58:41.000Z" itemprop="datePublished">2019-08-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/30/2019-08-30-nodejs/">node.js学习总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="从eth实验学习nodejs各种特性"><a class="markdownIt-Anchor" href="#从eth实验学习nodejs各种特性"></a> 从eth实验学习node.js各种特性</h2>
-<p>这段时间一直都在夏令营和搞eth的实验性项目，ctf学的不是很好，代码也写的一塌糊涂，故记录下编写node.js时遇到的坑，引以为戒。</p>
-<p>初次使用node.js写代码，感觉node.js和以往用过的所有语言都有着很大的不同，其中很大部分原因能归结于其异步机制。异步机制给程序运行的效率带来了大幅度的提升，但也给程序编写者带来了极大的麻烦。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/30/2019-08-30-nodejs/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/30/2019-08-30-nodejs/" data-id="ck1d0zr30000kyou37mk9l2e4" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-24-ECC" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/24/2019-08-24-ECC/" class="article-date">
-  <time datetime="2019-08-24T07:00:04.000Z" itemprop="datePublished">2019-08-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/数学/">数学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/24/2019-08-24-ECC/">椭圆曲线加密简单理解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="ECC.jpg" alt="椭圆曲线"></p>
-<h4 id="加法运算"><a class="markdownIt-Anchor" href="#加法运算"></a> 加法运算</h4>
-<p>我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。</p>
-<p>当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。</p>
-<h4 id="数乘运算"><a class="markdownIt-Anchor" href="#数乘运算"></a> 数乘运算</h4>
-<p>定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。</p>
-<h4 id="公钥私钥生成"><a class="markdownIt-Anchor" href="#公钥私钥生成"></a> 公钥私钥生成</h4>
-<p>首先选取椭圆曲线上的一个起点G，设经过n步之后走到Q，写成数学形式就是Q = nG。我们很容易能从n和G推出Q，但知道G和Q推出n却非常难。</p>
-<p>所以，我们能将n设为私钥，将Q设为公钥，G作为公共已知数字。</p>
-<h4 id="数据加解密"><a class="markdownIt-Anchor" href="#数据加解密"></a> 数据加解密</h4>
-<p>加密方知道Q和原点G，所以自己定义，从Q点再继续往前走k步达到OFFSET=(x2,y2)，即OFFSET = Q + kG。将原文数据m映射为图上的点(Xm,Ym)，再偏移OFFSET，达到C=(x2,y2)+(Xm,Ym)就是密文。接下来计算从原点G走k步后的(x1,y1)，(x1,y1)=kG。</p>
-<p>接下来将密文C和(x1,y1)发送给私钥拥有者。解密方拥有私钥n，由于OFFSET=(n+K)G=(x1,y1)+nG。所以直接计算就能得到OFFSET，将密文重新做偏移就能达到明文。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/24/2019-08-24-ECC/" data-id="ck1d0zr31000oyou3jl1tdbdm" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-14-blockstack-src-code" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/14/2019-08-14-blockstack-src-code/" class="article-date">
-  <time datetime="2019-08-14T09:24:59.000Z" itemprop="datePublished">2019-08-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/方班周记录/">方班周记录</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/14/2019-08-14-blockstack-src-code/">方班周记录-week7</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本周的任务是研究blockstack的开发，尽快上手blockstack的源码。还是那个原则，想要搞源码，必先会开发。</p>
-<h2 id="blockstack开发环境配置"><a class="markdownIt-Anchor" href="#blockstack开发环境配置"></a> Blockstack开发环境配置</h2>
-<h3 id="基本环境安装"><a class="markdownIt-Anchor" href="#基本环境安装"></a> 基本环境安装</h3>
-<p><a href="https://docs.blockstack.org/browser/hello-blockstack.html" target="_blank" rel="noopener">Blockstack development tutorial</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/14/2019-08-14-blockstack-src-code/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/14/2019-08-14-blockstack-src-code/" data-id="ck1d0zr2z000iyou3561wyuc0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码阅读/">源码阅读</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-08-12-arch-eyes-protect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/12/2019-08-12-arch-eyes-protect/" class="article-date">
-  <time datetime="2019-08-12T05:23:52.000Z" itemprop="datePublished">2019-08-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/12/2019-08-12-arch-eyes-protect/">KDE 5.12(xorg)护眼模式</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>由于原本的外界显示器自带过滤蓝光功能，所以一直都没管它，拔掉后发现6500K的色温太太太刺眼了。俗话说：“blue lignt make you foolish”，故必须采取措施。</p>
-<p>如果是基于Wayland的KDE，它会自带Night Mode功能，我这种坚定的Xorg党，是不可能有的。</p>
-<p>首先安装redshift，直接pacman就可以了。接下来增添GTK插件，右键右下角菜单Add Widgets，然后Get new widgets，找到跟redshift的安装就可以了。</p>
-<p>添加好了之后，在左下角会出现一个电灯泡一样的图标，我们就可以使用它来实现更方便的调整了。右键灯泡，设置一下。</p>
-<p>我的眼睛一般是早上5000K晚上3500K，这样比较舒服。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/12/2019-08-12-arch-eyes-protect/" data-id="ck1d0zr2x000eyou3vm0j5z4k" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
 
 </section>
         
