@@ -6,15 +6,20 @@
   
 
   
-  <title>归档: 2019/9 | Renne&#39;s Blog</title>
+  <title>小型化以太坊网络靶场部署(初版) | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/09/index.html">
+  <meta name="description" content="centos python安装，将默认的python2换成python3 非常暴力的做法，不建议在本地尝试。也就是安装完python3之后，直接把/usr/bin/python指向python3，会导致yum错误，将yum的脚本指向python2.7即可。 123yum install openssl-develhttps://zhuanlan.zhihu.com/p/38304696# 建议先">
+<meta name="keywords" content="区块链,以太坊,根域名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小型化以太坊网络靶场部署(初版)">
+<meta property="og:url" content="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="centos python安装，将默认的python2换成python3 非常暴力的做法，不建议在本地尝试。也就是安装完python3之后，直接把/usr/bin/python指向python3，会导致yum错误，将yum的脚本指向python2.7即可。 123yum install openssl-develhttps://zhuanlan.zhihu.com/p/38304696# 建议先">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-17T03:58:09.568Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="小型化以太坊网络靶场部署(初版)">
+<meta name="twitter:description" content="centos python安装，将默认的python2换成python3 非常暴力的做法，不建议在本地尝试。也就是安装完python3之后，直接把/usr/bin/python指向python3，会导致yum错误，将yum的脚本指向python2.7即可。 123yum install openssl-develhttps://zhuanlan.zhihu.com/p/38304696# 建议先">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,116 +72,77 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/26/2019-09-26-machine-learning-1/" class="archive-article-date">
-  <time datetime="2019-09-26T13:38:21.000Z" itemprop="datePublished">9月 26</time>
+        <section id="main"><article id="post-2019-10-17-micro-eth-network" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/17/2019-10-17-micro-eth-network/" class="article-date">
+  <time datetime="2019-10-17T03:47:17.000Z" itemprop="datePublished">2019-10-17</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/根域名/">根域名</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/26/2019-09-26-machine-learning-1/">机器学习记录(查准率、查全率、假设检验)</a>
+    <h1 class="article-title" itemprop="name">
+      小型化以太坊网络靶场部署(初版)
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">9月 4</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
-    </h1>
-  
+        <h2 id="centos-python安装将默认的python2换成python3"><a class="markdownIt-Anchor" href="#centos-python安装将默认的python2换成python3"></a> centos python安装，将默认的python2换成python3</h2>
+<p>非常暴力的做法，不建议在本地尝试。也就是安装完python3之后，直接把/usr/bin/python指向python3，会导致yum错误，将yum的脚本指向python2.7即可。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install openssl-devel</span><br><span class="line">https://zhuanlan.zhihu.com/p/38304696</span><br><span class="line"><span class="comment"># 建议先尝试一下pip能不能下载东西之后再做其他操作</span></span><br></pre></td></tr></table></figure>
+<h2 id="go语言安装"><a class="markdownIt-Anchor" href="#go语言安装"></a> Go语言安装</h2>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line">yum install go</span><br></pre></td></tr></table></figure>
+<h2 id="安装geth"><a class="markdownIt-Anchor" href="#安装geth"></a> 安装geth</h2>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ethereum/go-ethereum.git</span><br><span class="line">./configure &amp;&amp; make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h2 id="python-虚拟环境"><a class="markdownIt-Anchor" href="#python-虚拟环境"></a> python 虚拟环境</h2>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> bin/active</span><br><span class="line">pip install web3</span><br></pre></td></tr></table></figure>
+<h2 id="更改配置文件"><a class="markdownIt-Anchor" href="#更改配置文件"></a> 更改配置文件</h2>
+<p>更改IP和端口就可以了</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:24.000Z" itemprop="datePublished">9月 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/03/2019-09-03-ctf-summary/" class="archive-article-date">
-  <time datetime="2019-09-03T08:16:44.000Z" itemprop="datePublished">9月 3</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck1u6q3uz001r73u3xah9ej16" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/03/2019-09-03-gitignore/" class="archive-article-date">
-  <time datetime="2019-09-03T08:10:46.000Z" itemprop="datePublished">9月 3</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/17/2019-10-17-kill-process-or-jobs/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          linux进程和作业停止
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/10/08/2019-10-8-cryptography-homework/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">密码学乘法表生成作业</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         

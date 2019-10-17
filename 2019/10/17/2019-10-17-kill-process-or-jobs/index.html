@@ -6,15 +6,20 @@
   
 
   
-  <title>归档: 2019/9 | Renne&#39;s Blog</title>
+  <title>linux进程和作业停止 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/09/index.html">
+  <meta name="description" content="我们经常需要在后台启动进程，比如： 1nohup aaabbb.xx &amp;gt;log 2&amp;gt;&amp;amp;1 &amp;amp; 当要将这个进程杀掉的时候，有两种做法：  1. 用ps找到该进程pid，然后kill 12ps -efkill $pid  2. 用jobs找到作业号，然后kill 12jobskill -9 %1 两种方法的区别之处就是，一个是杀进程，一个是杀作业。单个作业可能产生多个进程，">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux进程和作业停止">
+<meta property="og:url" content="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="我们经常需要在后台启动进程，比如： 1nohup aaabbb.xx &amp;gt;log 2&amp;gt;&amp;amp;1 &amp;amp; 当要将这个进程杀掉的时候，有两种做法：  1. 用ps找到该进程pid，然后kill 12ps -efkill $pid  2. 用jobs找到作业号，然后kill 12jobskill -9 %1 两种方法的区别之处就是，一个是杀进程，一个是杀作业。单个作业可能产生多个进程，">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-17T04:08:51.212Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="linux进程和作业停止">
+<meta name="twitter:description" content="我们经常需要在后台启动进程，比如： 1nohup aaabbb.xx &amp;gt;log 2&amp;gt;&amp;amp;1 &amp;amp; 当要将这个进程杀掉的时候，有两种做法：  1. 用ps找到该进程pid，然后kill 12ps -efkill $pid  2. 用jobs找到作业号，然后kill 12jobskill -9 %1 两种方法的区别之处就是，一个是杀进程，一个是杀作业。单个作业可能产生多个进程，">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,116 +72,65 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/26/2019-09-26-machine-learning-1/" class="archive-article-date">
-  <time datetime="2019-09-26T13:38:21.000Z" itemprop="datePublished">9月 26</time>
+        <section id="main"><article id="post-2019-10-17-kill-process-or-jobs" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/17/2019-10-17-kill-process-or-jobs/" class="article-date">
+  <time datetime="2019-10-17T04:07:36.000Z" itemprop="datePublished">2019-10-17</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/26/2019-09-26-machine-learning-1/">机器学习记录(查准率、查全率、假设检验)</a>
+    <h1 class="article-title" itemprop="name">
+      linux进程和作业停止
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">9月 4</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
-    </h1>
-  
+        <p>我们经常需要在后台启动进程，比如：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup aaabbb.xx &gt;<span class="built_in">log</span> 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<p>当要将这个进程杀掉的时候，有两种做法：</p>
+<h3 id="1-用ps找到该进程pid然后kill"><a class="markdownIt-Anchor" href="#1-用ps找到该进程pid然后kill"></a> 1. 用ps找到该进程pid，然后kill</h3>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -ef</span><br><span class="line"><span class="built_in">kill</span> <span class="variable">$pid</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-用jobs找到作业号然后kill"><a class="markdownIt-Anchor" href="#2-用jobs找到作业号然后kill"></a> 2. 用jobs找到作业号，然后kill</h3>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">jobs</span></span><br><span class="line"><span class="built_in">kill</span> -9 %1</span><br></pre></td></tr></table></figure>
+<p>两种方法的区别之处就是，一个是杀进程，一个是杀作业。单个作业可能产生多个进程，如果能杀作业，一般选择杀作业</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:24.000Z" itemprop="datePublished">9月 4</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/03/2019-09-03-ctf-summary/" class="archive-article-date">
-  <time datetime="2019-09-03T08:16:44.000Z" itemprop="datePublished">9月 3</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck1u6q3v5002873u3sbjm33q8" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/03/2019-09-03-gitignore/" class="archive-article-date">
-  <time datetime="2019-09-03T08:10:46.000Z" itemprop="datePublished">9月 3</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/10/17/2019-10-17-micro-eth-network/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">小型化以太坊网络靶场部署(初版)</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
