@@ -6,15 +6,20 @@
   
 
   
-  <title>Tag: 实验 | Renne&#39;s Blog</title>
+  <title>dns区文件结构理解 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/实验/index.html">
+  <meta name="description" content="根区文件链接 理解区文件结构首先得知道真实的结构长什么样，先看一下根区文件的记录。  朴素dns  SOA记录 定义了权威服务器。将其中的一台名称解析服务器作为权威服务器，并定义各种元数据。 NS记录 记录域下的名称服务器 A记录 普通的域名-IP记录 CNAME记录 别名，一个域名的别名  dns解析的过程是从上往下的  DNSSEC 某博客-关于DNSSEC的理解 DNSSEC的RFC文件 d">
+<meta name="keywords" content="DNS,根域名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dns区文件结构理解">
+<meta property="og:url" content="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="根区文件链接 理解区文件结构首先得知道真实的结构长什么样，先看一下根区文件的记录。  朴素dns  SOA记录 定义了权威服务器。将其中的一台名称解析服务器作为权威服务器，并定义各种元数据。 NS记录 记录域下的名称服务器 A记录 普通的域名-IP记录 CNAME记录 别名，一个域名的别名  dns解析的过程是从上往下的  DNSSEC 某博客-关于DNSSEC的理解 DNSSEC的RFC文件 d">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-19T11:00:49.774Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="dns区文件结构理解">
+<meta name="twitter:description" content="根区文件链接 理解区文件结构首先得知道真实的结构长什么样，先看一下根区文件的记录。  朴素dns  SOA记录 定义了权威服务器。将其中的一台名称解析服务器作为权威服务器，并定义各种元数据。 NS记录 记录域下的名称服务器 A记录 普通的域名-IP记录 CNAME记录 别名，一个域名的别名  dns解析的过程是从上往下的  DNSSEC 某博客-关于DNSSEC的理解 DNSSEC的RFC文件 d">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,59 +72,79 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">9月 4</time>
+        <section id="main"><article id="post-2019-10-19-dns-dnssec-zone-file-structure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" class="article-date">
+  <time datetime="2019-10-19T10:58:55.000Z" itemprop="datePublished">2019-10-19</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/根域名/">根域名</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
+    <h1 class="article-title" itemprop="name">
+      dns区文件结构理解
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:24.000Z" itemprop="datePublished">9月 4</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
-    </h1>
-  
+        <p><a href="http://www.internic.net/domain/root.zone" target="_blank" rel="noopener">根区文件链接</a></p>
+<p>理解区文件结构首先得知道真实的结构长什么样，先看一下根区文件的记录。</p>
+<h2 id="朴素dns"><a class="markdownIt-Anchor" href="#朴素dns"></a> 朴素dns</h2>
+<ul>
+<li>SOA记录 定义了权威服务器。将其中的一台名称解析服务器作为权威服务器，并定义各种元数据。</li>
+<li>NS记录 记录域下的名称服务器</li>
+<li>A记录 普通的域名-IP记录</li>
+<li>CNAME记录 别名，一个域名的别名</li>
+</ul>
+<p>dns解析的过程是从上往下的</p>
+<h2 id="dnssec"><a class="markdownIt-Anchor" href="#dnssec"></a> DNSSEC</h2>
+<p><a href="https://imlonghao.com/41.html" target="_blank" rel="noopener">某博客-关于DNSSEC的理解</a><br>
+<a href="https://tools.ietf.org/html/rfc4034#page-15" target="_blank" rel="noopener">DNSSEC的RFC文件</a></p>
+<p>dnssec是朴素dns的安全扩展，增添了几个RR项来对dns记录进行验证</p>
+<ul>
+<li>DNSKEY 描述该文件用到的用来签名的公钥，由父区文件的DS域保证</li>
+<li>RRSIG 被其中的DNSKEY签名的，对应类型的多个RR的签名。</li>
+<li>DS 描述子区文件公钥的哈希值</li>
+<li>NSEC 好像是描述数据的布局？</li>
+</ul>
+<p>由此，某区文件的内容由其DNSKEY对应的私钥签名(RRSIG)验证，可以通过DNSKEY(公钥)来验证。</p>
+<p>而某区文件的DNSKEY可以由上一级的私钥签名，并放置于上一级区文件的DS域中。</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck1xgbfsm001b4nu3iad7wm47" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
+
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/10/17/2019-10-17-kill-process-or-jobs/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux进程和作业停止</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
