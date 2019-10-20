@@ -6,20 +6,22 @@
   
 
   
-  <title>使用ssh-key实现github的免密码上传 | Renne&#39;s Blog</title>
+  <title>根域名项目介绍 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用ssh-key实现github的免密码上传 每次登录个github都要输入用户名密码实在是太烦了，所以可以使用ssh-key既保证安全性，又能保证方便性。">
-<meta name="keywords" content="linux,github,ssh">
+  <meta name="description" content="阅读论文  张宇-一个自主开放的互联网根域名解析体系">
+<meta name="keywords" content="根域名">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用ssh-key实现github的免密码上传">
-<meta property="og:url" content="http://yoursite.com/2019/06/23/2019-06-23-linux-github免密码/index.html">
+<meta property="og:title" content="根域名项目介绍">
+<meta property="og:url" content="http://yoursite.com/2019/06/21/2019-06-21-local-root-union-desc/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="使用ssh-key实现github的免密码上传 每次登录个github都要输入用户名密码实在是太烦了，所以可以使用ssh-key既保证安全性，又能保证方便性。">
+<meta property="og:description" content="阅读论文  张宇-一个自主开放的互联网根域名解析体系">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-12T11:27:29.890Z">
+<meta property="og:image" content="http://yoursite.com/2019/06/21/weekly-record-week1/weekRecord-20190621-dns.png">
+<meta property="og:updated_time" content="2019-10-20T02:37:30.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用ssh-key实现github的免密码上传">
-<meta name="twitter:description" content="使用ssh-key实现github的免密码上传 每次登录个github都要输入用户名密码实在是太烦了，所以可以使用ssh-key既保证安全性，又能保证方便性。">
+<meta name="twitter:title" content="根域名项目介绍">
+<meta name="twitter:description" content="阅读论文  张宇-一个自主开放的互联网根域名解析体系">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/21/weekly-record-week1/weekRecord-20190621-dns.png">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -72,14 +74,14 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-2019-06-23-linux-github免密码" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2019-06-21-local-root-union-desc" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/06/23/2019-06-23-linux-github免密码/" class="article-date">
-  <time datetime="2019-06-23T09:33:43.000Z" itemprop="datePublished">2019-06-23</time>
+    <a href="/2019/06/21/2019-06-21-local-root-union-desc/" class="article-date">
+  <time datetime="2019-06-21T08:53:38.000Z" itemprop="datePublished">2019-06-21</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
+    <a class="article-category-link" href="/categories/根域名/">根域名</a>
   </div>
 
   </div>
@@ -90,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      使用ssh-key实现github的免密码上传
+      根域名项目介绍
     </h1>
   
 
@@ -98,23 +100,47 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>使用ssh-key实现github的免密码上传</p>
-<p>每次登录个github都要输入用户名密码实在是太烦了，所以可以使用ssh-key既保证安全性，又能保证方便性。</p>
+        <h2 id="阅读论文"><a class="markdownIt-Anchor" href="#阅读论文"></a> 阅读论文</h2>
+<h3 id="张宇-一个自主开放的互联网根域名解析体系"><a class="markdownIt-Anchor" href="#张宇-一个自主开放的互联网根域名解析体系"></a> 张宇-一个自主开放的互联网根域名解析体系</h3>
 <a id="more"></a>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen <span class="comment">#生成密钥对</span></span><br></pre></td></tr></table></figure>
-<p>然后将<code>id_rsa.pub</code>的内容复制下来，粘贴到github上</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></span><br><span class="line">ssh-add ~/.ssh/git_rsa</span><br><span class="line"><span class="comment">#添加私钥到ssh-agent，不用每次都输入passphrase</span></span><br><span class="line"></span><br><span class="line">ssh -T git@github.com <span class="comment">#测试一下行不行</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#如果通过的话就将origin或者你的远程仓库改一下</span></span><br><span class="line">git remote show origin</span><br><span class="line">git remote <span class="built_in">set</span>-url origin git@github.com:&lt;username&gt;/&lt;repository&gt;.git</span><br></pre></td></tr></table></figure>
-<p>试试传一下就可以了</p>
-<p>上面的方法试过之后发现重启一下就不行了，每次都要将跑一次前3行的代码很麻烦。原来在ssh的config文件里面加点东西就ok了。</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># github</span></span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/github_id_rsa</span><br></pre></td></tr></table></figure>
+<p>这篇文章主要讲述了现今根域名体系潜藏的权利滥用风险，提出了一个以构建根联盟为核心的解决方案。</p>
+<h4 id="现今的dns解析体系"><a class="markdownIt-Anchor" href="#现今的dns解析体系"></a> 现今的DNS解析体系</h4>
+<p>现今的DNS解析体系是一个树形的结构，比如在访问谷歌翻译(<a href="http://translate.google.com" target="_blank" rel="noopener">translate.google.com</a>)时，先从根开始解析，接着访问顶级域名(TLD)com的DNS解析服务器，<a href="http://xn--google-hb9lx1opt0c.com" target="_blank" rel="noopener">接着是google.com</a>，然后就拿到traslate.google.com的ip地址。</p>
+<p><img src="/2019/06/21/weekly-record-week1/weekRecord-20190621-dns.png" alt="现今DNS体系"></p>
+<h4 id="现今根域名服务器的风险"><a class="markdownIt-Anchor" href="#现今根域名服务器的风险"></a> 现今根域名服务器的风险</h4>
+<p>由图中我们可以知晓，我们在访问任何网站时，都必须经过根域名服务器对顶级域名的解析。</p>
+<!--现根域名系统使用13台根服务器来管理，其中包括一台位于美国的主根服务器，12台辅根服务器，其中9台位于美国，2台位于欧洲，1台位于日本。-->
+<p>这些关键的信息由IANA来管理，而IANA的职能被分为两部分，ICANN管理TLD的注册和授权，威瑞信公司负责根区数据的维护。而这样的结构会产生权力滥用的风险：</p>
+<ol>
+<li>
+<p>消失性风险</p>
+<p>指从根区数据中删除指定TLD的数据，让网络用户无法访问此TLD下的网站。2004年，美国曾终止.ly的服务，使得利比亚从网络消失了3天</p>
+</li>
+<li>
+<p>致盲性风险</p>
+<p>指根服务器拒绝对某范围内的递归服务器提供解析服务，使相关用户无法得到域名解析服务</p>
+</li>
+</ol>
+<h4 id="新体系设计"><a class="markdownIt-Anchor" href="#新体系设计"></a> 新体系设计</h4>
+<p>为了避免以上的重大风险，我们需要设计一个新体系。核心就是保留IANA对于TLD的授权，仍然负责TLD的分配;而DNS解析由根联盟负责，根联盟由各参与国的国家根节点独立提供根区解析服务，并实现去中心化的数据共享。</p>
+<p>该新体系对于上面所说的两种风险都能很好的防范。</p>
+<p>首先是消息性风险，由于根联盟内的国家根都已经交换过ccTLD的信息，故就算某ccTLD被从原根抹去，联盟国的其他成员仍然能从根联盟中获取到其ccTLD的信息。</p>
+<p>然后是致盲性风险，就算某根联盟参与国被原根拒绝服务，它也能从根联盟内获取到别的TLD的信息</p>
+<h4 id="新系统增量"><a class="markdownIt-Anchor" href="#新系统增量"></a> 新系统增量</h4>
+<ol>
+<li>增加根联盟服务器作为权威服务器与原根服务器并存</li>
+<li>根联盟的参与国将向IANA提供的ccTLD注册信息以及其他TLD注册信息向根联盟的国家根机构报备即可。</li>
+</ol>
+<h2 id="本周其他内容"><a class="markdownIt-Anchor" href="#本周其他内容"></a> 本周其他内容</h2>
+<p><a href="/2019/06/21/ML-week1/">斯坦福公开课第一周记录</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/23/2019-06-23-linux-github免密码/" data-id="ck1ydpnj60000jeu3yfx3y0br" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/21/2019-06-21-local-root-union-desc/" data-id="ck1ydpnj90001jeu30an69625" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
 
     </footer>
   </div>
@@ -122,20 +148,15 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/06/25/2019-06-25-初见比特币和区块链/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/06/21/2019-06-21-ML-week1/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          从零开始的区块链与域名系统的学习
+          机器学习斯坦福公开课
         
       </div>
     </a>
   
-  
-    <a href="/2019/06/21/2019-06-20-archlinux/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Arch+KDE桌面安装流程记录</div>
-    </a>
   
 </nav>
 
