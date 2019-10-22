@@ -69,6 +69,284 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2019-10-22-consenus-algorithm-RAFT-and-PBFT" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/" class="article-date">
+  <time datetime="2019-10-22T10:21:24.000Z" itemprop="datePublished">2019-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/">共识算法PBFT和RAFT</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="公链-私链和联盟链"><a class="markdownIt-Anchor" href="#公链-私链和联盟链"></a> 公链、私链和联盟链</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/42764077" target="_blank" rel="noopener">什么是侧链 、公链、私链、联盟链？-知乎</a></p>
+<p><a href="https://bihu.com/article/1960307546" target="_blank" rel="noopener">一文搞懂公链、私链、联盟链 - 币乎</a></p>
+<p><a href="https://www.jianshu.com/p/7073be8e60e6" target="_blank" rel="noopener">区块链，私链，公链，联盟链之我见 - 简书</a></p>
+<p>通常，我们将完整的区块链三种形式：公链、私链、联盟链。其中我们接触得最多得肯定是公链，因为刚入门区块链技术时，肯定都是先研究比特币和以太坊，然后再开始其它方面的研究。而比特币、以太坊都是公链。</p>
+<p>三种链都是去中心化可增长的分布式数据库，而三种链的区别就在于它的权限问题(在名字里就已经体现出来了)。</p>
+<ul>
+<li>
+<p><strong>私链</strong>是所有人都可以搭建的属于自己的区块链，私链上所有节点都是完全可信的，也就是只存在故障节点，不存在恶意节点。其实如果放在拜占庭将军问题里面，解决的就是几个<em>心腹将领</em>间的沟通。在区块链技术中，私链可使用RAFT算法达成共识。</p>
+</li>
+<li>
+<p><strong>联盟链</strong>是由几个组织共同维护的属于集体的区块链。与私链的区别是，除了故障节点外，还可能存在少部分的作恶节点。解决的就是一支想一同攻打罗马帝国的<em>联合军队</em>中的决策问题，里面可能由叛徒。在区块链技术中，私链可使用PBFT算法达成共识。</p>
+</li>
+<li>
+<p><strong>公链</strong>是一个所有人都可以参与读写的区块链。公链上的数据都是完全公开的，作恶节点的数量相对会比联盟链多很多。解决的是多个存在利益冲突的<em>国家</em>的协商问题。在区块链技术中，公链可使用PoW、PoS、DPoS等多种算法达成共识。</p>
+</li>
+</ul>
+<p>一般上来讲，私链和联盟链的节点数量都和公链没得比，因此可以将负载转移到网络流量上，从而减少算力的消耗。</p>
+<h2 id="拜占庭将军问题"><a class="markdownIt-Anchor" href="#拜占庭将军问题"></a> 拜占庭将军问题</h2>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">拜占庭将军问题-wikipeida</a></p>
+<p><a href="https://baike.baidu.com/item/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">拜占庭将军问题-百度百科</a></p>
+<p>拜占庭将军问题其实很简单，就是一堆忠诚的将军想要对某个决策达成一致的问题。在技术上讲，就是在p2p网络中，假设信道可靠，多个节点如何达成共识的问题。</p>
+<h2 id="私链记账权算法raft"><a class="markdownIt-Anchor" href="#私链记账权算法raft"></a> 私链记账权算法RAFT</h2>
+<p><a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">RAFT算法动画</a></p>
+<p>RAFT算法很简单，就是将节点分为三种角色：随从(follower)、候选人(cardidate)、领导人(leader)。算法分为两个过程：选举过程和数据分发过程。</p>
+<ol>
+<li>选举过程是在某个时刻，某一节点已长时间没收到领导者发来的心跳包时，将成为后选择，并广播请求投票的消息，每个节点在每一轮只能投一票。当候选者票数过半时，成为领导者。</li>
+<li>当客户端节点传来数据时，数据都会被发送至领导者进行打包，由领导者向外发布新区块。</li>
+<li>当领导者节点出现故障时，随从们就会因长时间没有接收到领导者心跳包而进入下一轮选举。</li>
+<li>当网络出现分裂时，由于需要过半数量的票才能成为领导者，所以最多仅有一个网络出现新领导者，因此分叉不会过于严重。当网络恢复时，状态较老的节点需要回滚自己的状态，并与现有的领导者达成共识。</li>
+</ol>
+<p>RAFT只能用于私链，作恶节点，RAFT不可行</p>
+<h2 id="联盟链记账权算法pbft"><a class="markdownIt-Anchor" href="#联盟链记账权算法pbft"></a> 联盟链记账权算法PBFT</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/35847127" target="_blank" rel="noopener">共识算法系列之一：raft和pbft算法 - 知乎</a></p>
+<p><a href="https://medium.com/taipei-ethereum-meetup/intro-to-pbft-31187f255e68" target="_blank" rel="noopener">若想搞懂區塊鏈就不能忽視的經典：PBFT</a></p>
+<p>PBFT是在1999年时被提出的，它使用了一个状态机来维护节点状态，它通过对每个节点进行编号，接着让每个节点轮流当选主节点。</p>
+<p>消息广播(pre-prepare)：当主节点接收到client发来的消息，并确认想要将这部分的信息在网络达成共识；它会先将这些信息<em>广播</em>到所有从节点上，让从节点知道即将达成共识的新消息。</p>
+<p>预备(prepare)：当从节点接收到<em>广播</em>的消息后，如果同意该消息，即向网络广播<em>预备</em>的消息。如果某节点收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>预备</em>消息，则进入预备状态。</p>
+<p>执行(commit)：若已进入预备状态的节点同意该区块的消息，则广播<em>执行</em>的消息。如果某节点收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>执行</em>的消息，则进入已执行状态。如果在一定时间内没有收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>执行</em>的消息，则可以向网络广播<em>变更</em>的消息。同样，如果某节点收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>变更</em>的消息时，则进入新的阶段，从消息广播开始执行。</p>
+<p>PBFT的好处是执行非常快，耗费设备资源少，它被应用在了hyperledger fabric和EOS的联盟链部分。但缺点就是经常要向全网广播消息，网络资源负载很大。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/" data-id="ck21pcrjx001l4yu3gp8oolhs" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2019-10-22-eth-experiment-adv-summery" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/22/2019-10-22-eth-experiment-adv-summery/" class="article-date">
+  <time datetime="2019-10-22T10:17:43.000Z" itemprop="datePublished">2019-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/根域名/">根域名</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/22/2019-10-22-eth-experiment-adv-summery/">以太坊实验第二阶段总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一个阶段的实验，总结起来一个字就是“<strong>菜</strong>”。这次的实验，<strong>菜</strong>依然是一个主题，但不仅仅是<strong>菜</strong>，还有<strong>瞎</strong>，也就是什么都没看到。</p>
+<p>做这次的实验之前，其实我根本不知道自己在做什么，也许就是想洗一下上次实验的雪耻罢了，结果就是跳进黄河里去洗了。</p>
+<p>这次实验得出的经验就是，做什么事情之前，都必须得先做事前调查，知道你自己在做什么。不仅如此，还要知道你自己在做的本质是什么。</p>
+<p>大约是10月12日前后，老师叫我把这个系统写成workshop发出去，当一篇EI。我当时虽然内心波动并不是很大，毕竟这种到最后落空的事情我可是见多了，但还是感觉到有一点小小的期望。</p>
+<p><a href="/2019/10/22/2019-10-22-eth-experiment-adv-structure/">架构的链接</a></p>
+<p>说得好像很有道理的样子喔，呵呵，我都想在702挖个洞钻进去了，可惜破坏建筑要罚款甚至开除罢了。</p>
+<p>其实这个东西我可以把它抽象成一个区块链的应用，也就是极其弱化版的blockstack。</p>
+<p>网络节点分类部分，矿工节点就是比特币网络，而交易节点就是普通的blockstack客户端节点。网络部分设计就是把功能删除到只剩下接入的blockstack altas。交易的执行就别说了，讲的我都脸红了，就是调一下以太坊的库都能吹成这样，我也是醉了。交易同步和交易验证其实就是弱化到不能再弱化的Blockstack虚拟链。通知功能也是，就是，就是，就是啥呢？我tm也不知道，反正就是个垃圾。</p>
+<p>本次的失败的根源在于两点：</p>
+<ol>
+<li>对区块链了解不深，连区块链应用是什么都不知道；</li>
+<li>对自己做的东西的需求了解不够彻底，导致了做了个什么鬼都不知道。</li>
+</ol>
+<p>那对于区块链方向，需要做的有六点：</p>
+<ol>
+<li>增加对区块链，链的了解，也就是联盟链(hyperledger为代表)</li>
+<li>增加对共识算法的了解，比如PoS、PBFT等</li>
+<li>增加对智能合约的了解，比如以太坊Solidity，<code>EOS.IO</code></li>
+<li>增加对区块链应用的了解，比如类blockstack平台的了解</li>
+<li>增加对侧链协议的了解，比如怎么从eth上转到btc</li>
+<li>增加对区块链安全基础的了解，知道有什么大事就好了，比如粉尘攻击事件、The DAO事件、黑色情人节事件等</li>
+</ol>
+<p>对于人的方向，我不想写上来了，害羞、脸红，匿了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-summery/" data-id="ck21pcrk0001r4yu3a1ieimfo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2019-10-22-eth-experiment-adv-structure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/22/2019-10-22-eth-experiment-adv-structure/" class="article-date">
+  <time datetime="2019-10-22T10:12:53.000Z" itemprop="datePublished">2019-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/根域名/">根域名</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/22/2019-10-22-eth-experiment-adv-structure/">小型以太坊网络架构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="系统架构"><a class="markdownIt-Anchor" href="#系统架构"></a> 系统架构</h2>
+<p>系统整理的设计思路。</p>
+<p>需要解决哪些问题。</p>
+<p>小型以太坊网络是小型以太坊网络节点的集合。 因此，本节从两个方面讨论网络的体系结构：节点的类型和节点的功能结构。.</p>
+<h3 id="节点的类型"><a class="markdownIt-Anchor" href="#节点的类型"></a> 节点的类型</h3>
+<p>网络上的所有节点都通过P2P连接。 网络上有3种节点：公开节点，矿工节点和交易节点。</p>
+<p>公开节点负责为其他节点访问网络提供公共地址。 当新节点加入网络时，它首先与公开节点之一建立连接，然后通过P2P访问其他节点。</p>
+<p>矿工节点负责为网络提供计算能力。 网络运行时，它将继续提供计算能力来挖掘新块。 由于区块链平台的安全性，因此提供了合理的共识算法和强大的计算能力。 因此，矿工节点的设计是必要的。</p>
+<p>客户端节点负责提供一系列用户操作接口，它在网络中充当边缘节点。（很迷，不知道怎么定义比较好）</p>
+<h3 id="节点的功能结构"><a class="markdownIt-Anchor" href="#节点的功能结构"></a> 节点的功能结构</h3>
+<p>存在的问题：没有提到geth、web3.py与这些功能的关系</p>
+<p>节点的功能结构相似。 它由4个模块组成，分别是访问模块，交易同步模块，交易执行模块和通知模块。</p>
+<h4 id="接入模块"><a class="markdownIt-Anchor" href="#接入模块"></a> 接入模块</h4>
+<p>该模块运行在，新节点正在连接时以及公开节点正等待访问时。 当公开节点正在等待访问时，此模块负责为新访问节点提供网络地址。 对于要访问网络的新节点，此模块负责根据此公开节点已公开的IP地址和端口来查找其P2P地址。</p>
+<h4 id="交易执行模块"><a class="markdownIt-Anchor" href="#交易执行模块"></a> 交易执行模块</h4>
+<p>交易执行模块负责执行客户端发送的与交易相关的请求。 请求包括发送交易和从区块链获取交易信息。其他模块通过此模块访问区块链上的数据。</p>
+<h4 id="交易同步及验证模块"><a class="markdownIt-Anchor" href="#交易同步及验证模块"></a> 交易同步及验证模块</h4>
+<p>交易同步和验证模块负责获取数据并实时从区块链进行验证。它定期检查区块链上是否有更新数据，并根据用户提供的验证方法验证数据的正确性。然后，如果有正确的数据更新了，就向通知模块发出通知请求。</p>
+<h4 id="通知模块"><a class="markdownIt-Anchor" href="#通知模块"></a> 通知模块</h4>
+<p>当有新的验证通过的数据时，通知模块负责将通知的信息发布出去。然后，通知模块根据用户提供的通知方法发送通知。</p>
+<h2 id="系统设计"><a class="markdownIt-Anchor" href="#系统设计"></a> 系统设计</h2>
+<p>该网络基于以太坊的go实现“ geth”和SDK <a href="http://web3.py" target="_blank" rel="noopener">web3.py</a>，并由python开发。 它的设计由3层组成，包括区块链层，执行层和应用层。</p>
+<h3 id="区块链层"><a class="markdownIt-Anchor" href="#区块链层"></a> 区块链层</h3>
+<p>区块链层由geth实现。它负责交易和区块的共识。该层是网络的最低层，负责达成区块链的共识。</p>
+<h3 id="执行层"><a class="markdownIt-Anchor" href="#执行层"></a> 执行层</h3>
+<p>执行层是网络的主要部分。 该层通过web3.py连接到区块链层，并通过IPC进行通信。 执行层的设计包括三个过程部分：网络初始化，新节点参与和事务执行。</p>
+<h4 id="网络初始化"><a class="markdownIt-Anchor" href="#网络初始化"></a> 网络初始化</h4>
+<p>应该通过首先启动公开节点来初始化网络，该公开节点用于公开网络的第一个访问地址。 然后，其他节点可以根据暴露的地址访问网络。</p>
+<h4 id="新节点加入"><a class="markdownIt-Anchor" href="#新节点加入"></a> 新节点加入</h4>
+<p>新节点从一个公开节点中选择一个访问地址作为其第一个对等地址。节点的对等地址用于引导该节点向哪些节点广播其交易。之后，新节点通过P2P接入网络。</p>
+<p>查找第一个对等地址的操作将循环执行，直到成功为止。 操作完成后，三种类型的节点开始其独特的工作。 公开节点开始等待其他新节点接入网络。 矿工节点开始为网络提供计算能力。（客户端节点开始。。。）</p>
+<h4 id="交易执行"><a class="markdownIt-Anchor" href="#交易执行"></a> 交易执行</h4>
+<p>这部分是事务执行模块的主要过程。 它使用web3.py库通过IPC连接到以太坊节点“ geth”。 其他模块通过这一部分与区块链层进行交互。 它负责将用户的交易广播到区块链上。</p>
+<h3 id="应用层"><a class="markdownIt-Anchor" href="#应用层"></a> 应用层</h3>
+<p>应用层是网络的扩展层，可为网络提供强大的可扩展性。 它可以通过以下两个部分更改交易的数据格式，验证方法和通知方法来提供扩展。</p>
+<h4 id="交易同步"><a class="markdownIt-Anchor" href="#交易同步"></a> 交易同步</h4>
+<p>交易同步操作主要负责通过执行层提供的服务实时将数据从区块链层同步到应用层。</p>
+<p>它使用元数据文件记录最后记录的块的块高和哈希值。 每次同步操作开始执行时，它首先检查记录在元数据文件中的块信息是否与区块链一致。 如果不是，则可以解释为状态不正确，区块链的交易和状态已回滚，并且需要更新错误的数据。如果与区块链信息匹配且区块高度被更新，则更新区块的交易信息将从区块链层获取。</p>
+<h4 id="交易验证"><a class="markdownIt-Anchor" href="#交易验证"></a> 交易验证</h4>
+<p>交易验证操作主要负责验证同步操作收集到的交易。验证方法由用户提供，为网络提供了良好的可扩展性。如果有任何交易通过验证，则将信号发送到通知模块以发送通知。</p>
+<h4 id="通知"><a class="markdownIt-Anchor" href="#通知"></a> 通知</h4>
+<p>通知操作主要负责在接收到交易验证操作提供的信号时发送通知。 通知可以由用户定义，这也为网络提供了良好的可伸缩性。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-structure/" data-id="ck21pcrk1001v4yu3y0uaqize" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2019-10-22-python-knowledge" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/22/2019-10-22-python-knowledge/" class="article-date">
+  <time datetime="2019-10-22T01:57:49.000Z" itemprop="datePublished">2019-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/22/2019-10-22-python-knowledge/">python基本库的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于小型化以太坊网络是第一次进行的python大项目的开发，所以于到了非常多的坑，因此写篇博客记录一下。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/10/22/2019-10-22-python-knowledge/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-python-knowledge/" data-id="ck21pcrk1001t4yu3c17owg1f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2019-10-19-dns-dnssec-zone-file-structure" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" class="article-date">
@@ -105,7 +383,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck1ydpnkp002hjeu3qhpgpbk4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck21pcrk400264yu33z5u5zm3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -155,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck1ydpnko002ajeu3n6il9xzp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck21pcrju00194yu3a2e2yj9s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -202,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck1ydpnkr002ojeu3vglnkcf1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck21pcrk2001z4yu33on5ooql" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -246,7 +524,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck1ydpnks002tjeu32ckg37m7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck21pcrk300224yu3g2hetlnw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -292,7 +570,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/" data-id="ck1ydpnko002ejeu3b95ivu4y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/" data-id="ck21pcrjv001d4yu30vm0v8d9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
@@ -362,211 +640,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/" data-id="ck1ydpnkm0026jeu3q7jac2e1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/" data-id="ck21pcrjt00154yu3zls17dg2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-04-eth-web3js-summary-2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="article-date">
-  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">2019-09-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/根域名/">根域名</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="实验介绍"><a class="markdownIt-Anchor" href="#实验介绍"></a> 实验介绍</h2>
-<h3 id="master节点和slave节点"><a class="markdownIt-Anchor" href="#master节点和slave节点"></a> master节点和slave节点</h3>
-<p>实验用的节点分为两类，包括1个master节点，和n个slave节点。</p>
-<ul>
-<li>master节点</li>
-</ul>
-<p>master节点主要功能包括接收slaves心跳包、同步区块、向slaves节点发送发交易的命令。</p>
-<ul>
-<li>slave节点</li>
-</ul>
-<p>slave节点主要功能包括向master发送心跳包、同步区块、根据master的命令发送交易</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-2/" data-id="ck1ydpnkl0023jeu3mkr6963h" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-04-eth-web3js-summary-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" class="article-date">
-  <time datetime="2019-09-04T06:35:24.000Z" itemprop="datePublished">2019-09-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/根域名/">根域名</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个实验做的简直都不是一般的烂，烂到不知道用什么词语去形容比较好。由于还有下一部分的实验要完成，所以写一篇总结引以为戒。</p>
-<p>上一份这么烂的代码是我在大二时写出来的，所以本身表达不这么丰富的我真的找不到什么文明的词语来形容此次的代码。</p>
-<p>这一部分主要介绍geth和其对应的web3.js库的运用。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-1/" data-id="ck1ydpnki001wjeu39dqu3m4o" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-03-ctf-summary" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/2019-09-03-ctf-summary/" class="article-date">
-  <time datetime="2019-09-03T08:16:44.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>8月20日开始，我们来到了鹏城实验室参加了夏令营。由于一直适应着之前那种轻松的氛围，突然来到了这种那么紧张的环境让我有点不习惯。早上8点半到晚上10点的生活，让我一开始特别不适应。幸好，这点用了四五天时间就调整过来了。</p>
-<p>这段时间我们主要学习了不少网安的知识，由于自己之前对网安的了解仅限于那14天的课程，对知识的理解非常不深入。这次的夏令营让我巩固了之前学到的知识，这次的授课内容根据ctf竞赛的题型分类，主要包括web、密码学、misc、二进制漏洞、逆向五部分。授课的时候讲的比较快，有不少东西不太听得明白。</p>
-<p>学习了这几天课程的最主要收获就是知道了熟练运用工具的重要性，无论是干开发还是搞研究，运用了正确的工具能使开发效率提升数倍。而且熟练运用各种工具对学习基础知识也会有非常大的帮助。</p>
-<p>因为我个人对ctf这种竞赛不太感兴趣，所以基本专注于与实际开发有直接关系的知识。学习web部分得到的最大的收获就是深刻知晓了php这语言在实现上具有非常多的漏洞，如果在实际开发时有安全需求，选择这门语言做开发时必须谨慎。其次就是知道了hackbar这浏览器插件，在实际开发过程中，经常会运用到各种各样的编解码，请求包的发送等，这工具已经大幅度提升了我的开发效率。</p>
-<p>学习密码学部分最主要的收获就是懂得了椭圆形曲线算法的原理，等有空的时候，也许可以尝试试着敲一遍深入理解。</p>
-<p>misc这部分就像是在玩一样，也许winhex能让我们更好判断文件类型吧。pwn和reverse这部分就让我懂得了怎么样使用gdb和吾爱破解的工具包。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-ctf-summary/" data-id="ck1ydpnkg001ljeu33o773bwe" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-03-gitignore" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/2019-09-03-gitignore/" class="article-date">
-  <time datetime="2019-09-03T08:10:46.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先，先创建.gitignore。之后运行git忽略文件即可</p>
-<p>gitignore文件格式样例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*/__pycache__</span><br><span class="line">private/*</span><br><span class="line">naming/*</span><br><span class="line">log/*</span><br></pre></td></tr></table></figure>
-<p>命令行：</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'update .gitignore'</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-gitignore/" data-id="ck1ydpnkg001ojeu3hoh54ndz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
     </footer>
   </div>
@@ -600,7 +677,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
     </div>
   </div>
 
@@ -610,7 +687,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/arch/" style="font-size: 16.67px;">arch</a> <a href="/tags/blockstack/" style="font-size: 13.33px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/linux/" style="font-size: 18.33px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.67px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 13.33px;">node.js</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/以太坊/" style="font-size: 16.67px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/实验/" style="font-size: 11.67px;">实验</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.67px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.67px;">概率论</a> <a href="/tags/比特币/" style="font-size: 13.33px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.67px;">源码</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/编程语言/" style="font-size: 10px;">编程语言</a>
+      <a href="/tags/DNS/" style="font-size: 14.29px;">DNS</a> <a href="/tags/arch/" style="font-size: 15.71px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.86px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/github/" style="font-size: 11.43px;">github</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.43px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.86px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/以太坊/" style="font-size: 17.14px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/实验/" style="font-size: 14.29px;">实验</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/机器学习/" style="font-size: 12.86px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 17.14px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.43px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.86px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.43px;">源码</a> <a href="/tags/算法/" style="font-size: 11.43px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.43px;">编程语言</a>
     </div>
   </div>
 
@@ -632,23 +709,23 @@
       <ul>
         
           <li>
+            <a href="/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/">共识算法PBFT和RAFT</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/22/2019-10-22-eth-experiment-adv-summery/">以太坊实验第二阶段总结</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/22/2019-10-22-eth-experiment-adv-structure/">小型以太坊网络架构</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/22/2019-10-22-python-knowledge/">python基本库的使用</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/">dns区文件结构理解</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/17/2019-10-17-kill-process-or-jobs/">linux进程和作业停止</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/17/2019-10-17-micro-eth-network/">小型化以太坊网络靶场部署(初版)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/08/2019-10-8-cryptography-homework/">密码学乘法表生成作业</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/05/2019-10-05-ml-classified-1/">机器学习-极大似然和对数几率回归（浅入）</a>
           </li>
         
       </ul>
