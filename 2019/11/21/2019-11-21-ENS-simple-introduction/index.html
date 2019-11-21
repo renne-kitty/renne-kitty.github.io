@@ -6,20 +6,20 @@
   
 
   
-  <title>区块链的名称系统——namecoin和blockstack | Renne&#39;s Blog</title>
+  <title>ENS简要介绍 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="首先讲一下老师对我们看论文的时候提出的要求：  这篇文章解决了什么问题 对于这个问题别人曾经提出过什么样的方案 作者提出了什么样的新方案 这个解决方案到底有什么样的好处">
-<meta name="keywords" content="区块链,DNS,namecoin,blockstack">
+  <meta name="description" content="ENS(Ethereum Naming Service)，以太坊名称服务，其实就是在以太坊平台向用户提供了如何使用智能合约来实现名称解析的一个范例。 如果用户可以通过部署自己的合约来实现自己想要的名称解析服务。要是不喜欢它合约逻辑的话，有能力的完全可以更改其逻辑然后部署。 ENS官方文档 ENS解析器-github.com ENS注册器-github.com">
+<meta name="keywords" content="区块链,DNS,以太坊">
 <meta property="og:type" content="article">
-<meta property="og:title" content="区块链的名称系统——namecoin和blockstack">
-<meta property="og:url" content="http://yoursite.com/2019/07/10/2019-07-10-blockstack-firstmeet/index.html">
+<meta property="og:title" content="ENS简要介绍">
+<meta property="og:url" content="http://yoursite.com/2019/11/21/2019-11-21-ENS-simple-introduction/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="首先讲一下老师对我们看论文的时候提出的要求：  这篇文章解决了什么问题 对于这个问题别人曾经提出过什么样的方案 作者提出了什么样的新方案 这个解决方案到底有什么样的好处">
+<meta property="og:description" content="ENS(Ethereum Naming Service)，以太坊名称服务，其实就是在以太坊平台向用户提供了如何使用智能合约来实现名称解析的一个范例。 如果用户可以通过部署自己的合约来实现自己想要的名称解析服务。要是不喜欢它合约逻辑的话，有能力的完全可以更改其逻辑然后部署。 ENS官方文档 ENS解析器-github.com ENS注册器-github.com">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-20T02:41:29.655Z">
+<meta property="og:updated_time" content="2019-11-21T13:15:07.424Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="区块链的名称系统——namecoin和blockstack">
-<meta name="twitter:description" content="首先讲一下老师对我们看论文的时候提出的要求：  这篇文章解决了什么问题 对于这个问题别人曾经提出过什么样的方案 作者提出了什么样的新方案 这个解决方案到底有什么样的好处">
+<meta name="twitter:title" content="ENS简要介绍">
+<meta name="twitter:description" content="ENS(Ethereum Naming Service)，以太坊名称服务，其实就是在以太坊平台向用户提供了如何使用智能合约来实现名称解析的一个范例。 如果用户可以通过部署自己的合约来实现自己想要的名称解析服务。要是不喜欢它合约逻辑的话，有能力的完全可以更改其逻辑然后部署。 ENS官方文档 ENS解析器-github.com ENS注册器-github.com">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -72,10 +72,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-2019-07-10-blockstack-firstmeet" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2019-11-21-ENS-simple-introduction" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/10/2019-07-10-blockstack-firstmeet/" class="article-date">
-  <time datetime="2019-07-10T14:20:25.000Z" itemprop="datePublished">2019-07-10</time>
+    <a href="/2019/11/21/2019-11-21-ENS-simple-introduction/" class="article-date">
+  <time datetime="2019-11-21T13:12:31.000Z" itemprop="datePublished">2019-11-21</time>
 </a>
     
   <div class="article-category">
@@ -90,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      区块链的名称系统——namecoin和blockstack
+      ENS简要介绍
     </h1>
   
 
@@ -98,56 +98,44 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>首先讲一下老师对我们看论文的时候提出的要求：</p>
-<ol>
-<li>这篇文章解决了什么问题</li>
-<li>对于这个问题别人曾经提出过什么样的方案</li>
-<li>作者提出了什么样的新方案</li>
-<li>这个解决方案到底有什么样的好处</li>
-</ol>
+        <p>ENS(Ethereum Naming Service)，以太坊名称服务，其实就是在以太坊平台向用户提供了如何使用智能合约来实现名称解析的一个范例。</p>
+<p>如果用户可以通过部署自己的合约来实现自己想要的名称解析服务。要是不喜欢它合约逻辑的话，有能力的完全可以更改其逻辑然后部署。</p>
+<p><a href="https://docs.ens.domains/" target="_blank" rel="noopener">ENS官方文档</a></p>
+<p><a href="https://github.com/ensdomains/resolvers" target="_blank" rel="noopener">ENS解析器-github.com</a></p>
+<p><a href="https://github.com/ensdomains/ens" target="_blank" rel="noopener">ENS注册器-github.com</a></p>
 <a id="more"></a>
-<p>这周研究的论文和上星期的一样：</p>
-<h2 id="an-empirical-study-of-namecoin-and-lessons-for-decentralized-namespace-design"><a class="markdownIt-Anchor" href="#an-empirical-study-of-namecoin-and-lessons-for-decentralized-namespace-design"></a> <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.698.4605&amp;rep=rep1&amp;type=pdf" target="_blank" rel="noopener">An empirical study of Namecoin and lessons for decentralized namespace design</a></h2>
-<p>这篇文章标题翻译过来就是&quot;关于namecoin和去中心化命名空间的实例研究&quot;</p>
-<p>首先，解释一下标题，什么叫做命名空间，原文说的&quot;A namespace, as we define it, is an online system that maps names to values. &quot;，翻译一下就是，namespace就是一个在线的key-value，应该根redis类似。DNS服务很明显就是一个命名空间的例子，域名-IP的结构。本文的作者就是以DNS服务为例子，通过研究namecoin的实现，解决关于去中心化命名空间的问题。</p>
-<p>这篇文章将namecoin中的域名-IP的体系抽象了出来，成了key-value体系，也就是namespace，围绕这如何以区块链的方式实现这种体系作了研究。通过各种各样的测试知道namecoin的体系是不完善有不少欠缺的体系。</p>
-<p>namecoin的大体实现方式在<a href="https://renne444.github.io/2019/06/25/2019-06-25-%E5%88%9D%E8%A7%81%E6%AF%94%E7%89%B9%E5%B8%81%E5%92%8C%E5%8C%BA%E5%9D%97%E9%93%BE/" target="_blank" rel="noopener">上周的总结</a>里面已经详细讲过了，这里就不再赘述。这里主要讲讲namespace模型中一些特点和不足之处。</p>
-<h3 id="基于加密货币的namespace模型的不足之处"><a class="markdownIt-Anchor" href="#基于加密货币的namespace模型的不足之处"></a> 基于加密货币的namespace模型的不足之处</h3>
-<ol>
-<li>
-<p>稀缺的key(Names are scarce)，如果key都是唯一的且任由用户定义，则很多有意义的key很快就被会占用，比如google.bit这种很抢手的域名。这个问题曾提出过很多种解决方式，其中就是uid，还有就是Zooko提出的使用公开密钥指纹-key的体系。只是这样的方式会使得key就是一个哈希串没有实际意义，不像&quot;google&quot;那样明了。</p>
-</li>
-<li>
-<p>商标的保护。在中心化系统中，只要建立一些仲裁的机制就可以保护商标不被滥用，比如在域名系统中，ICANN建立了UDRP(Uniform Domain-Name Dispute-Resolution Policy)来解决这类问题。而在去中心化系统中，这种问题至今没有解决办法，没办法证明哪个人是该商标的拥有者。</p>
-</li>
-<li>
-<p>非法占用。举个例子吧，我抢注了一个域名，比如<code>bilibili.com</code>，然后我开高价想要把这个域名卖给b站，这就是非法占用的其中一种体现</p>
-</li>
-</ol>
-<p>作者以非常多个域名对应单个IP作为非法占用的判断标准，&quot;.bit&quot;域名中，存在119624个有效域名，但只对应9354个不同的IP。</p>
-<h3 id="namecoin域名创建"><a class="markdownIt-Anchor" href="#namecoin域名创建"></a> namecoin域名创建</h3>
-<p>在没有执行new操作时，所有的域名均属于一个代理人，在域名被创建时，用户向代理人购买该域名。也就是，在域名被分配之前，它并不是去中心化的。</p>
-<h3 id="namecoin域名易手"><a class="markdownIt-Anchor" href="#namecoin域名易手"></a> namecoin域名易手</h3>
-<p>namecoin可以使用交易的方式易手域名，可以在使用NMC交易的同时执行<code>OP_NAME_UPDATE</code>原子操作，可以安全地更新域名。</p>
-<h3 id="namecoin-dns搭建"><a class="markdownIt-Anchor" href="#namecoin-dns搭建"></a> namecoin DNS搭建</h3>
-<p>namecoin提供了多种方式实现DNS查询，其中最广泛的就是域名直接绑定单个地址，包括IP、IPv6、暗网地址(tor)，但这种方式的主要缺点是更新慢，必须得在区块更新的时候才能更新地址。另一种常见方式是代理，这种方式比较灵活，但安全性低，毕竟只要控制了代理的DNS，就可以暂时控制你的域名。</p>
-<h2 id="blockstack"><a class="markdownIt-Anchor" href="#blockstack"></a> blockstack</h2>
-<h3 id="blockstack白皮书"><a class="markdownIt-Anchor" href="#blockstack白皮书"></a> blockstack白皮书</h3>
-<p>首先阅读blockstack<a href="https://blockstack.org/whitepaper-ch.pdf" target="_blank" rel="noopener">中文版的白皮书</a>，以<a href="https://blockstack.org/whitepaper.pdf" target="_blank" rel="noopener">英文版</a>作为参考</p>
-<p>blockstack是一个为去中心化网络提供了一个由用户控制、易扩展、易使用的，基于加密货币式的应用框架。其中主要包含几部分：</p>
-<ol>
-<li>Stacks区块链，包括改进的PoW机制、可控制数字资产、Clarity智能合约语言、私有数据库访问凭证、Atlas对等网络架构。</li>
-<li>Gaia存储系统，用于存放加密的用户数据</li>
-<li>Blockstack Auth认证</li>
-</ol>
+<h2 id="ens存储"><a class="markdownIt-Anchor" href="#ens存储"></a> ENS存储</h2>
+<p>ENS的存储与之前说的一样，分为两部分存储，第一是用来存储区文件的Resolver(解析器)，第二部分是用来存储区文件目录的Registry(注册器)。</p>
+<p>两者均为智能合约，一个注册器会对应多个解析器。</p>
+<h3 id="ens注册器ensdomainsensensregistrysol及enssol"><a class="markdownIt-Anchor" href="#ens注册器ensdomainsensensregistrysol及enssol"></a> ENS注册器(@ensdomains/ens/ENSRegistry.sol及ENS.sol)</h3>
+<p>ENS的注册器是用于统一管理自己所有的名称，注意这里指的所有是指从根开始记录的所有名称，比方说<code>.eth</code>、<code>wo.eth</code>、<code>tmd.wo.eth</code>、<code>cn.tmd.wo.eth</code>都存储在一个注册器中。也就是一个ENS注册器存储的就是一个完整名称体系中所有名称的内容。</p>
+<p>合约内部主要维护了一个哈希表<code>mapping( 名称hash值 =&gt; (拥有者地址,解析器地址,时效) )</code>。</p>
+<p>除了读写操作之外，注册器还定义了名称之间的链式管理，也就是父亲节点可以变更子孙节点的所有者地址。</p>
+<h3 id="ens解析器ensdomainsresolver"><a class="markdownIt-Anchor" href="#ens解析器ensdomainsresolver"></a> ENS解析器(@ensdomains/resolver/*)</h3>
+<p>ENS的解析其是用于存储该名称的扩展数据的，对应不同功能以不同的方式存储。比方对于DNS的解析器，会以区文件的形式存储，将包含DNSSEC的资源记录存储在里面并提供读写逻辑；对于以太坊地址解析器，就以键值对的形式增加扩展存储；对于ABI存储器，就存储对应智能合约的ABI。总之，ENS解析器提供了多种功能的命名系统存储服务。</p>
+<h2 id="ens管理"><a class="markdownIt-Anchor" href="#ens管理"></a> ENS管理</h2>
+<p>ENS的管理其实就是注册器的管理者的地址是谁，从地址拥有者的角度可以分为两种情况。一种是由人，也就是注册器管理者地址是个普通的账户；另一种是由某个智能合约来管理，也就是注册器管理者是个合约账户。</p>
+<p>在注册器合约代码的描述中，只有管理者地址对应的账户才能够操作该注册器。所以，如果管理者地址是个普通账户，那么只有那个账户才能更改该注册器的内容。对于这种情况，其实就是指整个名称解析体系都均为一人所有。</p>
+<p>在比较普遍的情况，会使用合约来管理用户。ENS官方提供了几种合约管理的方式：</p>
+<h3 id="先到先得合约管理"><a class="markdownIt-Anchor" href="#先到先得合约管理"></a> 先到先得合约管理</h3>
+<p>该部分定义在<code>@ensdomains/ens/FIFSRegistrar.sol</code>中。</p>
+<p>先到先得的合约管理提供了抢注功能，也就是只有地址对应解析器地址为<code>0x0</code>或者是没被注册过才能够注册。</p>
+<h3 id="反向解析合约管理"><a class="markdownIt-Anchor" href="#反向解析合约管理"></a> 反向解析合约管理</h3>
+<p>该部分定义在<code>@ensdomains/ens/ReverseRegistrar.sol</code>中。</p>
+<p>提供反向解析功能，其实就是相当于DNS中的PTR记录。有的用户想要记录与自己的地址相关数据，在该注册器中，就会将名称定义为<code>&lt;addr&gt;.addr.reverse</code>。然后用户可以存储自己对应的数据，该部分的数据只由对应用户进行管理。这也是DApp中常用的操作。</p>
+<h3 id="测试专用合约管理"><a class="markdownIt-Anchor" href="#测试专用合约管理"></a> 测试专用合约管理</h3>
+<p>该部分定义在<code>@ensdomains/ens/TestRegistrar.sol</code>中。</p>
+<p>该注册器提供时限功能，默认一个月之后，注册器中的数据会全部无效。</p>
+<h2 id="ens解析"><a class="markdownIt-Anchor" href="#ens解析"></a> ENS解析</h2>
+<p>ENS官方并没有向用户直接提供解析的功能，这部分官方只提供了实现的指南，毕竟太简单了。其实大概就是先访问注册器，拿到解析器的地址再访问解析器就可以了，反正资料全是明文的，直接call调用一下就好了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/2019-07-10-blockstack-firstmeet/" data-id="ck38qlw1y0005luu3xwt28blx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/21/2019-11-21-ENS-simple-introduction/" data-id="ck38qlw3e003oluu3y36tqmpo" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
 
     </footer>
   </div>
@@ -155,19 +143,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/07/16/2019-07-15-arch-linux-exteral-screen/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          arch linux 扩展显示器折腾记
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/06/25/2019-06-25-初见比特币和区块链/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">从零开始的区块链与域名系统的学习</div>
+      <div class="article-nav-title">以太坊智能合约在geth节点客户端中手动编译、部署</div>
     </a>
   
 </nav>

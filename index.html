@@ -69,6 +69,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2019-11-21-ENS-simple-introduction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/21/2019-11-21-ENS-simple-introduction/" class="article-date">
+  <time datetime="2019-11-21T13:12:31.000Z" itemprop="datePublished">2019-11-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/21/2019-11-21-ENS-simple-introduction/">ENS简要介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ENS(Ethereum Naming Service)，以太坊名称服务，其实就是在以太坊平台向用户提供了如何使用智能合约来实现名称解析的一个范例。</p>
+<p>如果用户可以通过部署自己的合约来实现自己想要的名称解析服务。要是不喜欢它合约逻辑的话，有能力的完全可以更改其逻辑然后部署。</p>
+<p><a href="https://docs.ens.domains/" target="_blank" rel="noopener">ENS官方文档</a></p>
+<p><a href="https://github.com/ensdomains/resolvers" target="_blank" rel="noopener">ENS解析器-github.com</a></p>
+<p><a href="https://github.com/ensdomains/ens" target="_blank" rel="noopener">ENS注册器-github.com</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/11/21/2019-11-21-ENS-simple-introduction/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/21/2019-11-21-ENS-simple-introduction/" data-id="ck38qlw3e003oluu3y36tqmpo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2019-11-18-geth-smart-contract-deploy-and-call" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/" class="article-date">
@@ -98,30 +149,15 @@
         <h2 id="solidity编译"><a class="markdownIt-Anchor" href="#solidity编译"></a> solidity编译</h2>
 <p>比方说有份智能合约<code>a.sol</code>，先通过各种方式先通过编译</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.5.11;</span><br><span class="line"></span><br><span class="line">contract SimpleStorage &#123;</span><br><span class="line">  uint storedData;</span><br><span class="line"></span><br><span class="line">  function set(uint x) public &#123;</span><br><span class="line">      storedData = x;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function get() public view returns (uint) &#123;</span><br><span class="line">      return storedData;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>evm的代码是分为两部分的。第一部分是abi，也就是描述调用接口的；第二部分是字节码，也就是描述智能合约到底是什么功能的。</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">solc a.sol <span class="comment"># 检查是否编译通过</span></span><br><span class="line">solc --bin --abi c2.sol <span class="comment">#获取字节码以及abi</span></span><br></pre></td></tr></table></figure>
-<h2 id="启动节点并编译智能合约"><a class="markdownIt-Anchor" href="#启动节点并编译智能合约"></a> 启动节点并编译智能合约</h2>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 赋值</span></span><br><span class="line"></span><br><span class="line">    bin = <span class="string">"0x608060405234801561001057600080fd5b5060c68061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060325760003560e01c806360fe47b11460375780636d4ce63c146062575b600080fd5b606060048036036020811015604b57600080fd5b8101908080359060200190929190505050607e565b005b60686088565b6040518082815260200191505060405180910390f35b8060008190555050565b6000805490509056fea265627a7a7231582068f58829556e6582d3aa80d0d0001d257ec0840aa34041d09d9461a02a0330df64736f6c634300050c0032"</span></span><br><span class="line"></span><br><span class="line">    abi = [&#123;<span class="string">"constant"</span>:<span class="literal">true</span>,<span class="string">"inputs"</span>:[],<span class="string">"name"</span>:<span class="string">"get"</span>,<span class="string">"outputs"</span>:[&#123;<span class="string">"internalType"</span>:<span class="string">"uint256"</span>,<span class="string">"name"</span>:<span class="string">""</span>,<span class="string">"type"</span>:<span class="string">"uint256"</span>&#125;],<span class="string">"payable"</span>:<span class="literal">false</span>,<span class="string">"stateMutability"</span>:<span class="string">"view"</span>,<span class="string">"type"</span>:<span class="string">"function"</span>&#125;,&#123;<span class="string">"constant"</span>:<span class="literal">false</span>,<span class="string">"inputs"</span>:[&#123;<span class="string">"internalType"</span>:<span class="string">"uint256"</span>,<span class="string">"name"</span>:<span class="string">"x"</span>,<span class="string">"type"</span>:<span class="string">"uint256"</span>&#125;],<span class="string">"name"</span>:<span class="string">"set"</span>,<span class="string">"outputs"</span>:[],<span class="string">"payable"</span>:<span class="literal">false</span>,<span class="string">"stateMutability"</span>:<span class="string">"nonpayable"</span>,<span class="string">"type"</span>:<span class="string">"function"</span>&#125;]</span><br><span class="line"> </span><br><span class="line">    eth.estimateGas(&#123;<span class="attr">data</span>:bin&#125;) <span class="comment">// 预估手续费,之后用到的GAS数量一定要大于得到的预估值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> myContract = eth.contract(abi) <span class="comment">// 创建接口为abi的智能合约</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//接下来创建发送者为coinbase的智能合约,要确保coinbase里有钱，之后再随便挖一下，使交易的发布正式完成</span></span><br><span class="line">    personal.unlockAccount(eth.coinbase)</span><br><span class="line">    <span class="keyword">var</span> contract = myContract.new(&#123;<span class="attr">from</span>:eth.coinbase,<span class="attr">data</span>:bin,<span class="attr">gas</span>:<span class="number">110000</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//此时输入contract就可以看到接口</span></span><br></pre></td></tr></table></figure>
-<h2 id="调用合约翻车实录"><a class="markdownIt-Anchor" href="#调用合约翻车实录"></a> 调用合约(翻车实录)</h2>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先检查一下合约是否被成功部署，输入合约地址检查</span></span><br><span class="line">eth.getCode(<span class="string">"0xee108c174e9dc2c5ca5a3131396a25a8d67299b4"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果只有地址的情况下，可以直接通过地址获取</span></span><br><span class="line"><span class="keyword">var</span> metacoin = web3.eth.contract(abi).at(address);</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用合约函数，view和pure的一般都可以直接调用</span></span><br><span class="line">contract.get()</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用修改函数，然后随便挖一下</span></span><br><span class="line">contract.set.sendTransaction(<span class="number">10</span>,&#123;<span class="attr">from</span>:eth.coinbase,<span class="attr">gas</span>:<span class="number">7770000</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//好了，信心满满再次调用</span></span><br><span class="line">contract.get()</span><br><span class="line">contract.get.call()</span><br><span class="line"></span><br><span class="line"><span class="comment">//发现怎么tm全是0？？</span></span><br><span class="line"><span class="comment">//得到结果[0],修复后返回[10]</span></span><br></pre></td></tr></table></figure>
-<p>Google一下之后发现可能是在初始化的时候存储的问题没搞好，毕竟原本根本就没有想过要考虑存储问题。</p>
-<h2 id="修复翻车"><a class="markdownIt-Anchor" href="#修复翻车"></a> 修复翻车</h2>
-<p>其实做的事情很简单，就是把初始配置文件变更一下，以下是创建时使用的json文件：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"config"</span>: &#123;</span><br><span class="line">    <span class="attr">"chainId"</span>: <span class="number">7700</span>,</span><br><span class="line">    <span class="attr">"homesteadBlock"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"eip150Block"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"eip155Block"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"eip158Block"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"byzantiumBlock"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"constantinopleBlock"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">"petersburgBlock"</span>: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"alloc"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"coinbase"</span>: <span class="string">"0x0000000000000000000000000000000000000000"</span>,</span><br><span class="line">  <span class="attr">"difficulty"</span>: <span class="string">"0x200000"</span>,</span><br><span class="line">  <span class="attr">"extraData"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"gasLimit"</span>: <span class="string">"0x2fefd8"</span>,</span><br><span class="line">  <span class="attr">"nonce"</span>: <span class="string">"0x0000000000000042"</span>,</span><br><span class="line">  <span class="attr">"mixhash"</span>: <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">  <span class="attr">"parentHash"</span>: <span class="string">"0x0000000000000000000000000000000000000000000000000000000000000000"</span>,</span><br><span class="line">  <span class="attr">"timestamp"</span>: <span class="string">"0x00"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其实变更之处就是增加了四行：</p>
-<figure class="highlight pl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"eip155Block"</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">"byzantiumBlock"</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">"constantinopleBlock"</span>: <span class="number">0</span>,</span><br><span class="line"><span class="string">"petersburgBlock"</span>: <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<h3 id="config字段意义"><a class="markdownIt-Anchor" href="#config字段意义"></a> Config字段意义</h3>
-<p>其实我一直到刚刚解决这个棘手的问题的时候还一直在疑惑，到底config字段中的东东是什么鬼，完全不知道在说啥。什么hemestead,eip158,什么拜占庭,什么彼得格勒。。。</p>
-<p>这种事情还是直接看源码比较好，如果我们不启用私链，而直接使用公链，这种事情都不用管。而在公链上，是这样定义的(params/config.go)：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MainnetChainConfig = &amp;ChainConfig&#123;</span><br><span class="line">        ChainID:             big.NewInt(<span class="number">1</span>),</span><br><span class="line">        HomesteadBlock:      big.NewInt(<span class="number">1150000</span>),</span><br><span class="line">        DAOForkBlock:        big.NewInt(<span class="number">1920000</span>),</span><br><span class="line">        DAOForkSupport:      <span class="literal">true</span>,</span><br><span class="line">        EIP150Block:         big.NewInt(<span class="number">2463000</span>),</span><br><span class="line">        EIP150Hash:          common.HexToHash(<span class="string">"0x2086799aeebeae135c246c65021c82b4e15a2c451340993aacfd2751886514f0"</span>),</span><br><span class="line">        EIP155Block:         big.NewInt(<span class="number">2675000</span>),</span><br><span class="line">        EIP158Block:         big.NewInt(<span class="number">2675000</span>),</span><br><span class="line">        ByzantiumBlock:      big.NewInt(<span class="number">4370000</span>),</span><br><span class="line">        ConstantinopleBlock: big.NewInt(<span class="number">7280000</span>),</span><br><span class="line">        PetersburgBlock:     big.NewInt(<span class="number">7280000</span>),</span><br><span class="line">        IstanbulBlock:       <span class="literal">nil</span>,</span><br><span class="line">        Ethash:              <span class="built_in">new</span>(EthashConfig),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其他的事情不说，看到第三行<code>DAOFork</code>的时候有以太坊常识的人都已经知道了，它描述的是每一次发生硬分叉时的区块高度，从某区块开始就是下一个类型的区块。我们原本只是使用到了ByzantiumBlock，而没启用后面的PetersburgBlock，所以也许它硬分叉的部分就是与智能合约有关的。这些具体可能得去了解一下以太坊的历史才行。</p>
-<h2 id="修车后的调用"><a class="markdownIt-Anchor" href="#修车后的调用"></a> 修车后的调用</h2>
-<p>同样是使用刚刚的调用，总算返回了10。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/" data-id="ck34co2m80000lou3wd2e2xdb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/" data-id="ck38qlw3i003yluu34a1q7evw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li></ul>
@@ -163,47 +199,15 @@
 <p><a href="https://zhuanlan.zhihu.com/p/42764077" target="_blank" rel="noopener">什么是侧链 、公链、私链、联盟链？-知乎</a></p>
 <p><a href="https://bihu.com/article/1960307546" target="_blank" rel="noopener">一文搞懂公链、私链、联盟链 - 币乎</a></p>
 <p><a href="https://www.jianshu.com/p/7073be8e60e6" target="_blank" rel="noopener">区块链，私链，公链，联盟链之我见 - 简书</a></p>
-<p>通常，我们将完整的区块链三种形式：公链、私链、联盟链。其中我们接触得最多得肯定是公链，因为刚入门区块链技术时，肯定都是先研究比特币和以太坊，然后再开始其它方面的研究。而比特币、以太坊都是公链。</p>
-<p>三种链都是去中心化可增长的分布式数据库，而三种链的区别就在于它的权限问题(在名字里就已经体现出来了)。</p>
-<ul>
-<li>
-<p><strong>私链</strong>是所有人都可以搭建的属于自己的区块链，私链上所有节点都是完全可信的，也就是只存在故障节点，不存在恶意节点。其实如果放在拜占庭将军问题里面，解决的就是几个<em>心腹将领</em>间的沟通。在区块链技术中，私链可使用RAFT算法达成共识。</p>
-</li>
-<li>
-<p><strong>联盟链</strong>是由几个组织共同维护的属于集体的区块链。与私链的区别是，除了故障节点外，还可能存在少部分的作恶节点。解决的就是一支想一同攻打罗马帝国的<em>联合军队</em>中的决策问题，里面可能由叛徒。在区块链技术中，私链可使用PBFT算法达成共识。</p>
-</li>
-<li>
-<p><strong>公链</strong>是一个所有人都可以参与读写的区块链。公链上的数据都是完全公开的，作恶节点的数量相对会比联盟链多很多。解决的是多个存在利益冲突的<em>国家</em>的协商问题。在区块链技术中，公链可使用PoW、PoS、DPoS等多种算法达成共识。</p>
-</li>
-</ul>
-<p>一般上来讲，私链和联盟链的节点数量都和公链没得比，因此可以将负载转移到网络流量上，从而减少算力的消耗。</p>
-<h2 id="拜占庭将军问题"><a class="markdownIt-Anchor" href="#拜占庭将军问题"></a> 拜占庭将军问题</h2>
-<p><a href="https://zh.wikipedia.org/wiki/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">拜占庭将军问题-wikipeida</a></p>
-<p><a href="https://baike.baidu.com/item/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">拜占庭将军问题-百度百科</a></p>
-<p>拜占庭将军问题其实很简单，就是一堆忠诚的将军想要对某个决策达成一致的问题。在技术上讲，就是在p2p网络中，假设信道可靠，多个节点如何达成共识的问题。</p>
-<h2 id="私链记账权算法raft"><a class="markdownIt-Anchor" href="#私链记账权算法raft"></a> 私链记账权算法RAFT</h2>
-<p><a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener">RAFT算法动画</a></p>
-<p>RAFT算法很简单，就是将节点分为三种角色：随从(follower)、候选人(cardidate)、领导人(leader)。算法分为两个过程：选举过程和数据分发过程。</p>
-<ol>
-<li>选举过程是在某个时刻，某一节点已长时间没收到领导者发来的心跳包时，将成为后选择，并广播请求投票的消息，每个节点在每一轮只能投一票。当候选者票数过半时，成为领导者。</li>
-<li>当客户端节点传来数据时，数据都会被发送至领导者进行打包，由领导者向外发布新区块。</li>
-<li>当领导者节点出现故障时，随从们就会因长时间没有接收到领导者心跳包而进入下一轮选举。</li>
-<li>当网络出现分裂时，由于需要过半数量的票才能成为领导者，所以最多仅有一个网络出现新领导者，因此分叉不会过于严重。当网络恢复时，状态较老的节点需要回滚自己的状态，并与现有的领导者达成共识。</li>
-</ol>
-<p>RAFT只能用于私链，作恶节点，RAFT不可行</p>
-<h2 id="联盟链记账权算法pbft"><a class="markdownIt-Anchor" href="#联盟链记账权算法pbft"></a> 联盟链记账权算法PBFT</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/35847127" target="_blank" rel="noopener">共识算法系列之一：raft和pbft算法 - 知乎</a></p>
-<p><a href="https://medium.com/taipei-ethereum-meetup/intro-to-pbft-31187f255e68" target="_blank" rel="noopener">若想搞懂區塊鏈就不能忽視的經典：PBFT</a></p>
-<p>PBFT是在1999年时被提出的，它使用了一个状态机来维护节点状态，它通过对每个节点进行编号，接着让每个节点轮流当选主节点。</p>
-<p>消息广播(pre-prepare)：当主节点接收到client发来的消息，并确认想要将这部分的信息在网络达成共识；它会先将这些信息<em>广播</em>到所有从节点上，让从节点知道即将达成共识的新消息。</p>
-<p>预备(prepare)：当从节点接收到<em>广播</em>的消息后，如果同意该消息，即向网络广播<em>预备</em>的消息。如果某节点收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>预备</em>消息，则进入预备状态。</p>
-<p>执行(commit)：若已进入预备状态的节点同意该区块的消息，则广播<em>执行</em>的消息。如果某节点收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>执行</em>的消息，则进入已执行状态。如果在一定时间内没有收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>执行</em>的消息，则可以向网络广播<em>变更</em>的消息。同样，如果某节点收到大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{2}{3}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.190108em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.845108em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>的<em>变更</em>的消息时，则进入新的阶段，从消息广播开始执行。</p>
-<p>PBFT的好处是执行非常快，耗费设备资源少，它被应用在了hyperledger fabric和EOS的联盟链部分。但缺点就是经常要向全网广播消息，网络资源负载很大。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/" data-id="ck34cn19m004aj7u3w052oo65" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/" data-id="ck38qlw3f003rluu3orcc0or7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -242,33 +246,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>上一个阶段的实验，总结起来一个字就是“<strong>菜</strong>”。这次的实验，<strong>菜</strong>依然是一个主题，但不仅仅是<strong>菜</strong>，还有<strong>瞎</strong>，也就是什么都没看到。</p>
-<p>做这次的实验之前，其实我根本不知道自己在做什么，也许就是想洗一下上次实验的雪耻罢了，结果就是跳进黄河里去洗了。</p>
-<p>这次实验得出的经验就是，做什么事情之前，都必须得先做事前调查，知道你自己在做什么。不仅如此，还要知道你自己在做的本质是什么。</p>
-<p>大约是10月12日前后，老师叫我把这个系统写成workshop发出去，当一篇EI。我当时虽然内心波动并不是很大，毕竟这种到最后落空的事情我可是见多了，但还是感觉到有一点小小的期望。</p>
-<p><a href="/2019/10/22/2019-10-22-eth-experiment-adv-structure/">架构的链接</a></p>
-<p>说得好像很有道理的样子喔，呵呵，我都想在702挖个洞钻进去了，可惜破坏建筑要罚款甚至开除罢了。</p>
-<p>其实这个东西我可以把它抽象成一个区块链的应用，也就是极其弱化版的blockstack。</p>
-<p>网络节点分类部分，矿工节点就是比特币网络，而交易节点就是普通的blockstack客户端节点。网络部分设计就是把功能删除到只剩下接入的blockstack altas。交易的执行就别说了，讲的我都脸红了，就是调一下以太坊的库都能吹成这样，我也是醉了。交易同步和交易验证其实就是弱化到不能再弱化的Blockstack虚拟链。通知功能也是，就是，就是，就是啥呢？我tm也不知道，反正就是个垃圾。</p>
-<p>本次的失败的根源在于两点：</p>
-<ol>
-<li>对区块链了解不深，连区块链应用是什么都不知道；</li>
-<li>对自己做的东西的需求了解不够彻底，导致了做了个什么鬼都不知道。</li>
-</ol>
-<p>那对于区块链方向，需要做的有六点：</p>
-<ol>
-<li>增加对区块链，链的了解，也就是联盟链(hyperledger为代表)</li>
-<li>增加对共识算法的了解，比如PoS、PBFT等</li>
-<li>增加对智能合约的了解，比如以太坊Solidity，<code>EOS.IO</code></li>
-<li>增加对区块链应用的了解，比如类blockstack平台的了解</li>
-<li>增加对侧链协议的了解，比如怎么从eth上转到btc</li>
-<li>增加对区块链安全基础的了解，知道有什么大事就好了，比如粉尘攻击事件、The DAO事件、黑色情人节事件等</li>
-</ol>
-<p>对于人的方向，我不想写上来了，害羞、脸红，匿了。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/10/22/2019-10-22-eth-experiment-adv-summery/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-summery/" data-id="ck34cn19l0047j7u3q0dp0y17" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-summery/" data-id="ck38qlw3c003hluu3uiwubk5g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li></ul>
@@ -310,49 +296,15 @@
 <p>系统整理的设计思路。</p>
 <p>需要解决哪些问题。</p>
 <p>小型以太坊网络是小型以太坊网络节点的集合。 因此，本节从两个方面讨论网络的体系结构：节点的类型和节点的功能结构。.</p>
-<h3 id="节点的类型"><a class="markdownIt-Anchor" href="#节点的类型"></a> 节点的类型</h3>
-<p>网络上的所有节点都通过P2P连接。 网络上有3种节点：公开节点，矿工节点和交易节点。</p>
-<p>公开节点负责为其他节点访问网络提供公共地址。 当新节点加入网络时，它首先与公开节点之一建立连接，然后通过P2P访问其他节点。</p>
-<p>矿工节点负责为网络提供计算能力。 网络运行时，它将继续提供计算能力来挖掘新块。 由于区块链平台的安全性，因此提供了合理的共识算法和强大的计算能力。 因此，矿工节点的设计是必要的。</p>
-<p>客户端节点负责提供一系列用户操作接口，它在网络中充当边缘节点。（很迷，不知道怎么定义比较好）</p>
-<h3 id="节点的功能结构"><a class="markdownIt-Anchor" href="#节点的功能结构"></a> 节点的功能结构</h3>
-<p>存在的问题：没有提到geth、web3.py与这些功能的关系</p>
-<p>节点的功能结构相似。 它由4个模块组成，分别是访问模块，交易同步模块，交易执行模块和通知模块。</p>
-<h4 id="接入模块"><a class="markdownIt-Anchor" href="#接入模块"></a> 接入模块</h4>
-<p>该模块运行在，新节点正在连接时以及公开节点正等待访问时。 当公开节点正在等待访问时，此模块负责为新访问节点提供网络地址。 对于要访问网络的新节点，此模块负责根据此公开节点已公开的IP地址和端口来查找其P2P地址。</p>
-<h4 id="交易执行模块"><a class="markdownIt-Anchor" href="#交易执行模块"></a> 交易执行模块</h4>
-<p>交易执行模块负责执行客户端发送的与交易相关的请求。 请求包括发送交易和从区块链获取交易信息。其他模块通过此模块访问区块链上的数据。</p>
-<h4 id="交易同步及验证模块"><a class="markdownIt-Anchor" href="#交易同步及验证模块"></a> 交易同步及验证模块</h4>
-<p>交易同步和验证模块负责获取数据并实时从区块链进行验证。它定期检查区块链上是否有更新数据，并根据用户提供的验证方法验证数据的正确性。然后，如果有正确的数据更新了，就向通知模块发出通知请求。</p>
-<h4 id="通知模块"><a class="markdownIt-Anchor" href="#通知模块"></a> 通知模块</h4>
-<p>当有新的验证通过的数据时，通知模块负责将通知的信息发布出去。然后，通知模块根据用户提供的通知方法发送通知。</p>
-<h2 id="系统设计"><a class="markdownIt-Anchor" href="#系统设计"></a> 系统设计</h2>
-<p>该网络基于以太坊的go实现“ geth”和SDK <a href="http://web3.py" target="_blank" rel="noopener">web3.py</a>，并由python开发。 它的设计由3层组成，包括区块链层，执行层和应用层。</p>
-<h3 id="区块链层"><a class="markdownIt-Anchor" href="#区块链层"></a> 区块链层</h3>
-<p>区块链层由geth实现。它负责交易和区块的共识。该层是网络的最低层，负责达成区块链的共识。</p>
-<h3 id="执行层"><a class="markdownIt-Anchor" href="#执行层"></a> 执行层</h3>
-<p>执行层是网络的主要部分。 该层通过web3.py连接到区块链层，并通过IPC进行通信。 执行层的设计包括三个过程部分：网络初始化，新节点参与和事务执行。</p>
-<h4 id="网络初始化"><a class="markdownIt-Anchor" href="#网络初始化"></a> 网络初始化</h4>
-<p>应该通过首先启动公开节点来初始化网络，该公开节点用于公开网络的第一个访问地址。 然后，其他节点可以根据暴露的地址访问网络。</p>
-<h4 id="新节点加入"><a class="markdownIt-Anchor" href="#新节点加入"></a> 新节点加入</h4>
-<p>新节点从一个公开节点中选择一个访问地址作为其第一个对等地址。节点的对等地址用于引导该节点向哪些节点广播其交易。之后，新节点通过P2P接入网络。</p>
-<p>查找第一个对等地址的操作将循环执行，直到成功为止。 操作完成后，三种类型的节点开始其独特的工作。 公开节点开始等待其他新节点接入网络。 矿工节点开始为网络提供计算能力。（客户端节点开始。。。）</p>
-<h4 id="交易执行"><a class="markdownIt-Anchor" href="#交易执行"></a> 交易执行</h4>
-<p>这部分是事务执行模块的主要过程。 它使用web3.py库通过IPC连接到以太坊节点“ geth”。 其他模块通过这一部分与区块链层进行交互。 它负责将用户的交易广播到区块链上。</p>
-<h3 id="应用层"><a class="markdownIt-Anchor" href="#应用层"></a> 应用层</h3>
-<p>应用层是网络的扩展层，可为网络提供强大的可扩展性。 它可以通过以下两个部分更改交易的数据格式，验证方法和通知方法来提供扩展。</p>
-<h4 id="交易同步"><a class="markdownIt-Anchor" href="#交易同步"></a> 交易同步</h4>
-<p>交易同步操作主要负责通过执行层提供的服务实时将数据从区块链层同步到应用层。</p>
-<p>它使用元数据文件记录最后记录的块的块高和哈希值。 每次同步操作开始执行时，它首先检查记录在元数据文件中的块信息是否与区块链一致。 如果不是，则可以解释为状态不正确，区块链的交易和状态已回滚，并且需要更新错误的数据。如果与区块链信息匹配且区块高度被更新，则更新区块的交易信息将从区块链层获取。</p>
-<h4 id="交易验证"><a class="markdownIt-Anchor" href="#交易验证"></a> 交易验证</h4>
-<p>交易验证操作主要负责验证同步操作收集到的交易。验证方法由用户提供，为网络提供了良好的可扩展性。如果有任何交易通过验证，则将信号发送到通知模块以发送通知。</p>
-<h4 id="通知"><a class="markdownIt-Anchor" href="#通知"></a> 通知</h4>
-<p>通知操作主要负责在接收到交易验证操作提供的信号时发送通知。 通知可以由用户定义，这也为网络提供了良好的可伸缩性。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/10/22/2019-10-22-eth-experiment-adv-structure/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-structure/" data-id="ck34cn19i0040j7u3ho08ovdi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-structure/" data-id="ck38qlw3d003kluu32g1h9eqw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -399,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-python-knowledge/" data-id="ck34cn19j0043j7u3r0fros86" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-python-knowledge/" data-id="ck38qlw3b003eluu34aqn4run" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
@@ -447,7 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck34cn19h003wj7u32lx3rxq8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck38qlw3a003aluu31kploy7n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -497,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck34cn19g003tj7u3wgmkkiom" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck38qlw390037luu3zkavt6n3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -544,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck34cn199003ej7u3m4j5ybjk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck38qlw360030luu3m7hwpuuo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -588,57 +540,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck34cn19n004ej7u3qoskipf7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck38qlw3h003vluu3fpushunk" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-10-05-ml-classified-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/10/05/2019-10-05-ml-classified-1/" class="article-date">
-  <time datetime="2019-10-05T03:52:04.000Z" itemprop="datePublished">2019-10-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/05/2019-10-05-ml-classified-1/">机器学习-极大似然和对数几率回归（浅入）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="极大似然估计法"><a class="markdownIt-Anchor" href="#极大似然估计法"></a> 极大似然估计法</h2>
-<p><a href="https://blog.csdn.net/zengxiantao1994/article/details/72787849" target="_blank" rel="noopener">极大似然估计详解</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/10/05/2019-10-05-ml-classified-1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/" data-id="ck34cn18r001bj7u3f4p8ob3x" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
-
     </footer>
   </div>
   
@@ -681,7 +585,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DNS/" style="font-size: 13.75px;">DNS</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 11.25px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a>
+      <a href="/tags/DNS/" style="font-size: 15.71px;">DNS</a> <a href="/tags/arch/" style="font-size: 15.71px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.86px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/github/" style="font-size: 11.43px;">github</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.43px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.86px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/以太坊/" style="font-size: 18.57px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/实验/" style="font-size: 14.29px;">实验</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.86px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 17.14px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.43px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.86px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.43px;">源码</a> <a href="/tags/算法/" style="font-size: 11.43px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.43px;">编程语言</a>
     </div>
   </div>
 
@@ -703,6 +607,10 @@
       <ul>
         
           <li>
+            <a href="/2019/11/21/2019-11-21-ENS-simple-introduction/">ENS简要介绍</a>
+          </li>
+        
+          <li>
             <a href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/">以太坊智能合约在geth节点客户端中手动编译、部署</a>
           </li>
         
@@ -716,10 +624,6 @@
         
           <li>
             <a href="/2019/10/22/2019-10-22-eth-experiment-adv-structure/">小型以太坊网络架构</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/22/2019-10-22-python-knowledge/">python基本库的使用</a>
           </li>
         
       </ul>
