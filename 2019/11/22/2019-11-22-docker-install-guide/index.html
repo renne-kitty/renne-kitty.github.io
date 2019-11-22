@@ -6,15 +6,20 @@
   
 
   
-  <title>Tag: ctf | Renne&#39;s Blog</title>
+  <title>linux下docker安装及运行 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/ctf/index.html">
+  <meta name="description" content="摸索docker这东西折腾了我一段时间，果然掌握的基本工具还真的是太少了，我装的是ubuntu最精简版的docker。一开始由于各种网络出现问题，也不知道为什么，然后就没怎么管它了，结果到现在碰到硬需求，就硬着头皮上吧。 首先安装docker，很简单不解释 1pacman -S docker 安装好之后需要在root用户下启动并运行 123susystemctl start dockersyste">
+<meta name="keywords" content="linux,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux下docker安装及运行">
+<meta property="og:url" content="http://yoursite.com/2019/11/22/2019-11-22-docker-install-guide/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="摸索docker这东西折腾了我一段时间，果然掌握的基本工具还真的是太少了，我装的是ubuntu最精简版的docker。一开始由于各种网络出现问题，也不知道为什么，然后就没怎么管它了，结果到现在碰到硬需求，就硬着头皮上吧。 首先安装docker，很简单不解释 1pacman -S docker 安装好之后需要在root用户下启动并运行 123susystemctl start dockersyste">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-22T02:38:24.170Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="linux下docker安装及运行">
+<meta name="twitter:description" content="摸索docker这东西折腾了我一段时间，果然掌握的基本工具还真的是太少了，我装的是ubuntu最精简版的docker。一开始由于各种网络出现问题，也不知道为什么，然后就没怎么管它了，结果到现在碰到硬需求，就硬着头皮上吧。 首先安装docker，很简单不解释 1pacman -S docker 安装好之后需要在root用户下启动并运行 123susystemctl start dockersyste">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,40 +72,71 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/03/2019-09-03-ctf-summary/" class="archive-article-date">
-  <time datetime="2019-09-03T08:16:44.000Z" itemprop="datePublished">9月 3</time>
+        <section id="main"><article id="post-2019-11-22-docker-install-guide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/22/2019-11-22-docker-install-guide/" class="article-date">
+  <time datetime="2019-11-22T02:36:57.000Z" itemprop="datePublished">2019-11-22</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
+    <h1 class="article-title" itemprop="name">
+      linux下docker安装及运行
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摸索docker这东西折腾了我一段时间，果然掌握的基本工具还真的是太少了，我装的是ubuntu最精简版的docker。一开始由于各种网络出现问题，也不知道为什么，然后就没怎么管它了，结果到现在碰到硬需求，就硬着头皮上吧。</p>
+<p>首先安装docker，很简单不解释</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S docker</span><br></pre></td></tr></table></figure>
+<p>安装好之后需要在root用户下启动并运行</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl <span class="built_in">enable</span> docker <span class="comment"># 开机启动</span></span><br></pre></td></tr></table></figure>
+<p>之后要做的就是拉去镜像，使用search搜索镜像，然后用pull拉拉取下来</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker search ubuntu</span><br><span class="line">docker pull ubuntu</span><br></pre></td></tr></table></figure>
+<p>这时我们已经有了ubuntu精简版的镜像，我们需要将它放后台运行，不然它网络不会启动，我现在还不太知道为什么</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images <span class="comment"># 查看镜像</span></span><br><span class="line">docker run -itd --name ubuntu ubuntu /bin/bash</span><br><span class="line">docker <span class="built_in">exec</span> -it ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<p>运行了之后就产生了一个新的容器(container)，接着系统在容器里运行，我们通过docker exec就可以随便接入。</p>
+<p>另外，这时由于只安装了很少软件，所以最好先换个源，安装vim，再执行之后的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp <span class="built_in">source</span> ubuntu:/etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+<p>接着在docker内部运行apt-get update，再下载个vim就完美了。</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/22/2019-11-22-docker-install-guide/" data-id="ck39jctm90028ytu3s2e2txdw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/21/2019-11-21-ENS-simple-introduction/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ENS简要介绍</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
