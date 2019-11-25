@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Zookeeper集群安装 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="应用场景举例 今天问了一下斯宇大佬Zookeeper是什么，他用一个实例和我解释了一下。 假如我们要使用200台机器，现在存在100个需要访问的域名，要求每台机子每半秒钟都必须随机访问其中一个域名，而且这个域名列表还有可能会变动。 如果平时，我们应该将这100个域名的列表都存储在每台机上，然后每台机都要开端口，接收更新的信息，接着在访问的时候，随机抽取一个访问。 但有了Zookeeper之后，就">
+<meta name="keywords" content="linux,docker,大数据,zookeeper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Zookeeper集群安装">
+<meta property="og:url" content="http://yoursite.com/2019/11/25/2019-11-25-zookeeper-get-start/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="应用场景举例 今天问了一下斯宇大佬Zookeeper是什么，他用一个实例和我解释了一下。 假如我们要使用200台机器，现在存在100个需要访问的域名，要求每台机子每半秒钟都必须随机访问其中一个域名，而且这个域名列表还有可能会变动。 如果平时，我们应该将这100个域名的列表都存储在每台机上，然后每台机都要开端口，接收更新的信息，接着在访问的时候，随机抽取一个访问。 但有了Zookeeper之后，就">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-25T03:47:36.877Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zookeeper集群安装">
+<meta name="twitter:description" content="应用场景举例 今天问了一下斯宇大佬Zookeeper是什么，他用一个实例和我解释了一下。 假如我们要使用200台机器，现在存在100个需要访问的域名，要求每台机子每半秒钟都必须随机访问其中一个域名，而且这个域名列表还有可能会变动。 如果平时，我们应该将这100个域名的列表都存储在每台机上，然后每台机都要开端口，接收更新的信息，接着在访问的时候，随机抽取一个访问。 但有了Zookeeper之后，就">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2019-11-25-zookeeper-get-start" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/25/2019-11-25-zookeeper-get-start/" class="article-date">
+  <time datetime="2019-11-25T03:42:19.000Z" itemprop="datePublished">2019-11-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/大数据/">大数据</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Zookeeper集群安装
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="应用场景举例"><a class="markdownIt-Anchor" href="#应用场景举例"></a> 应用场景举例</h2>
+<p>今天问了一下斯宇大佬Zookeeper是什么，他用一个实例和我解释了一下。</p>
+<p>假如我们要使用200台机器，现在存在100个需要访问的域名，要求每台机子每半秒钟都必须随机访问其中一个域名，而且这个域名列表还有可能会变动。</p>
+<p>如果平时，我们应该将这100个域名的列表都存储在每台机上，然后每台机都要开端口，接收更新的信息，接着在访问的时候，随机抽取一个访问。</p>
+<p>但有了Zookeeper之后，就可以由它来托管这部分的内容，也就是保持一部分数据在各节点间达成一致。</p>
+<p>很像一条私链？确实是，只不过区块链会维护历史数据，而它不会；区块链使用的是增添(append)的方式，而它使用覆盖的方式。</p>
+<p>在Zookeeper中，使用了ZAB作为共识算法，在相似的GFS中的Chubby中使用了大名鼎鼎的Paxos作为共识算法。</p>
+<a id="more"></a>
+<h2 id="单机安装"><a class="markdownIt-Anchor" href="#单机安装"></a> 单机安装</h2>
+<p>我安装的是3.5.6版本，直接访问<a href="http://apache-mirror.8birdsvideo.com/zookeeper/zookeeper-3.5.6/" target="_blank" rel="noopener">官网的下载地址</a>就可以了，注意最好选择bin版本。</p>
+<p>下好之后解压，并将conf文件夹下的zoo_sample.cfg，重命名为zoo.cfg。</p>
+<p>接着在bin文件夹地下运行zkServer.sh即可。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer start</span><br></pre></td></tr></table></figure>
+<p>接着用cli尝试连接，测试一下连不连得上并学习一下最简单的操作，这部分可以查看<a href="https://zookeeper.apache.org/doc/r3.5.6/zookeeperStarted.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./zkCli</span><br><span class="line">ls /</span><br><span class="line">create /temp</span><br><span class="line"><span class="built_in">set</span> /temp <span class="string">"renne is an angel of destroying"</span></span><br><span class="line">get /temp</span><br></pre></td></tr></table></figure>
+<p>要是成功的话，单机测试就通过了</p>
+<h2 id="集群配置"><a class="markdownIt-Anchor" href="#集群配置"></a> 集群配置</h2>
+<p>由于我是使用docker安装的，所以在这里需要先保存一下镜像，然后再跑一个新的镜像，并获取它们的IP地址。如果是用VM的在这里可以复制一下虚拟机，如果在单机跑多进程的可以无视前面这部分。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker commit z2 ubuntu-zkper</span><br><span class="line">docker run -itd --name z1 ubuntu-zkper /bin/bash</span><br></pre></td></tr></table></figure>
+<p>OK，知道新机子的IP地址后，就可以分别对他们的配置文件进行配置了，也就是修改我们刚刚复制过的配置文件zoo.cfg。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/tmp/zookeeper</span><br><span class="line">clientPort=2181</span><br><span class="line">server.1=172.17.0.2:2888:3888</span><br><span class="line">server.2=172.17.0.3:2888:3888</span><br></pre></td></tr></table></figure>
+<p>这个配置文件重点有两部分，第一是最后的server配置部分，这里需要说明所有集群中服务器的编号、IP、端口号。格式如下：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>e</mi><mi>r</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi mathvariant="normal">.</mi><mo stretchy="false">{</mo><mi>m</mi><mi>y</mi><mi>i</mi><mi>d</mi><mo stretchy="false">}</mo><mo>=</mo><mo stretchy="false">{</mo><mi>I</mi><mi>P</mi><mo stretchy="false">}</mo><mo>:</mo><mo stretchy="false">{</mo><mi>i</mi><mi>n</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mo stretchy="false">}</mo><mo>:</mo><mo stretchy="false">{</mo><mi>o</mi><mi>u</mi><mi>t</mi><mi>p</mi><mi>o</mi><mi>r</mi><mi>t</mi><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">Server.\{myid\}=\{IP\}:\{inport\}:\{outport\} 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">.</span><span class="mopen">{</span><span class="mord mathdefault">m</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord mathdefault">i</span><span class="mord mathdefault">d</span><span class="mclose">}</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mclose">}</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mclose">}</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathdefault">o</span><span class="mord mathdefault">u</span><span class="mord mathdefault">t</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">t</span><span class="mclose">}</span></span></span></span></span></p>
+<p>myid指的就是服务器的编号，这个等等需要在每台服务器上定义，接着IP地址和进出端口号就是字面上的意思。</p>
+<p>设置好配置文件后，我们需要在dataDir目录下建立myid文件记录zookeeper节点编号，比方说在我的配置文件中，定义了<code>172.17.0.2</code>这个节点的编号为<code>1</code>。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /tmp/zookeeper/myid</span><br></pre></td></tr></table></figure>
+<p><code>/tmp/zookeeper</code>这个文件夹是配置文件中dataDir中定义的，如果没有就自己创建一个就可以了</p>
+<h2 id="集群运行"><a class="markdownIt-Anchor" href="#集群运行"></a> 集群运行</h2>
+<p>接着在两台机上运行zookeeper服务：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh start</span><br></pre></td></tr></table></figure>
+<p>当两台机子都成功后，就查看一下他们的运行状态：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh status</span><br></pre></td></tr></table></figure>
+<p>如果这时看到一台机子是Leader，另一台是Follower就说明成功了。这时在其中一台机子上执行create，get,set操作。</p>
+<p>接着在另一台机子先执行同步，在get一下，如果发现同步了，则说明集群配置已经完全完成了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sync /</span><br><span class="line">ls /</span><br><span class="line">get /temp</span><br></pre></td></tr></table></figure>
+<p>虽然说老师还叫我们调用它一些编程接口，但由于我们组有dalao在，我就懒得去调用了，懂它大概怎么运行就可以了。听说python调用zookeeper有个库叫做kazoo，如果有需要再去学吧`</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/25/2019-11-25-zookeeper-get-start/" data-id="ck3dvyco9003jhlu3om556aod" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/22/2019-11-22-docker-install-guide/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux下docker安装及运行</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 11.25px;">docker</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 10px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 10px;">密码学</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 11.25px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/25/2019-11-25-zookeeper-get-start/">Zookeeper集群安装</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/22/2019-11-22-docker-install-guide/">linux下docker安装及运行</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/21/2019-11-21-ENS-simple-introduction/">ENS简要介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/">以太坊智能合约在geth节点客户端中手动编译、部署</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/">共识算法PBFT和RAFT</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
