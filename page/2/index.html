@@ -69,6 +69,72 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2019-10-22-python-knowledge" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/22/2019-10-22-python-knowledge/" class="article-date">
+  <time datetime="2019-10-22T01:57:49.000Z" itemprop="datePublished">2019-10-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/编程语言/">编程语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/22/2019-10-22-python-knowledge/">python基本库的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于小型化以太坊网络是第一次进行的python大项目的开发，所以于到了非常多的坑，因此写篇博客记录一下。</p>
+<h2 id="编码及加密"><a class="markdownIt-Anchor" href="#编码及加密"></a> 编码及加密</h2>
+<p><a href="https://www.geeksforgeeks.org/md5-hash-python/" target="_blank" rel="noopener">md5-hash-in-python</a></p>
+<p><a href="https://github.com/renne444/python-eth-naming/blob/master/example/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95.py" target="_blank" rel="noopener">python-md5库使用样例</a></p>
+<p><a href="https://blog.csdn.net/leilba/article/details/50654256" target="_blank" rel="noopener">python对象与json相互转换</a></p>
+<p><a href="https://github.com/renne444/python-eth-naming/blob/master/util/format.py" target="_blank" rel="noopener">python-json与dic-格式转换样例</a></p>
+<p><a href="https://blog.csdn.net/Kwoky/article/details/81043650" target="_blank" rel="noopener">Python3中使用 RSA加/解密</a></p>
+<h2 id="日志库最基本使用"><a class="markdownIt-Anchor" href="#日志库最基本使用"></a> 日志库最基本使用</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(level=config.LOG_LEVEL) <span class="comment">#设置日志显示等级</span></span><br><span class="line">logging.debug(<span class="string">'xxx'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="文件及路径操作"><a class="markdownIt-Anchor" href="#文件及路径操作"></a> 文件及路径操作</h2>
+<p><a href="https://www.pythonforbeginners.com/files/with-statement-in-python" target="_blank" rel="noopener">基本读写操作教程</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">geth_log_path = os.path.join(project_path,config.LOG_PATH) <span class="comment">#合成路径</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(geth_log_path):</span><br><span class="line">    os.makedirs(geth_log_path) <span class="comment">#如果文件加不存在，则循环新建文件夹</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读写操作</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">writeMetadata</span><span class="params">(fileinfo)</span>:</span></span><br><span class="line">    project_path = config.PROJECT_REAL_PATH</span><br><span class="line">    geth_naming_path = os.path.join(project_path,config.NAMING_INFO_PATH)</span><br><span class="line">    meta_path = os.path.join(geth_naming_path,config.NAMING_INFO_METADATA)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(meta_path,<span class="string">'w'</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(fileinfo)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readMetadata</span><span class="params">()</span>:</span></span><br><span class="line">    project_path = config.PROJECT_REAL_PATH</span><br><span class="line">    geth_naming_path = os.path.join(project_path,config.NAMING_INFO_PATH)</span><br><span class="line">    meta_path = os.path.join(geth_naming_path,config.NAMING_INFO_METADATA)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(meta_path):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(meta_path,<span class="string">'r'</span>) <span class="keyword">as</span> file:</span><br><span class="line">        metadata = file.read()</span><br><span class="line">    <span class="keyword">return</span> metadata</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">appendData</span><span class="params">()</span>:</span></span><br><span class="line">    tx_hash = w3.eth.sendRawTransaction(signed_tx.rawTransaction)</span><br><span class="line">    tx_hash = w3.toHex(tx_hash)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">"contract_tx_hash"</span>,<span class="string">"w"</span>) <span class="keyword">as</span> file:</span><br><span class="line">        file.write(tx_hash)</span><br></pre></td></tr></table></figure>
+<h2 id="正则匹配"><a class="markdownIt-Anchor" href="#正则匹配"></a> 正则匹配</h2>
+<p><a href="https://blog.csdn.net/guaguastd/article/details/38920565" target="_blank" rel="noopener">正则表达式示例</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_address</span><span class="params">(str)</span>:</span></span><br><span class="line"></span><br><span class="line">    isMatch = re.match(<span class="string">r'^0x[0-9a-fA-F]+$'</span>,str)</span><br><span class="line">    <span class="keyword">if</span> isMatch == <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<h2 id="时间库使用"><a class="markdownIt-Anchor" href="#时间库使用"></a> 时间库使用</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">current_milli_time = <span class="keyword">lambda</span>: int(round(time.time() * <span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">100</span>) <span class="comment"># 秒为单位</span></span><br></pre></td></tr></table></figure>
+<h2 id="http请求"><a class="markdownIt-Anchor" href="#http请求"></a> HTTP请求</h2>
+<p><a href="https://github.com/renne444/python-eth-naming/blob/master/request/nodeinfo_request.py" target="_blank" rel="noopener">小型化网络-请求模块</a></p>
+<p><a href="https://github.com/renne444/python-toys/blob/master/post%E8%AF%B7%E6%B1%82%E5%8F%91%E9%80%81%E7%A4%BA%E4%BE%8B(%E5%AE%9E%E9%AA%8C%E5%AE%A4%E5%AE%89%E5%85%A8%E5%88%B7%E6%97%B6%E9%97%B4).py" target="_blank" rel="noopener">实验室安全刷时间脚本</a></p>
+<h2 id="http服务端python3自带的httpserver"><a class="markdownIt-Anchor" href="#http服务端python3自带的httpserver"></a> HTTP服务端（Python3自带的HTTPServer）</h2>
+<p><a href="https://github.com/renne444/python-eth-naming/blob/master/myhttp/manage_http.py" target="_blank" rel="noopener">小型化网络-HTTP服务端部分</a></p>
+<h2 id="基本操作-数组生成式"><a class="markdownIt-Anchor" href="#基本操作-数组生成式"></a> 基本操作-数组生成式</h2>
+<p><a href="https://www.itread01.com/content/1543205660.html" target="_blank" rel="noopener">python建立陣列的方法</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-python-knowledge/" data-id="ck4djieyb0021ohu3i6wkbqnk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2019-10-19-dns-dnssec-zone-file-structure" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" class="article-date">
@@ -105,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck4ap1de2001np8u3dnm1gl7p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck4djiey3001hohu3871ffrfv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -155,7 +221,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck4ap1de0001kp8u3fv2aetwl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck4djiey00019ohu3radi505z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -202,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck4ap1ddz001hp8u3uolw93b0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck4djiey4001lohu3ysb8fyqj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -246,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck4ap1de90026p8u38m0jiglm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck4djieyc0027ohu3plpfvhhq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -292,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/" data-id="ck4ap1ddy001dp8u3jzpzjocw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/" data-id="ck4djiey1001dohu33g4q8wor" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
@@ -362,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/" data-id="ck4ap1ddx0019p8u36csbwsdk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/" data-id="ck4djiexy0016ohu3qjcdn2nq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
@@ -419,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-2/" data-id="ck4ap1ddu0012p8u3rzzd8a26" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-2/" data-id="ck4djiey7001pohu311z31hzm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -468,7 +534,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-1/" data-id="ck4ap1ddt000yp8u33986txj0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/04/2019-09-04-eth-web3js-summary-1/" data-id="ck4djiexx0012ohu36z7x7fj1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node-js/">node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -516,57 +582,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-ctf-summary/" data-id="ck4ap1dds000vp8u3gjukk3v3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-ctf-summary/" data-id="ck4djiexv000uohu3aya8ictk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ctf/">ctf</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-03-gitignore" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/03/2019-09-03-gitignore/" class="article-date">
-  <time datetime="2019-09-03T08:10:46.000Z" itemprop="datePublished">2019-09-03</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先，先创建.gitignore。之后运行git忽略文件即可</p>
-<p>gitignore文件格式样例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*/__pycache__</span><br><span class="line">private/*</span><br><span class="line">naming/*</span><br><span class="line">log/*</span><br></pre></td></tr></table></figure>
-<p>命令行：</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'update .gitignore'</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/03/2019-09-03-gitignore/" data-id="ck4ap1ddv0016p8u38o0be6n8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
     </footer>
   </div>
@@ -610,7 +629,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 10px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 10px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 11.25px;">密码学</a> <a href="/tags/数学/" style="font-size: 11.25px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 12.5px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 10px;">联盟链</a>
+      <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 10px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 10px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 12.5px;">密码学</a> <a href="/tags/数学/" style="font-size: 12.5px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 13.75px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 10px;">联盟链</a>
     </div>
   </div>
 
@@ -632,6 +651,10 @@
       <ul>
         
           <li>
+            <a href="/2019/12/20/2019-12-20-eigamal/">EIGamal体系讲解</a>
+          </li>
+        
+          <li>
             <a href="/2019/12/18/2019-12-18-china-residue-algorithm/">中国剩余定理</a>
           </li>
         
@@ -645,10 +668,6 @@
         
           <li>
             <a href="/2019/11/22/2019-11-22-docker-install-guide/">linux下docker安装及运行</a>
-          </li>
-        
-          <li>
-            <a href="/2019/11/21/2019-11-21-ENS-simple-introduction/">ENS简要介绍</a>
           </li>
         
       </ul>
