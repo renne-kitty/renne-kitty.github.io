@@ -17,7 +17,7 @@
 <meta property="og:description" content="加法运算 我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。 当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。  数乘运算 定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。  公钥私钥生成 首先选取椭圆曲线上的一个起点G，设经过n步之">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/08/24/2019-08-24-ECC/ECC.jpg">
-<meta property="og:updated_time" content="2019-10-20T02:51:40.758Z">
+<meta property="og:updated_time" content="2020-02-03T11:13:00.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="椭圆曲线加密简单理解">
 <meta name="twitter:description" content="加法运算 我们定义加法运算 P + Q 为，将p和q连成一条直线，叫另一点为R，R关于x轴对称的点就是所求P+Q。 当P和Q重合时，直线取P点的切线；当P和Q点平行时，定义P+Q为一个无穷远的点0。  数乘运算 定义2P = P + P，3P = 2P + P。由于该群的运算符合交换率，具体证明不会，所以能实现n*P这样的数乘运算。  公钥私钥生成 首先选取椭圆曲线上的一个起点G，设经过n步之">
@@ -112,11 +112,14 @@
 <h4 id="数据加解密"><a class="markdownIt-Anchor" href="#数据加解密"></a> 数据加解密</h4>
 <p>加密方知道Q和原点G，所以自己定义，从Q点再继续往前走k步达到OFFSET=(x2,y2)，即OFFSET = Q + kG。将原文数据m映射为图上的点(Xm,Ym)，再偏移OFFSET，达到C=(x2,y2)+(Xm,Ym)就是密文。接下来计算从原点G走k步后的(x1,y1)，(x1,y1)=kG。</p>
 <p>接下来将密文C和(x1,y1)发送给私钥拥有者。解密方拥有私钥n，由于OFFSET=(n+K)G=(x1,y1)+nG。所以直接计算就能得到OFFSET，将密文重新做偏移就能达到明文。</p>
+<h2 id="后记"><a class="markdownIt-Anchor" href="#后记"></a> 后记</h2>
+<p>不是讲笑，我现在看到这篇博文的时候都有点脸红。挺，挺，挺年轻的一篇文章…</p>
+<p>on 2020-02-04</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/24/2019-08-24-ECC/" data-id="ck66bka260011gnu3jmlceavd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/24/2019-08-24-ECC/" data-id="ck6kmygj9000u9ju3pq9sayy1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -175,7 +178,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 10px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.25px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.75px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.75px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 10px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a>
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 11.25px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.25px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.75px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.75px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 11.25px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a>
     </div>
   </div>
 
@@ -197,11 +200,15 @@
       <ul>
         
           <li>
+            <a href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/">超级账本 网络拓扑角色</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/03/2020-02-03-schnorr-signature/">schnorr签名及其多重签名介绍</a>
           </li>
         
           <li>
-            <a href="/2020/02/03/2020-02-03-vmware-android-install/">2020-02-03-vmware-android-install</a>
+            <a href="/2020/02/03/2020-02-03-vmware-android-install/">安卓8.1安装记录(vmware虚拟机)</a>
           </li>
         
           <li>
@@ -210,10 +217,6 @@
         
           <li>
             <a href="/2019/12/20/2019-12-20-eigamal/">EIGamal体系讲解</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/18/2019-12-18-china-residue-algorithm/">中国剩余定理</a>
           </li>
         
       </ul>

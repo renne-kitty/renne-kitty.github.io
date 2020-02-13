@@ -69,6 +69,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2019-11-18-geth-smart-contract-deploy-and-call" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/" class="article-date">
+  <time datetime="2019-11-18T11:30:33.000Z" itemprop="datePublished">2019-11-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/">以太坊智能合约在geth节点客户端中手动编译、部署</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="solidity编译"><a class="markdownIt-Anchor" href="#solidity编译"></a> solidity编译</h2>
+<p>比方说有份智能合约<code>a.sol</code>，先通过各种方式先通过编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.5.11;</span><br><span class="line"></span><br><span class="line">contract SimpleStorage &#123;</span><br><span class="line">  uint storedData;</span><br><span class="line"></span><br><span class="line">  function set(uint x) public &#123;</span><br><span class="line">      storedData = x;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function get() public view returns (uint) &#123;</span><br><span class="line">      return storedData;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/18/2019-11-18-geth-smart-contract-deploy-and-call/" data-id="ck6kmygjp002b9ju3bf19d6ki" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2019-10-22-consenus-algorithm-RAFT-and-PBFT" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/" class="article-date">
@@ -107,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/" data-id="ck66bka2g001vgnu3ys9eul8r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-consenus-algorithm-RAFT-and-PBFT/" data-id="ck6kmygjk001q9ju3jom6ji4y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -154,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-summery/" data-id="ck66bka2i001zgnu34stx5q9n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-summery/" data-id="ck6kmygjl001x9ju38vz74h5q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li></ul>
@@ -204,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-structure/" data-id="ck66bka2j0021gnu3c7haysap" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-eth-experiment-adv-structure/" data-id="ck6kmygjm00219ju3z57bxo18" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实验/">实验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -270,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-python-knowledge/" data-id="ck66bka2k0023gnu3wvwpp2rw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/22/2019-10-22-python-knowledge/" data-id="ck6kmygjn00249ju3tvy8elyv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程语言/">编程语言</a></li></ul>
@@ -318,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck66bka2c001kgnu31vnfsip4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" data-id="ck6kmygjj001m9ju38govg0fv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -368,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck66bka2d001ngnu307zuosnd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-kill-process-or-jobs/" data-id="ck6kmygjk001t9ju3yz8nwv4j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -415,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck66bka2b001hgnu3pad69jb8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/2019-10-17-micro-eth-network/" data-id="ck6kmygji001k9ju36b7gadrv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/根域名/">根域名</a></li></ul>
@@ -459,7 +508,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck66bka2l0026gnu3maffscel" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/08/2019-10-8-cryptography-homework/" data-id="ck6kmygjo00289ju34csesw6g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -505,77 +554,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/" data-id="ck66bka2a001dgnu31nm5m7j7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-09-26-machine-learning-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/26/2019-09-26-machine-learning-1/" class="article-date">
-  <time datetime="2019-09-26T13:38:21.000Z" itemprop="datePublished">2019-09-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/26/2019-09-26-machine-learning-1/">机器学习记录(查准率、查全率、假设检验)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="查准率-查全率"><a class="markdownIt-Anchor" href="#查准率-查全率"></a> 查准率、查全率</h2>
-<h3 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h3>
-<p>首先是那个蛋痛的表：</p>
-<table>
-<thead>
-<tr>
-<th>真实\预测</th>
-<th>真</th>
-<th>假</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>真</td>
-<td>TP</td>
-<td>FN</td>
-</tr>
-<tr>
-<td>假</td>
-<td>FP</td>
-<td>TN</td>
-</tr>
-</tbody>
-</table>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/26/2019-09-26-machine-learning-1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/26/2019-09-26-machine-learning-1/" data-id="ck66bka280015gnu3ckbsj0kz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/05/2019-10-05-ml-classified-1/" data-id="ck6kmygjh001h9ju3weemnri4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/概率论/">概率论</a></li></ul>
@@ -591,7 +570,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -622,7 +601,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 10px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.25px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.75px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.75px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 10px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a>
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 15px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 11.25px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 11.25px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.25px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.75px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.75px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 11.25px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a>
     </div>
   </div>
 
@@ -644,11 +623,15 @@
       <ul>
         
           <li>
+            <a href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/">超级账本 网络拓扑角色</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/03/2020-02-03-schnorr-signature/">schnorr签名及其多重签名介绍</a>
           </li>
         
           <li>
-            <a href="/2020/02/03/2020-02-03-vmware-android-install/">2020-02-03-vmware-android-install</a>
+            <a href="/2020/02/03/2020-02-03-vmware-android-install/">安卓8.1安装记录(vmware虚拟机)</a>
           </li>
         
           <li>
@@ -657,10 +640,6 @@
         
           <li>
             <a href="/2019/12/20/2019-12-20-eigamal/">EIGamal体系讲解</a>
-          </li>
-        
-          <li>
-            <a href="/2019/12/18/2019-12-18-china-residue-algorithm/">中国剩余定理</a>
           </li>
         
       </ul>
