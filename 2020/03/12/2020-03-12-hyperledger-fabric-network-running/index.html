@@ -6,20 +6,22 @@
   
 
   
-  <title>笔记本省电设置 | Renne&#39;s Blog</title>
+  <title>超级账本 网络搭建 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="省电设置 之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。 1yay laptop-mode-tools 在aur上安装即可，之后在导航栏">
-<meta name="keywords" content="linux,arch">
+  <meta name="description" content="之前搞了好多天的实验，接着又学了一下别的杂七杂八的东西，今天总算能继续搭建fabric网络。之后如果可以的话，也写一下上次实验相关的东西吧。">
+<meta name="keywords" content="区块链,联盟链,fabric,超级账本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="笔记本省电设置">
-<meta property="og:url" content="http://yoursite.com/2019/07/31/2019-07-31-laptop-mode-save-power/index.html">
+<meta property="og:title" content="超级账本 网络搭建">
+<meta property="og:url" content="http://yoursite.com/2020/03/12/2020-03-12-hyperledger-fabric-network-running/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="省电设置 之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。 1yay laptop-mode-tools 在aur上安装即可，之后在导航栏">
+<meta property="og:description" content="之前搞了好多天的实验，接着又学了一下别的杂七杂八的东西，今天总算能继续搭建fabric网络。之后如果可以的话，也写一下上次实验相关的东西吧。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-27T20:35:04.000Z">
+<meta property="og:image" content="http://yoursite.com/2020/03/12/2020-03-12-hyperledger-fabric-network-running/fabric-images.jpg">
+<meta property="og:updated_time" content="2020-03-12T13:49:21.789Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="笔记本省电设置">
-<meta name="twitter:description" content="省电设置 之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。 1yay laptop-mode-tools 在aur上安装即可，之后在导航栏">
+<meta name="twitter:title" content="超级账本 网络搭建">
+<meta name="twitter:description" content="之前搞了好多天的实验，接着又学了一下别的杂七杂八的东西，今天总算能继续搭建fabric网络。之后如果可以的话，也写一下上次实验相关的东西吧。">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/12/2020-03-12-hyperledger-fabric-network-running/fabric-images.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -72,14 +74,14 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-2019-07-31-laptop-mode-save-power" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2020-03-12-hyperledger-fabric-network-running" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/31/2019-07-31-laptop-mode-save-power/" class="article-date">
-  <time datetime="2019-07-31T03:05:26.000Z" itemprop="datePublished">2019-07-31</time>
+    <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/" class="article-date">
+  <time datetime="2020-03-12T12:08:11.000Z" itemprop="datePublished">2020-03-12</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
   </div>
 
   </div>
@@ -90,7 +92,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      笔记本省电设置
+      超级账本 网络搭建
     </h1>
   
 
@@ -98,19 +100,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="省电设置"><a class="markdownIt-Anchor" href="#省电设置"></a> 省电设置</h2>
-<p>之前拿着笔记本去了一趟图书馆，发现linux的耗电真的太离谱了，windows开个省电模式比它厉害多了。从wiki上看到一款工具，Laptop Mode Tools，也许可以改善这个问题，原本使用linux大概能够使用两个多小时；安装之后大概使用了2小时20分钟，电量显示50%(这是使用外接显示器的情况)。</p>
-<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay laptop-mode-tools</span><br></pre></td></tr></table></figure>
-<p>在aur上安装即可，之后在导航栏找到laptop_mode就可以使用了，听说laptop_mode开启的时候会禁用独显，如果要使用的话可以laptop_mode stop/start，开关模块。</p>
-<p>安装了这个东西之后实测鼠标出了点问题，找到了一篇<a href="https://askubuntu.com/questions/760887/installed-laptop-mode-tool-16-04-now-usb-mouse-not-working-after-rebooting-unti" target="_blank" rel="noopener">文章</a>，待检验。</p>
+        <p>之前搞了好多天的实验，接着又学了一下别的杂七杂八的东西，今天总算能继续搭建fabric网络。之后如果可以的话，也写一下上次实验相关的东西吧。</p>
+<a id="more"></a>
+<p>超级账本，它改了之前不少ERC20 token需要另外的语言来进行编译的缺点，毕竟这样让开发者需要学习一门垃圾语言去编写应用是不太好的。而由于区块链中，需要保证状态机的一致性，就是指状态机起始状态相同、状态转移相同，就一定能得到一致的结果。支持ERC20 TOKEN的区块链可以使用evm来保证起始状态和转移状态的相同，而超级账本使用的是docker容器在一定范围内保证链码的转移相同。</p>
+<p>这次搭建超级账本的过程真的学了不少东西，包括各种docker和docker-compose的各种花式操作。想了一下刚刚做的实验，也是用了docker的一些简单特性来搞的，要是重新搞一次或许会用docker-compose和k8s来干吧，虽然我了解还是很少。这半年真感觉自己知识量太少了，很多应该懂的知识还是不会，需要加倍努力。</p>
+<p>闲话休提，言归正传。</p>
+<h2 id="镜像下载"><a class="markdownIt-Anchor" href="#镜像下载"></a> 镜像下载</h2>
+<p><img src="fabric-images.jpg" alt="下载的镜像"></p>
+<p>我这里使用的全部都是release-1.0版本的镜像，然后把tag偷偷改成latest来运行的。。。毕竟1.0的教程比较完善嘛。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull hyperledger/fabric-ca:x86_64-1.0.0</span><br><span class="line">docker tag <span class="variable">$ImageId</span> hyperledger/fabric-ca:latest</span><br></pre></td></tr></table></figure>
+<h2 id="编写crypto-configyaml和configtxyaml配置文件以及docker-compose文件"><a class="markdownIt-Anchor" href="#编写crypto-configyaml和configtxyaml配置文件以及docker-compose文件"></a> 编写crypto-config.yaml和configtx.yaml配置文件以及docker-compose文件</h2>
+<p>crypto-config.yaml文件是用于生成MSP证书的，MSP证书主要描述了排序节点和peer节点的组织关系。而configtx.yaml主要通过刚刚生成的MSP证书生成配置交易的，包括系统链和业务链的配置交易。配置交易规定了排序节点的共识算法、从属组织和peer节点的从属组织、主节点端口等。</p>
+<p>我直接用了慕课网提供的配置文件：</p>
+<ol>
+<li><a href="https://git.imooc.com/coding-268/coding-268/src/release-1.0/imocc/deploy/crypto-config.yaml" target="_blank" rel="noopener">crypto-config.yaml</a></li>
+<li><a href="https://git.imooc.com/coding-268/coding-268/src/release-1.0/imocc/deploy/configtx.yaml" target="_blank" rel="noopener">configtx</a></li>
+<li><a href="https://git.imooc.com/coding-268/coding-268/src/release-1.0/imocc/deploy/docker-compose.yaml" target="_blank" rel="noopener">docker-compose.yaml</a></li>
+</ol>
+<h2 id="生成msp证书-创世区块和配置交易"><a class="markdownIt-Anchor" href="#生成msp证书-创世区块和配置交易"></a> 生成MSP证书、创世区块和配置交易</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成MSP证书</span></span><br><span class="line">cryptogen generate --config=./crypto-config.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成创世区块</span></span><br><span class="line">configtxgen -profile OneOrgOrdererGenesis -outputBlock ./config/genesis.block</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成通道的创世交易</span></span><br><span class="line">configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./config/mychannel.tx -channelID mychannel</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成主节点配置交易</span></span><br><span class="line">configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./config/Org0MSPanchors.tx -channelID mychannel -asOrg Org0MSP</span><br><span class="line">configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./config/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注入配置文件并启动docker</span></span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<h2 id="创建通道"><a class="markdownIt-Anchor" href="#创建通道"></a> 创建通道</h2>
+<p>在使用docker-compose启动网络后，所有的操作都需要通过提交交易的方式来执行。而提交交易这个操作是在Peer节点上执行的，因此需要在docker-compose文件里定义一个组织和节点做cli，用于提交新交易。刚刚生成的那些在系统链创建区块以及在业务链执行链码服务，都可以通过刚刚的peer节点执行。</p>
+<p>刚刚我们只是部署的网络，让各各不同的docker之间相互连接，启动了整个平台。但是启动平台之后仍未能执行链码操作，因为链码需要在通道中进行。因此我们需要登录到cli里面创建通道。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it cli bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建通道</span></span><br><span class="line">peer channel create -o orderer.imocc.com:7050 -c mychannel -f /etc/hyperledger/config/mychannel.tx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入通道</span></span><br><span class="line">peer channel join -b mychannel.block</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主节点设置</span></span><br><span class="line">peer channel update -o orderer.imocc.com:7050 -c mychannel -f /etc/hyperledger/config/Org1MSPanchors.tx</span><br></pre></td></tr></table></figure>
+<h2 id="链码执行"><a class="markdownIt-Anchor" href="#链码执行"></a> 链码执行</h2>
+<p>刚刚已经成功创建了通道，之后将智能合约安装并实例化就可以了。我们所有的业务逻辑都使用链码实现，这里将慕课网上的badexample部署到网络上。部署链码用到了安装和新建的操作，安装指的是复制文件、新建指的是执行新建的方法。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装链码</span></span><br><span class="line">peer chaincode install -n badexample -v 1.0.0 -l golang -p github.com/chaincode/badexample</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链码实例化</span></span><br><span class="line">peer chaincode instantiate -o orderer.imocc.com:7050 -C mychannel -n badexample -l golang -v 1.0.0 -c <span class="string">'&#123;"Args":["init"]&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 链码查询</span></span><br><span class="line">peer chaincode query -C mychannel -n badexample -c <span class="string">'&#123;"Args":[]&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>每次执行链码查询时都出现了不同的随机数，说明链码执行成功了。为什么这里使用了badexample形容这种链码呢？主要时因为链码在编写的时候使用了不稳定的外部依赖（随机数），使得即使初始状态一样，而状态转移不一样，得到的结果也会是不一样的。如果使用request之类的函数也会出现这样的问题，毕竟有的地方可能请求不了某个资源。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/31/2019-07-31-laptop-mode-save-power/" data-id="ck7ot445e000ix4tmugiqalym" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/12/2020-03-12-hyperledger-fabric-network-running/" data-id="ck7ot446q003qx4tmye24c3u8" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/arch/">arch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
 
     </footer>
   </div>
@@ -118,19 +142,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/08/01/2019-08-01-ethereum/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          了解比特币的难度值和以太坊的总体架构
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/19/2019-07-19-bitcoin-running/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">尝试阅读比特币源码</div>
+      <div class="article-nav-title">超级账本 网络拓扑角色</div>
     </a>
   
 </nav>
