@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>本地namecoin dns搭建 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="想起当时研讨厅被问到namecoin问题时答不上来，接着给了我两个建议，看十来篇和namecoin相关的文章，或者是自己搭一个namecoin DNS试一试。文章实在是看不了了，不是说不想看，而是没得看，提到namecoin的文章很多，但关于namecoin的文章很少，所以就选择后者了。 脑残DNS(ncdns，逃)是个GO语言项目，然后还有些小问题。想起如果不是之前一直在搞go的东西还真不知道怎">
+<meta name="keywords" content="区块链,DNS,namecoin,go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地namecoin dns搭建">
+<meta property="og:url" content="http://yoursite.com/2020/03/18/2020-03-18-namecoin-regtest-deploy/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="想起当时研讨厅被问到namecoin问题时答不上来，接着给了我两个建议，看十来篇和namecoin相关的文章，或者是自己搭一个namecoin DNS试一试。文章实在是看不了了，不是说不想看，而是没得看，提到namecoin的文章很多，但关于namecoin的文章很少，所以就选择后者了。 脑残DNS(ncdns，逃)是个GO语言项目，然后还有些小问题。想起如果不是之前一直在搞go的东西还真不知道怎">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-18T08:01:27.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="本地namecoin dns搭建">
+<meta name="twitter:description" content="想起当时研讨厅被问到namecoin问题时答不上来，接着给了我两个建议，看十来篇和namecoin相关的文章，或者是自己搭一个namecoin DNS试一试。文章实在是看不了了，不是说不想看，而是没得看，提到namecoin的文章很多，但关于namecoin的文章很少，所以就选择后者了。 脑残DNS(ncdns，逃)是个GO语言项目，然后还有些小问题。想起如果不是之前一直在搞go的东西还真不知道怎">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2020-03-18-namecoin-regtest-deploy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/" class="article-date">
+  <time datetime="2020-03-18T05:45:39.000Z" itemprop="datePublished">2020-03-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      本地namecoin dns搭建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>想起当时研讨厅被问到namecoin问题时答不上来，接着给了我两个建议，看十来篇和namecoin相关的文章，或者是自己搭一个namecoin DNS试一试。文章实在是看不了了，不是说不想看，而是没得看，提到namecoin的文章很多，但关于namecoin的文章很少，所以就选择后者了。</p>
+<p>脑残DNS(ncdns，逃)是个GO语言项目，然后还有些小问题。想起如果不是之前一直在搞go的东西还真不知道怎么解决。</p>
+<a id="more"></a>
+<h2 id="下载和运行namecoin客户端"><a class="markdownIt-Anchor" href="#下载和运行namecoin客户端"></a> 下载和运行namecoin客户端</h2>
+<p>namecoin的服务端和客户端自己到官网上下载<a href="https://www.namecoin.org/download/" target="_blank" rel="noopener">https://www.namecoin.org/download/</a>。解压后就看到包括<code>namecoind</code>和<code>namecoin-cli</code>的六个文件了，我这里只是想要学习一些怎么样搭建，所以用命令行的学习效果会更好。</p>
+<p>由于我暂时不想真的买NMC去搭建.bit的域名，毕竟没什么意义，也不再学得到什么。所以直接在本地搭建回归测试的就算了，这里我绑定了全部网络以及18443端口，我是用docker搭建的开放端口是必要的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 回归测试开放在全部网络的18443端口，然后弄个用户名和密码</span></span><br><span class="line">./namecoind -regtest -rpcallowip=0.0.0.0/0 -rpcbind=0.0.0.0:18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<p>开启服务端后用客户端测试一下就可以了，我这里因为已经做了不少测试了，所以数据会和一开始的不同。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> -getinfo</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"version"</span>: 190001,</span><br><span class="line">  <span class="string">"protocolversion"</span>: 110015,</span><br><span class="line">  <span class="string">"blocks"</span>: 483,</span><br><span class="line">  <span class="string">"timeoffset"</span>: 0,</span><br><span class="line">  <span class="string">"connections"</span>: 0,</span><br><span class="line">  <span class="string">"proxy"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"difficulty"</span>: 4.656542373906925e-10,</span><br><span class="line">  <span class="string">"chain"</span>: <span class="string">"regtest"</span>,</span><br><span class="line">  <span class="string">"walletversion"</span>: 169900,</span><br><span class="line">  <span class="string">"balance"</span>: 12249.93850900,</span><br><span class="line">  <span class="string">"keypoololdest"</span>: 1584282375,</span><br><span class="line">  <span class="string">"keypoolsize"</span>: 1000,</span><br><span class="line">  <span class="string">"paytxfee"</span>: 0.00000000,</span><br><span class="line">  <span class="string">"relayfee"</span>: 0.00100000,</span><br><span class="line">  <span class="string">"warnings"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有，没啥事可以看一下帮助</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> <span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<h2 id="注册域名"><a class="markdownIt-Anchor" href="#注册域名"></a> 注册域名</h2>
+<p>注册域名前需要先给钱包申请一个地址，不然无法进行接下来的操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> getnewaddress</span><br><span class="line"><span class="comment">#myusAUAigzU5zydpr35ZXQhAgynob3pvgr</span></span><br></pre></td></tr></table></figure>
+<p>接下来挖区块，一开始namecoin要有100个确认才能成立</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> generatetoaddress 101 myusAUAigzU5zydpr35ZXQhAgynob3pvgr</span><br></pre></td></tr></table></figure>
+<p>有钱了之后，就可以用来做各种各样的事了，关于转账什么的我就不在这里赘述了，因为和比特币完全一样，毕竟NMC就是个在BTC账本里塞私货然后再加个联合挖矿而已。但即使有联合挖矿都能让它凉这还真tm牛逼。。</p>
+<p>namecoin里的名字是分了域的，其中以<code>d/</code>开头的都表示域名。比如namecoin里记录key为<code>d/example</code>，value为<code>{ip:12.34.56.78}</code>，那放在dns区文件里就是<code>example.bit</code>解析为<code>12.34.56.78</code>。所以这里以建立<code>renne.bit</code>为例，先新建一个<code>d/renne</code>名字。</p>
+<p>执行new操作会返回一个交易地址和一个随机数，将这两个数保存下来，之后有用的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcport=18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_new d/renne</span><br><span class="line"><span class="comment">#922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span></span><br><span class="line"><span class="comment">#683d1c96e365952b129a891499231ba2d737b674</span></span><br></pre></td></tr></table></figure>
+<p>接下来执行第一次更新，之后的更新只是少了两个参数而已，这里就不列举了。。看了一下原来可以用stdin输入，这样子不用记录在history里，这个以后在别的情况或许也可以用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 先挖12个区块，确认了刚刚的注册</span></span><br><span class="line">./namecoin-cli -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> generatetoaddress 12 myusAUAigzU5zydpr35ZXQhAgynob3pvgr</span><br><span class="line"></span><br><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_firstupdate</span><br><span class="line">d/renne</span><br><span class="line">683d1c96e365952b129a891499231ba2d737b674</span><br><span class="line">922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span><br><span class="line">&#123;<span class="string">"ip"</span>:<span class="string">"你的IPv4地址"</span>, <span class="string">"ip6"</span>:<span class="string">"你的IPv6地址"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来更新12个区块就可以查看了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挖12个区块，确认了刚刚的更新</span></span><br><span class="line">./namecoin-cli -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> generatetoaddress 12 myusAUAigzU5zydpr35ZXQhAgynob3pvgr</span><br><span class="line"></span><br><span class="line">./namecoin-cli -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_show d/renne</span><br></pre></td></tr></table></figure>
+<p>顺带如果对这笔交易感兴趣的，可以查一下交易，对脚本感兴趣的可以进一步执行decodescript</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcport=18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> gettransaction 922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span><br><span class="line"></span><br><span class="line">./namecoin-cli -rpcport=18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> decodescript <span class="string">"脚本16进制码"</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装ncdns"><a class="markdownIt-Anchor" href="#安装ncdns"></a> 安装ncdns</h2>
+<p>这个安装过程想不到是最消耗我时间的，我本来还以为很简单，结果一编译就发现各种编译错误。首先这个是go语言的项目，如果还没安装go的需要自行安装，然后配好GOPATH之类的环境，执行<code>go env</code>看看配的怎么样就可以了。幸好它是个GO语言项目，不然可能得解决很久。</p>
+<p>由于<code>go get</code>命令会访问一些被墙掉的比如<code>golang.org</code>之类的资源库，因此需要配置代理，设置<code>$https_proxy</code>就可以了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https_proxy=<span class="string">"your proxy url"</span></span><br></pre></td></tr></table></figure>
+<p>之后先下载一个捕获数据包的C函数库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libcap-dev</span><br></pre></td></tr></table></figure>
+<p>使用go get下载ncdns项目，它会自动下载不少的go依赖库，我这里网络比较慢，等了挺久的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -d -t -u -v github.com/namecoin/ncdns</span><br></pre></td></tr></table></figure>
+<p>然后下好构建的时候会提示你编译失败，首先有一些未定义的变量，然后还有个编译错误。</p>
+<p>我们需要逐个击破，先解决未定义变量问题，在<code>$GOPATH/src/github.com/namecoin/x509-signature-splice</code>下，并没有生成文件，进去x509目录运行<code>install.sh</code>生成一下就可以了。我们再运行一下<code>go get -t github.com/namecoin/ncdns</code>就发现解决了一个问题了。</p>
+<p>之后就是编译错误的问题，我这里的编译错误提示是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># github.com/namecoin/btcd/rpcclient</span><br><span class="line">btcd/rpcclient/chain.go:100:31: too many arguments in call to btcjson.NewGetBlockCmd</span><br><span class="line">	have (string, *bool, nil)</span><br><span class="line">	want (string, *int)</span><br><span class="line">btcd/rpcclient/chain.go:144:31: too many arguments in call to btcjson.NewGetBlockCmd</span><br><span class="line">	have (string, *bool, nil)</span><br><span class="line">	want (string, *int)</span><br><span class="line">btcd/rpcclient/chain.go:168:31: too many arguments in call to btcjson.NewGetBlockCmd</span><br><span class="line">	have (string, *bool, *bool)</span><br><span class="line">	want (string, *int)</span><br></pre></td></tr></table></figure>
+<p>这真的非常坑，究其原因，看<code>chain.go</code>引用的头文件，它引用了<code>github.com/btcsuite/btcd/btcjson</code>，这是比特币的库吧，我记得是。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"github.com/btcsuite/btcd/btcjson"</span></span><br><span class="line">	<span class="string">"github.com/btcsuite/btcd/chaincfg/chainhash"</span></span><br><span class="line">	<span class="string">"github.com/btcsuite/btcd/wire"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Client)</span> <span class="title">GetBlockAsync</span><span class="params">(blockHash *chainhash.Hash)</span> <span class="title">FutureGetBlockResult</span></span> &#123;</span><br><span class="line">...</span><br><span class="line">	cmd := btcjson.NewGetBlockCmd(hash, btcjson.Bool(<span class="literal">false</span>), <span class="literal">nil</span>)</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>找到这个库，看看引用的那部分代码<a href="https://github.com/btcsuite/btcd/blob/master/btcjson/chainsvrcmds.go" target="_blank" rel="noopener">chainsvrcmds.go</a>，发现别人早就改代码了。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewGetBlockCmd</span><span class="params">(hash <span class="keyword">string</span>, verbosity *<span class="keyword">int</span>)</span> *<span class="title">GetBlockCmd</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;GetBlockCmd&#123;</span><br><span class="line">		Hash:      hash,</span><br><span class="line">		Verbosity: verbosity,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jalavosus committed on 1 Feb (2020年)</span><br><span class="line">Refactor GetBlockCmd type and NewGetBlockCmd() function to follow the bitcoin json RPC verbosity format for getblock,</span><br><span class="line">which uses 0, 1, or 2 as parameters rather than a boolean true or false.</span><br></pre></td></tr></table></figure>
+<p>再看一下，namecoin官方fork这个库，最后的更新是6 Jan，那基本问题完全定位了。</p>
+<p><strong>namecoin FORK了比特币的库，而FORK的这个库又引用回了原本的比特币的库，原本比特币的库参数更新，但是namecoin没有解决外部引用的问题，导致了参数访问的错误</strong></p>
+<p>知道了原因，解决方法就比较简单了，把比特币的库还原到namecoin引用的时间点就可以了。如何还原，直接复制过去就可以了。虽然这个可能在未来如果要用比特币的库的时候可能出问题，但又不想解决得太麻烦，所以就先这样干了。或许改它源码的引用路径也是可以解决的，但懒得干了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -rf <span class="variable">$GOPATH</span>/src/github.com/btcsuite/btcd</span><br><span class="line">cp -R <span class="variable">$GOPATH</span>/src/github.com/namecoin/btcd <span class="variable">$GOPATH</span>/src/github.com/btcsuite/btcd</span><br><span class="line"></span><br><span class="line">go get -d -t -u -v github.com/namecoin/ncdns</span><br></pre></td></tr></table></figure>
+<p>至少这里我已经安装成功了。</p>
+<h2 id="配置ncdns"><a class="markdownIt-Anchor" href="#配置ncdns"></a> 配置ncdns</h2>
+<p>查一下配置文件的example</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo mkdir /etc/ncdns</span><br><span class="line">sudo cp <span class="variable">$GOPATH</span>/src/github.com/namecoin/ncdns/_doc/ncdns.conf.example /etc/ncdns/ncdns.conf</span><br><span class="line">sudo vim ncdns.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入以下几行配置，我这里没有配dnssec的内容，如果要配的话，需要自行生成ksk或zsk，这里本文就不赘述了</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span>=<span class="string">"127.0.0.1:1025"</span></span><br><span class="line">namecoinrpcaddress=<span class="string">"172.17.0.2:18443"</span> <span class="comment"># 我把nmc搭建在docker里，所以刚刚才需要设0.0.0.0，因为原本是127.0.0.1</span></span><br><span class="line">namecoinrpcusername=<span class="string">"user"</span></span><br><span class="line">namecoinrpcpassword=<span class="string">"pwd"</span></span><br><span class="line">selfname=<span class="string">"bit."</span></span><br></pre></td></tr></table></figure>
+<p>配好后执行ncdns就启动了，dig一下就可以看到成不成功了，如果有出现自己的ipv4和ipv6地址的，就算可以了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./ncdns</span><br><span class="line">dig @127.0.0.1 -p 1025 bit</span><br><span class="line">dig @127.0.0.1 -p 1025 renne.bit A</span><br><span class="line">dig @127.0.0.1 -p 1025 renne.bit AAAA</span><br><span class="line"></span><br><span class="line">dig +short @127.0.0.1 -p 1025 renne.bit A renne.bit AAAA</span><br><span class="line">你的IPv4地址</span><br><span class="line">你的IPv6地址</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/18/2020-03-18-namecoin-regtest-deploy/" data-id="ck7x18dk100705ktmvrg7ctdx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">超级账本 网络搭建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16.25px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.5px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 11.25px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 12.5px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.25px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.75px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.75px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 12.5px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 10px;">超级账本</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/">本地namecoin dns搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/">超级账本 网络搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/">超级账本 网络拓扑角色</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/03/2020-02-03-schnorr-signature/">schnorr签名及其多重签名介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/03/2020-02-03-vmware-android-install/">安卓8.1安装记录(vmware虚拟机)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
