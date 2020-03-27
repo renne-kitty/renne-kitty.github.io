@@ -69,6 +69,173 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2020-03-27-namecoin-regtest-deploy-simpified" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/27/2020-03-27-namecoin-regtest-deploy-simpified/" class="article-date">
+  <time datetime="2020-03-27T13:48:39.000Z" itemprop="datePublished">2020-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/27/2020-03-27-namecoin-regtest-deploy-simpified/">本地namecoin dns搭建(极简版)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>假如想要配置renne.bit解析为&quot;139.162.222.67&quot;、“2a01:7e00:e001:c500::1”。</p>
+<ol>
+<li>启动namecoin节点，这里只用于回归测试，没有连接上公链</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./namecoind -regtest -rpcallowip=0.0.0.0/0 -rpcbind=0.0.0.0:18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>如果钱包里已经有钱，用客户端连接，执行new操作新建域名。得到交易的地址以及一个随机数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcport=18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_new d/renne</span><br><span class="line"><span class="comment">#922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span></span><br><span class="line"><span class="comment">#683d1c96e365952b129a891499231ba2d737b674</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>挖12个区块，确认这次新建的操作</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> generatetoaddress 12 myusAUAigzU5zydpr35ZXQhAgynob3pvgr</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>新建操作被确认后，执行名字值的更新，输入刚刚得到的地址和随机数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_firstupdate</span><br><span class="line">d/renne</span><br><span class="line">683d1c96e365952b129a891499231ba2d737b674</span><br><span class="line">922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span><br><span class="line">&#123;<span class="string">"ip"</span>:<span class="string">"139.162.222.67"</span>, <span class="string">"ip6"</span>:<span class="string">"2a01:7e00:e001:c500::1"</span>&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>挖12个区块后查看该名字的情况</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_show d/renne</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"d/renne"</span>,</span><br><span class="line">  <span class="string">"name_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"value"</span>: <span class="string">'&#123;"ip":"139.162.222.67", "ip6":"2a01:7e00:e001:c500::1"&#125;'</span>,</span><br><span class="line">  <span class="string">"value_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"txid"</span>: <span class="string">"e7dec5fb66edfb12e8ac45bd421e9b4184b1ea733bd129db3cd8607c04412e46"</span>,</span><br><span class="line">  <span class="string">"vout"</span>: 1,</span><br><span class="line">  <span class="string">"address"</span>: <span class="string">"msL46Kh5Mf5wpyz5MMDq7Krs17WNvExQRa"</span>,</span><br><span class="line">  <span class="string">"height"</span>: 114,</span><br><span class="line">  <span class="string">"expires_in"</span>: 19,</span><br><span class="line">  <span class="string">"expired"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"ismine"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>配置namecoin-dns，加入配置，设置解析域名、监听地址</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span>=<span class="string">"127.0.0.1:1025"</span></span><br><span class="line">namecoinrpcaddress=<span class="string">"172.17.0.2:18443"</span> <span class="comment"># 我把nmc搭建在docker里，所以刚刚才需要设0.0.0.0，因为原本是127.0.0.1</span></span><br><span class="line">namecoinrpcusername=<span class="string">"user"</span></span><br><span class="line">namecoinrpcpassword=<span class="string">"pwd"</span></span><br><span class="line">selfname=<span class="string">"bit."</span></span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>启动namecoin-dns，执行dig查询A记录和AAAA记录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dig +short @127.0.0.1 -p 1025 renne.bit A renne.bit AAAA</span><br><span class="line">139.162.222.67</span><br><span class="line">2a01:7e00:e001:c500::1</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/27/2020-03-27-namecoin-regtest-deploy-simpified/" data-id="ck8a8s1aw00008ctmgffcesrr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2020-03-22-fabric-contract-deploy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/" class="article-date">
+  <time datetime="2020-03-22T13:25:29.000Z" itemprop="datePublished">2020-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/22/2020-03-22-fabric-contract-deploy/">超级账本 合约调试与部署</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。</p>
+<p>接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。</p>
+<p>上次已经简单执行过一次链码，但仅仅只是这样做，理解的是很浅的。因此，这次就真正的部署运行一次一个相对详细的链码以加深理解。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/22/2020-03-22-fabric-contract-deploy/" data-id="ck803h6420000vktmt3wwu37d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2020-03-20-ethereum-the-dao" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/20/2020-03-20-ethereum-the-dao/" class="article-date">
+  <time datetime="2020-03-20T09:23:09.000Z" itemprop="datePublished">2020-03-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/20/2020-03-20-ethereum-the-dao/">The DAO重入漏洞重现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近恰好被问到一些关于以太坊漏洞的问题，干脆就去用代码简单演练一下加深印象。以太坊the Dao事件是利用了智能合约里的一个重入漏洞，其本质是the DAO智能合约的代码有可能会一些仍未部署到链上的未知的代码。</p>
+<p>这里有两个很简单的智能合约，solidity版本为0.5.17。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/03/20/2020-03-20-ethereum-the-dao/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/20/2020-03-20-ethereum-the-dao/" data-id="ck803f1hu004c80tmaffspim5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2020-03-18-namecoin-regtest-deploy" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/" class="article-date">
@@ -105,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/18/2020-03-18-namecoin-regtest-deploy/" data-id="ck7x18dk100705ktmvrg7ctdx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/18/2020-03-18-namecoin-regtest-deploy/" data-id="ck803f1hy004m80tmels872kn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
@@ -152,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/12/2020-03-12-hyperledger-fabric-network-running/" data-id="ck7x18dk400785ktm6jqz2rlx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/12/2020-03-12-hyperledger-fabric-network-running/" data-id="ck803f1ht004880tm99kbjz30" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
@@ -199,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/" data-id="ck7x18dk300745ktm2gk2uq65" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/" data-id="ck803f1hv004f80tmqfa0u79m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li></ul>
@@ -247,7 +414,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/03/2020-02-03-schnorr-signature/" data-id="ck7x18djz006y5ktmbx48hai4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/03/2020-02-03-schnorr-signature/" data-id="ck803f1hr004580tm3p0njxob" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -296,10 +463,57 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/03/2020-02-03-vmware-android-install/" data-id="ck7x18djw006t5ktmd92c99e2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/03/2020-02-03-vmware-android-install/" data-id="ck803f1hq004180tmfzsl5aqo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/虚拟机/">虚拟机</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2020-01-07-kademile-DHT-first-meet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/20/2020-01-07-kademile-DHT-first-meet/" class="article-date">
+  <time datetime="2019-12-20T02:30:22.000Z" itemprop="datePublished">2019-12-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/大数据/">大数据</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/20/2020-01-07-kademile-DHT-first-meet/">kademile DHT</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以前曾经了解过什么是DHT，但由于各种组会的误导导致了一个错误的概念，所以这次就使用一个样例学习一下到底什么叫DHT</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/20/2020-01-07-kademile-DHT-first-meet/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/20/2020-01-07-kademile-DHT-first-meet/" data-id="ck803f1hn003u80tm0543caww" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DHT/">DHT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
 
     </footer>
   </div>
@@ -345,205 +559,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/20/2019-12-20-eigamal/" data-id="ck7x18dij00385ktm99yitrcf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/12/20/2019-12-20-eigamal/" data-id="ck803f1ho003y80tm3dy4xruh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2020-01-07-kademile-DHT-first-meet" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/20/2020-01-07-kademile-DHT-first-meet/" class="article-date">
-  <time datetime="2019-12-20T02:30:22.000Z" itemprop="datePublished">2019-12-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/大数据/">大数据</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/20/2020-01-07-kademile-DHT-first-meet/">kademile DHT</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以前曾经了解过什么是DHT，但由于各种组会的误导导致了一个错误的概念，所以这次就使用一个样例学习一下到底什么叫DHT</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/20/2020-01-07-kademile-DHT-first-meet/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/20/2020-01-07-kademile-DHT-first-meet/" data-id="ck7x18djy006v5ktmaqhere74" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DHT/">DHT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-12-18-china-residue-algorithm" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/18/2019-12-18-china-residue-algorithm/" class="article-date">
-  <time datetime="2019-12-18T02:36:17.000Z" itemprop="datePublished">2019-12-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/密码学/">密码学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/18/2019-12-18-china-residue-algorithm/">中国剩余定理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>你信不信这个问题其实累计困扰了我5年，<strong>尼玛的5年啊</strong>！！今晚是个历史性的时刻，本来还要复习的，还是发篇博庆祝一下。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/18/2019-12-18-china-residue-algorithm/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/18/2019-12-18-china-residue-algorithm/" data-id="ck7x18dig00305ktmcz3rvma7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-11-27-hyperledger-fabric-get-start" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/27/2019-11-27-hyperledger-fabric-get-start/" class="article-date">
-  <time datetime="2019-11-27T11:29:00.000Z" itemprop="datePublished">2019-11-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/27/2019-11-27-hyperledger-fabric-get-start/">搭建第一个hyperledger fabric网络</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>hyperledger fabric就是大名鼎鼎的区块链联盟链的一个实现，之前看了一篇关于它的论文，颠覆了我对联盟链的认知，它不仅仅是更改了共识算法那么简单，它甚至还更改了整个区块链的实现架构。</p>
-<p>最近我是在慕课网上稍稍学习了hyperledger fabric，接下来是一些学习过程中的简单分享。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/11/27/2019-11-27-hyperledger-fabric-get-start/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/27/2019-11-27-hyperledger-fabric-get-start/" data-id="ck7x18dii00355ktmazegjza9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2019-11-25-zookeeper-get-start" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/25/2019-11-25-zookeeper-get-start/" class="article-date">
-  <time datetime="2019-11-25T03:42:19.000Z" itemprop="datePublished">2019-11-25</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/大数据/">大数据</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/25/2019-11-25-zookeeper-get-start/">Zookeeper集群安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="应用场景举例"><a class="markdownIt-Anchor" href="#应用场景举例"></a> 应用场景举例</h2>
-<p>今天问了一下斯宇大佬Zookeeper是什么，他用一个实例和我解释了一下。</p>
-<p>假如我们要使用200台机器，现在存在100个需要访问的域名，要求每台机子每半秒钟都必须随机访问其中一个域名，而且这个域名列表还有可能会变动。</p>
-<p>如果平时，我们应该将这100个域名的列表都存储在每台机上，然后每台机都要开端口，接收更新的信息，接着在访问的时候，随机抽取一个访问。</p>
-<p>但有了Zookeeper之后，就可以由它来托管这部分的内容，也就是保持一部分数据在各节点间达成一致。</p>
-<p>很像一条私链？确实是，只不过区块链会维护历史数据，而它不会；区块链使用的是增添(append)的方式，而它使用覆盖的方式。</p>
-<p>在Zookeeper中，使用了ZAB作为共识算法，在相似的GFS中的Chubby中使用了大名鼎鼎的Paxos作为共识算法。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/11/25/2019-11-25-zookeeper-get-start/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/25/2019-11-25-zookeeper-get-start/" data-id="ck7x18dif002x5ktmusd15qga" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
 
     </footer>
   </div>
@@ -577,7 +596,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
     </div>
   </div>
 
@@ -587,7 +606,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16.25px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 15px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.5px;">fabric</a> <a href="/tags/github/" style="font-size: 11.25px;">github</a> <a href="/tags/go/" style="font-size: 11.25px;">go</a> <a href="/tags/linux/" style="font-size: 18.75px;">linux</a> <a href="/tags/namecoin/" style="font-size: 12.5px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.5px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.5px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.25px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.75px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.75px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.75px;">数学</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 16.25px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.25px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.5px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.25px;">源码</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.25px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 12.5px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 10px;">超级账本</a>
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16.67px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14.44px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.22px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.22px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.22px;">fabric</a> <a href="/tags/github/" style="font-size: 11.11px;">github</a> <a href="/tags/go/" style="font-size: 12.22px;">go</a> <a href="/tags/linux/" style="font-size: 18.89px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13.33px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.22px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.78px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.33px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.33px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.33px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12.22px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.22px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15.56px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.22px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13.33px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11.11px;">超级账本</a>
     </div>
   </div>
 
@@ -609,23 +628,23 @@
       <ul>
         
           <li>
+            <a href="/2020/03/27/2020-03-27-namecoin-regtest-deploy-simpified/">本地namecoin dns搭建(极简版)</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/">超级账本 合约调试与部署</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/20/2020-03-20-ethereum-the-dao/">The DAO重入漏洞重现</a>
+          </li>
+        
+          <li>
             <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/">本地namecoin dns搭建</a>
           </li>
         
           <li>
             <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/">超级账本 网络搭建</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/">超级账本 网络拓扑角色</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/03/2020-02-03-schnorr-signature/">schnorr签名及其多重签名介绍</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/03/2020-02-03-vmware-android-install/">安卓8.1安装记录(vmware虚拟机)</a>
           </li>
         
       </ul>
