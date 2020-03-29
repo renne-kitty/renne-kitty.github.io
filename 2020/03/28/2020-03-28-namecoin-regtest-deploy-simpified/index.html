@@ -6,15 +6,20 @@
   
 
   
-  <title>归档 | Renne&#39;s Blog</title>
+  <title>本地namecoin dns搭建(极简版) | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Renne&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="假如想要配置renne.bit解析为&amp;quot;139.162.222.67&amp;quot;、“2a01:7e00:e001:c500::1”。">
+<meta name="keywords" content="区块链,DNS,namecoin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地namecoin dns搭建(极简版)">
+<meta property="og:url" content="http://yoursite.com/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="假如想要配置renne.bit解析为&amp;quot;139.162.222.67&amp;quot;、“2a01:7e00:e001:c500::1”。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-29T06:42:23.832Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Renne&#39;s Blog">
+<meta name="twitter:title" content="本地namecoin dns搭建(极简版)">
+<meta name="twitter:description" content="假如想要配置renne.bit解析为&amp;quot;139.162.222.67&amp;quot;、“2a01:7e00:e001:c500::1”。">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -67,216 +72,87 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/" class="archive-article-date">
-  <time datetime="2019-10-19T10:58:55.000Z" itemprop="datePublished">10月 19</time>
+        <section id="main"><article id="post-2020-03-28-namecoin-regtest-deploy-simpified" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/" class="article-date">
+  <time datetime="2020-03-28T15:48:50.000Z" itemprop="datePublished">2020-03-28</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/19/2019-10-19-dns-dnssec-zone-file-structure/">dns区文件结构理解</a>
+    <h1 class="article-title" itemprop="name">
+      本地namecoin dns搭建(极简版)
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/17/2019-10-17-kill-process-or-jobs/" class="archive-article-date">
-  <time datetime="2019-10-17T04:07:36.000Z" itemprop="datePublished">10月 17</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/17/2019-10-17-kill-process-or-jobs/">linux进程和作业停止</a>
-    </h1>
-  
+        <p>假如想要配置renne.bit解析为&quot;139.162.222.67&quot;、“2a01:7e00:e001:c500::1”。</p>
+<a id="more"></a>
+<ol>
+<li>启动namecoin节点，这里用了回归测试，没有连接上公链，也就是说是个单机的测试。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./namecoind -regtest -rpcallowip=0.0.0.0/0 -rpcbind=0.0.0.0:18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>如果钱包里已经有钱，用客户端连接，执行new操作新建域名。会得到刚刚的交易地址以及一个随机数，等等需要使用这个随机数才能更新数据。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcport=18443 -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_new d/renne</span><br><span class="line"><span class="comment">#922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span></span><br><span class="line"><span class="comment">#683d1c96e365952b129a891499231ba2d737b674</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>挖12个区块，确认这次新建的操作。每一个名称操作都需要经过12个区块的确认才算有效，才能执行下一次的操作。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> generatetoaddress 12 myusAUAigzU5zydpr35ZXQhAgynob3pvgr</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>新建操作被确认后，执行名字值的更新，输入刚刚得到的地址和随机数。执行了第一次更新后，才算真正地拥有这个域名。此时其他人已无法占有该名字，必须等到该名字过期或者由拥有者转让才能获得名字数据的更改权。这里的过期指36000个区块，每一个名称必须在36000个区块内更新，否则名字拥有权会被剥夺。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_firstupdate</span><br><span class="line">d/renne</span><br><span class="line">683d1c96e365952b129a891499231ba2d737b674</span><br><span class="line">922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span><br><span class="line">&#123;<span class="string">"ip"</span>:<span class="string">"139.162.222.67"</span>, <span class="string">"ip6"</span>:<span class="string">"2a01:7e00:e001:c500::1"</span>&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>刚刚执行了名字的第一次更新，在12个区块以后，我们已经可以查看这个名字，可以看到value里存着DNS数据。这时说明名字已经确切地存进区块链账本了。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_show d/renne</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"d/renne"</span>,</span><br><span class="line">  <span class="string">"name_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"value"</span>: <span class="string">'&#123;"ip":"139.162.222.67", "ip6":"2a01:7e00:e001:c500::1"&#125;'</span>,</span><br><span class="line">  <span class="string">"value_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"txid"</span>: <span class="string">"e7dec5fb66edfb12e8ac45bd421e9b4184b1ea733bd129db3cd8607c04412e46"</span>,</span><br><span class="line">  <span class="string">"vout"</span>: 1,</span><br><span class="line">  <span class="string">"address"</span>: <span class="string">"msL46Kh5Mf5wpyz5MMDq7Krs17WNvExQRa"</span>,</span><br><span class="line">  <span class="string">"height"</span>: 114,</span><br><span class="line">  <span class="string">"expires_in"</span>: 19,</span><br><span class="line">  <span class="string">"expired"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"ismine"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>将数据存上链后。配置并启动namecoin-dns，设置解析域名、监听地址。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bind</span>=<span class="string">"127.0.0.1:1025"</span></span><br><span class="line">namecoinrpcaddress=<span class="string">"172.17.0.2:18443"</span> <span class="comment"># 我把nmc搭建在docker里，所以刚刚才需要设0.0.0.0，因为原本是127.0.0.1</span></span><br><span class="line">namecoinrpcusername=<span class="string">"user"</span></span><br><span class="line">namecoinrpcpassword=<span class="string">"pwd"</span></span><br><span class="line">selfname=<span class="string">"bit."</span></span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>启动namecoin-dns，此时namecoin-dns已经可以接收并解析传统的DNS请求，并在namecoin查询相应的记录。这时执行dig查询<code>renne.bit</code>的A记录和AAAA记录，就可以看到刚刚保存的域名数据。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dig +short @127.0.0.1 -p 1025 renne.bit A renne.bit AAAA</span><br><span class="line">139.162.222.67</span><br><span class="line">2a01:7e00:e001:c500::1</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/17/2019-10-17-micro-eth-network/" class="archive-article-date">
-  <time datetime="2019-10-17T03:47:17.000Z" itemprop="datePublished">10月 17</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/17/2019-10-17-micro-eth-network/">小型化以太坊网络靶场部署(初版)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/08/2019-10-8-cryptography-homework/" class="archive-article-date">
-  <time datetime="2019-10-08T02:35:30.000Z" itemprop="datePublished">10月 8</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/" data-id="ck8cofgn8006p04tmbdvtyf3o" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/08/2019-10-8-cryptography-homework/">密码学乘法表生成作业</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/10/05/2019-10-05-ml-classified-1/" class="archive-article-date">
-  <time datetime="2019-10-05T03:52:04.000Z" itemprop="datePublished">10月 5</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/05/2019-10-05-ml-classified-1/">机器学习-极大似然和对数几率回归（浅入）</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">超级账本 合约调试与部署</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/26/2019-09-26-machine-learning-1/" class="archive-article-date">
-  <time datetime="2019-09-26T13:38:21.000Z" itemprop="datePublished">9月 26</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/26/2019-09-26-machine-learning-1/">机器学习记录(查准率、查全率、假设检验)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-2/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:31.000Z" itemprop="datePublished">9月 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-2/">以太坊web3.js实验总结（二）</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/04/2019-09-04-eth-web3js-summary-1/" class="archive-article-date">
-  <time datetime="2019-09-04T06:35:24.000Z" itemprop="datePublished">9月 4</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/04/2019-09-04-eth-web3js-summary-1/">以太坊实验总结（一）</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/03/2019-09-03-ctf-summary/" class="archive-article-date">
-  <time datetime="2019-09-03T08:16:44.000Z" itemprop="datePublished">9月 3</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/2019-09-03-ctf-summary/">夏令营总结</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/09/03/2019-09-03-gitignore/" class="archive-article-date">
-  <time datetime="2019-09-03T08:10:46.000Z" itemprop="datePublished">9月 3</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/03/2019-09-03-gitignore/">使用gitignore屏蔽不需要的文件</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; 上一页</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/4/">下一页 &raquo;</a>
-  </nav>
 
 </section>
         
