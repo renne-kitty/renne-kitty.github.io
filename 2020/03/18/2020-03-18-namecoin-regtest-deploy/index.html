@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Renne&#39;s Blog">
 <meta property="og:description" content="想起当时研讨厅被问到namecoin问题时答不上来，接着给了我两个建议，看十来篇和namecoin相关的文章，或者是自己搭一个namecoin DNS试一试。文章实在是看不了了，不是说不想看，而是没得看，提到namecoin的文章很多，但关于namecoin的文章很少，所以就选择后者了。 脑残DNS(ncdns，逃)是个GO语言项目，然后还有些小问题。想起如果不是之前一直在搞go的东西还真不知道怎">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-27T14:05:34.617Z">
+<meta property="og:updated_time" content="2020-04-20T08:56:15.275Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="本地namecoin dns搭建">
 <meta name="twitter:description" content="想起当时研讨厅被问到namecoin问题时答不上来，接着给了我两个建议，看十来篇和namecoin相关的文章，或者是自己搭一个namecoin DNS试一试。文章实在是看不了了，不是说不想看，而是没得看，提到namecoin的文章很多，但关于namecoin的文章很少，所以就选择后者了。 脑残DNS(ncdns，逃)是个GO语言项目，然后还有些小问题。想起如果不是之前一直在搞go的东西还真不知道怎">
@@ -151,11 +151,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo mkdir /etc/ncdns</span><br><span class="line">sudo cp <span class="variable">$GOPATH</span>/src/github.com/namecoin/ncdns/_doc/ncdns.conf.example /etc/ncdns/ncdns.conf</span><br><span class="line">sudo vim ncdns.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入以下几行配置，我这里没有配dnssec的内容，如果要配的话，需要自行生成ksk或zsk，这里本文就不赘述了</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bind</span>=<span class="string">"127.0.0.1:1025"</span></span><br><span class="line">namecoinrpcaddress=<span class="string">"172.17.0.2:18443"</span> <span class="comment"># 我把nmc搭建在docker里，所以刚刚才需要设0.0.0.0，因为原本是127.0.0.1</span></span><br><span class="line">namecoinrpcusername=<span class="string">"user"</span></span><br><span class="line">namecoinrpcpassword=<span class="string">"pwd"</span></span><br><span class="line">selfname=<span class="string">"bit."</span></span><br></pre></td></tr></table></figure>
 <p>配好后执行ncdns就启动了，dig一下就可以看到成不成功了，如果有出现自己的ipv4和ipv6地址的，就算可以了。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./ncdns</span><br><span class="line">dig @127.0.0.1 -p 1025 bit</span><br><span class="line">dig @127.0.0.1 -p 1025 renne.bit A</span><br><span class="line">dig @127.0.0.1 -p 1025 renne.bit AAAA</span><br><span class="line"></span><br><span class="line">dig +short @127.0.0.1 -p 1025 renne.bit A renne.bit AAAA</span><br><span class="line">你的IPv4地址</span><br><span class="line">你的IPv6地址</span><br></pre></td></tr></table></figure>
+<h2 id="后记"><a class="markdownIt-Anchor" href="#后记"></a> 后记</h2>
+<p>其实现在再看回上个月写的这份东西，也许随便写个go.mod就解决这些怎么麻烦的问题了。。。自己还是太菜了。。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/18/2020-03-18-namecoin-regtest-deploy/" data-id="ck8cofgn4006j04tm04q4ld9z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/18/2020-03-18-namecoin-regtest-deploy/" data-id="ck8e8kfui003k3gtmzymgiboa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>

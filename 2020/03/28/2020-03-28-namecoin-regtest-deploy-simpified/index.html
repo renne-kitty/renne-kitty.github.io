@@ -8,18 +8,18 @@
   
   <title>本地namecoin dns搭建(极简版) | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="假如想要配置renne.bit解析为&amp;quot;139.162.222.67&amp;quot;、“2a01:7e00:e001:c500::1”。">
+  <meta name="description" content="假如想要配置renne.bit解析为&amp;quot;12.34.56.78&amp;quot;、“2a01:7e00:e001:c500::1”。">
 <meta name="keywords" content="区块链,DNS,namecoin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="本地namecoin dns搭建(极简版)">
 <meta property="og:url" content="http://yoursite.com/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="假如想要配置renne.bit解析为&amp;quot;139.162.222.67&amp;quot;、“2a01:7e00:e001:c500::1”。">
+<meta property="og:description" content="假如想要配置renne.bit解析为&amp;quot;12.34.56.78&amp;quot;、“2a01:7e00:e001:c500::1”。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-29T06:42:23.832Z">
+<meta property="og:updated_time" content="2020-03-30T08:53:26.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="本地namecoin dns搭建(极简版)">
-<meta name="twitter:description" content="假如想要配置renne.bit解析为&amp;quot;139.162.222.67&amp;quot;、“2a01:7e00:e001:c500::1”。">
+<meta name="twitter:description" content="假如想要配置renne.bit解析为&amp;quot;12.34.56.78&amp;quot;、“2a01:7e00:e001:c500::1”。">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -98,7 +98,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>假如想要配置renne.bit解析为&quot;139.162.222.67&quot;、“2a01:7e00:e001:c500::1”。</p>
+        <p>假如想要配置renne.bit解析为&quot;12.34.56.78&quot;、“2a01:7e00:e001:c500::1”。</p>
 <a id="more"></a>
 <ol>
 <li>启动namecoin节点，这里用了回归测试，没有连接上公链，也就是说是个单机的测试。</li>
@@ -115,11 +115,11 @@
 <ol start="4">
 <li>新建操作被确认后，执行名字值的更新，输入刚刚得到的地址和随机数。执行了第一次更新后，才算真正地拥有这个域名。此时其他人已无法占有该名字，必须等到该名字过期或者由拥有者转让才能获得名字数据的更改权。这里的过期指36000个区块，每一个名称必须在36000个区块内更新，否则名字拥有权会被剥夺。</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_firstupdate</span><br><span class="line">d/renne</span><br><span class="line">683d1c96e365952b129a891499231ba2d737b674</span><br><span class="line">922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span><br><span class="line">&#123;<span class="string">"ip"</span>:<span class="string">"139.162.222.67"</span>, <span class="string">"ip6"</span>:<span class="string">"2a01:7e00:e001:c500::1"</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_firstupdate</span><br><span class="line">d/renne</span><br><span class="line">683d1c96e365952b129a891499231ba2d737b674</span><br><span class="line">922df5fd91d368c9177c919b8cd7c7caa2e42088142a0f7d837f4044ca895cdc</span><br><span class="line">&#123;<span class="string">"ip"</span>:<span class="string">"12.34.56.78"</span>, <span class="string">"ip6"</span>:<span class="string">"2a01:7e00:e001:c500::1"</span>&#125;</span><br></pre></td></tr></table></figure>
 <ol start="5">
 <li>刚刚执行了名字的第一次更新，在12个区块以后，我们已经可以查看这个名字，可以看到value里存着DNS数据。这时说明名字已经确切地存进区块链账本了。</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_show d/renne</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"d/renne"</span>,</span><br><span class="line">  <span class="string">"name_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"value"</span>: <span class="string">'&#123;"ip":"139.162.222.67", "ip6":"2a01:7e00:e001:c500::1"&#125;'</span>,</span><br><span class="line">  <span class="string">"value_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"txid"</span>: <span class="string">"e7dec5fb66edfb12e8ac45bd421e9b4184b1ea733bd129db3cd8607c04412e46"</span>,</span><br><span class="line">  <span class="string">"vout"</span>: 1,</span><br><span class="line">  <span class="string">"address"</span>: <span class="string">"msL46Kh5Mf5wpyz5MMDq7Krs17WNvExQRa"</span>,</span><br><span class="line">  <span class="string">"height"</span>: 114,</span><br><span class="line">  <span class="string">"expires_in"</span>: 19,</span><br><span class="line">  <span class="string">"expired"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"ismine"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">./namecoin-cli  -stdin -rpcport=18443  -rpcuser=user -rpcpassword=<span class="built_in">pwd</span> name_show d/renne</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"d/renne"</span>,</span><br><span class="line">  <span class="string">"name_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"value"</span>: <span class="string">'&#123;"ip":"12.34.56.78", "ip6":"2a01:7e00:e001:c500::1"&#125;'</span>,</span><br><span class="line">  <span class="string">"value_encoding"</span>: <span class="string">"ascii"</span>,</span><br><span class="line">  <span class="string">"txid"</span>: <span class="string">"e7dec5fb66edfb12e8ac45bd421e9b4184b1ea733bd129db3cd8607c04412e46"</span>,</span><br><span class="line">  <span class="string">"vout"</span>: 1,</span><br><span class="line">  <span class="string">"address"</span>: <span class="string">"msL46Kh5Mf5wpyz5MMDq7Krs17WNvExQRa"</span>,</span><br><span class="line">  <span class="string">"height"</span>: 114,</span><br><span class="line">  <span class="string">"expires_in"</span>: 19,</span><br><span class="line">  <span class="string">"expired"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"ismine"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="6">
 <li>将数据存上链后。配置并启动namecoin-dns，设置解析域名、监听地址。</li>
 </ol>
@@ -127,12 +127,12 @@
 <ol start="7">
 <li>启动namecoin-dns，此时namecoin-dns已经可以接收并解析传统的DNS请求，并在namecoin查询相应的记录。这时执行dig查询<code>renne.bit</code>的A记录和AAAA记录，就可以看到刚刚保存的域名数据。</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dig +short @127.0.0.1 -p 1025 renne.bit A renne.bit AAAA</span><br><span class="line">139.162.222.67</span><br><span class="line">2a01:7e00:e001:c500::1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dig +short @127.0.0.1 -p 1025 renne.bit A renne.bit AAAA</span><br><span class="line">12.34.56.78</span><br><span class="line">2a01:7e00:e001:c500::1</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/" data-id="ck8cofgn8006p04tmbdvtyf3o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/" data-id="ck8e8kfuk003n3gtmuj95kmjs" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>

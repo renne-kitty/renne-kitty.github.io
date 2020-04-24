@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Renne&#39;s Blog">
 <meta property="og:description" content="之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。 接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-20T11:19:46.569Z">
+<meta property="og:updated_time" content="2020-04-23T13:40:55.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="超级账本 合约调试与部署">
 <meta name="twitter:description" content="之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。 接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。">
@@ -116,7 +116,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n assetsexchange -v 1.0.0 -p github.com/chaincode/assertExchange</span><br><span class="line">peer chaincode instantiate -o orderer.imocc.com:7050 -C assetschannel -n assetsexchange -l golang -v 1.0.0 -c <span class="string">'&#123;"Args":["init"]&#125;'</span></span><br></pre></td></tr></table></figure>
 <h2 id="链码执行和更新"><a class="markdownIt-Anchor" href="#链码执行和更新"></a> 链码执行和更新</h2>
 <p>尝试执行链码，调试一下链码是否正确。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -C assetschannel -n assetsexchangeensore -c <span class="string">'&#123;"Args":["userRegister", "user1","user1"]&#125;'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -C assetschannel -n assetsexchange -c <span class="string">'&#123;"Args":["userRegister", "user1","user1"]&#125;'</span></span><br></pre></td></tr></table></figure>
 <p>我这里由于一不小心写了个bug，有几个接口都测试通过不了，所以要重新升级。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新代码后，重新安装链码，并升级版本号</span></span><br><span class="line">peer chaincode install -n assetsexchange -v 1.0.2 -l golang -p github.com/chaincode/assertExchange</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实例化更新，生成docker容器</span></span><br><span class="line">peer chaincode upgrade -C assetschannel -n assetsexchange -v 1.0.2 -p github.com/chaincode/assertExchange -l golang -c <span class="string">'&#123;"Args":["init"]&#125;'</span></span><br></pre></td></tr></table></figure>
 <h2 id="开发模式启动"><a class="markdownIt-Anchor" href="#开发模式启动"></a> 开发模式启动</h2>
@@ -134,7 +134,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/22/2020-03-22-fabric-contract-deploy/" data-id="ck8cofgn3006f04tmlukfyd5o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/22/2020-03-22-fabric-contract-deploy/" data-id="ck8e8kfuo003u3gtmylpo8p4n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
