@@ -69,14 +69,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-2020-05-22-temp" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-23-rnn-lstm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/05/22/2020-05-22-temp/" class="article-date">
-  <time datetime="2020-05-22T13:19:50.000Z" itemprop="datePublished">2020-05-22</time>
+    <a href="/2020/07/23/2020-07-23-rnn-lstm/" class="article-date">
+  <time datetime="2020-07-23T11:52:54.000Z" itemprop="datePublished">2020-07-23</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -87,7 +87,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/22/2020-05-22-temp/">Fri May 22 2020 00:00:00 GMT+0800 (GMT+08:00)</a>
+      <a class="article-title" href="/2020/07/23/2020-07-23-rnn-lstm/">RNN-lstm介绍</a>
     </h1>
   
 
@@ -95,36 +95,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="blockstack虚拟链"><a class="markdownIt-Anchor" href="#blockstack虚拟链"></a> blockstack虚拟链</h2>
-<p>上周理解错了虚拟链的概念，导致逻辑串不起来。虚拟链其实是能够直接根据底层区块链的内容整理出来的，存储内容的格式与底层区块链是一样的。因此底层区块链不知晓虚拟链，但虚拟链能知晓底层的区块链，它主要做的是整理自己的账本，然后驱动状态转移。也就是说，底层的区块链是做数据认证用的，真正的逻辑层面内容是由虚拟链整理。</p>
-<p>[1] Blockstack: A Global Naming and Storage System Secured by Blockchains(2016)<br>
-[2] Blockstack: A New Decentralized Internet(2017)<br>
-[3] Extending Existing Blockchains with Virtualchain(2016)</p>
-<h2 id="虚拟链到底有没有实现多个区块链同时读取"><a class="markdownIt-Anchor" href="#虚拟链到底有没有实现多个区块链同时读取"></a> 虚拟链到底有没有实现多个区块链同时读取?</h2>
-<p>没有实现多个区块链的读取，只实现了区块链间的迁移。它为的是当底层区块链崩掉的时候，能将数据迁移到别的区块链上面。</p>
-<p><img src="migrate.JPG" alt="虚拟链实现迁移操作"></p>
-<p>但是blockstack虚拟链迁移的方式比较笨拙，每条区块链最早的一份交易是迁入交易，最晚的一份交易是迁出交易。迁出交易记录了迁移到了什么新区块链上；在另一个区块链上记录了迁入交易和迁入完成交易。</p>
-<p>迁入交易记录了从哪个区块链的哪份交易来；接下来有一个迁移期，此时迁移者会将旧的数据迁移进新区块链，迁移完成后发布一份迁移完成(migrate finish)的交易，表示完成迁移，迁移完成时，需要验证整个状态的哈希值相一致。这里所有的操作都需要存在一个迁移者，而相关交易的验证也与迁移者相关。<strong>所以，它其实并没有实现去中心化的区块链迁移。</strong></p>
-<h2 id="虚拟链和底层链的区块生成和上链过程如何"><a class="markdownIt-Anchor" href="#虚拟链和底层链的区块生成和上链过程如何"></a> 虚拟链和底层链的区块生成和上链过程如何?</h2>
-<p>不存在的，虚拟链的交易可直接由底层区块链打包。上层的数据都在Atlas上保存。</p>
-<h2 id="simple-name-verifcation到底是什么"><a class="markdownIt-Anchor" href="#simple-name-verifcation到底是什么"></a> Simple Name Verifcation到底是什么?</h2>
-<p>这个是blockstack用于轻量化节点的一种方式。如果我们想要在比特币上使用SPV，那我们也需要同步所有的交易，然后把这些交易验证后删除而已，保留区块头。在blockstack的轻量节点里，但并不需要同步所有的交易，如果高度为h，只要<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mi>H</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">CH(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span></span></span></span>相等，就可以说明整条链的状态是一致的。</p>
-<p>在验证的时候，比如现在交易的高度是h，由于其区块哈希的计算是比较独特的：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>C</mi><mi>H</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo><mo>=</mo><mi>h</mi><mi>a</mi><mi>s</mi><mi>h</mi><mo stretchy="false">(</mo><msub><mi>V</mi><mi>h</mi></msub><mo separator="true">,</mo><msub><mi>P</mi><mi>h</mi></msub><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi>P</mi><mi>h</mi></msub><mo>=</mo><mo stretchy="false">{</mo><mi>C</mi><mi>H</mi><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><msup><mn>2</mn><mi>i</mi></msup><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">CH(h) = hash(V_h,P_h) ,P_h=\{CH(h-2^i)\}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">h</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1246639999999999em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8746639999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">}</span></span></span></span></span></p>
-<p><img src="snv.JPG" alt="查询过程：以最短的路径接近可信高度"></p>
-<p>因此对于每个区块<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span></span></span></span>，如果存在一个可信任的高度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>(如果不存在则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>)，则可以通过倍增算法只用验证<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>h</mi><mo>−</mo><mi>T</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\log (h-T)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose">)</span></span></span></span>个区块就可以检验该区块上的名字。因此同步的时间可以由原来的3-4天减少至1-2小时。</p>
-<h2 id="dht和atlas"><a class="markdownIt-Anchor" href="#dht和atlas"></a> DHT和atlas</h2>
-<p>其实在2016年的版本，它确实是使用DHT来存储数据的，但是由于一些数据中心不太稳定，使得DHT的效果比较差。因此在之后的版本(2017)，blockstack把它换成了atlas网络，它也是一个对等网络，只不过它存储的是o(n)级别的数据。由于限制了每个名字的数据最多只能有4KB，因此存储现在70000个名字也只不过用了300MB的空间。</p>
-<p>每一个名字都被分派到了o(n)个atlas节点上，而每个节点都随机与K个节点连接作为相邻节点。该节点会定时向陌生节点查询这k个节点内都不存在的名字。最终，每个节点与其相邻的K个节点共同组成一份完整的域名数据。</p>
-
+        <h2 id="rnn基础"><a class="markdownIt-Anchor" href="#rnn基础"></a> RNN基础</h2>
+<p>RNN(Recursive Neural Network)，是一种有记忆功能的神经网络。有时，在NLP用作客户信息的特征提取时，假如收到客户的一句话，比如<code>I leave Taipei on Nov. 2nd</code>，这句话里面<code>Taipei</code>应该被识别为出发地，<code>Nov.</code>和<code>2nd</code>应该被识别为时间。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/07/23/2020-07-23-rnn-lstm/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/22/2020-05-22-temp/" data-id="ckai8a2lf004bs8tm5k031oru" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-rnn-lstm/" data-id="ckcyskvs700a47stmijhjz76o" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
 
     </footer>
   </div>
@@ -133,14 +117,14 @@
 
 
   
-    <article id="post-2020-03-28-namecoin-regtest-deploy-simpified" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-22-semi-supervise" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/" class="article-date">
-  <time datetime="2020-03-28T15:48:50.000Z" itemprop="datePublished">2020-03-28</time>
+    <a href="/2020/07/22/2020-07-22-semi-supervise/" class="article-date">
+  <time datetime="2020-07-22T11:48:33.000Z" itemprop="datePublished">2020-07-22</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -151,7 +135,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/">本地namecoin dns搭建(极简版)</a>
+      <a class="article-title" href="/2020/07/22/2020-07-22-semi-supervise/">半监督学习</a>
     </h1>
   
 
@@ -159,19 +143,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>假如想要配置renne.bit解析为&quot;12.34.56.78&quot;、“2a01:7e00:e001:c500::1”。</p>
+        <p>半监督学习介于监督学习和无监督学习之间，我们理解有监督和无监督常用的方式是看看它有没有label，而半监督其实就是有少数有label的数据，然后又大量的无label的数据，也不知道他们的正确性怎么样。假如我们只利用有Label的数据去学习，我们获取到的信息量或许会挺低的，如果能用上那些无label数据辅助学习，那效果就会好很多。</p>
         
           <p class="article-more-link">
-            <a href="/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/#more">Read More</a>
+            <a href="/2020/07/22/2020-07-22-semi-supervise/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/" data-id="ckai8a2l9003ys8tmlaqbs9ub" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/22/2020-07-22-semi-supervise/" data-id="ckcyskvs600a17stm2avwwv15" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
     </footer>
   </div>
@@ -180,14 +164,14 @@
 
 
   
-    <article id="post-2020-03-22-fabric-contract-deploy" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-21-deep-learning-base" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/" class="article-date">
-  <time datetime="2020-03-22T13:25:29.000Z" itemprop="datePublished">2020-03-22</time>
+    <a href="/2020/07/21/2020-07-21-deep-learning-base/" class="article-date">
+  <time datetime="2020-07-21T11:44:54.000Z" itemprop="datePublished">2020-07-21</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -198,7 +182,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/22/2020-03-22-fabric-contract-deploy/">超级账本 合约调试与部署</a>
+      <a class="article-title" href="/2020/07/21/2020-07-21-deep-learning-base/">深度学习基础</a>
     </h1>
   
 
@@ -206,21 +190,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>之前已经尝试部署好网络了，使用了crypto-config说明了我们将会拥有那些排序节点组织，有哪些Peer节点，以及这些节点的用户、域名等，并生成了各组织的MSP证书。接着，使用configtx定义了系统链、业务链的初始配置，排序节点的共识算法等，并生成创世区块和系统设置的交易。</p>
-<p>接着，通过编写docker-compose定义了具体的开发或运行环境，比如各类端口、日志等级、镜像使用、启动模式等。</p>
-<p>上次已经简单执行过一次链码，但仅仅只是这样做，理解的是很浅的。因此，这次就真正的部署运行一次一个相对详细的链码以加深理解。</p>
+        <p>从前面的课程我们可以知道，像逻辑回归这样的问题其实只是深度学习神经元的其中一个例子。神经网络里，也是通过很多个这样子的运算级联，然后算出最终的结果。</p>
+<p>这个部分很多内容都只是知道，但还没能理解，毕竟没有实打实的实践过，也许之后的理解会有所出入。</p>
         
           <p class="article-more-link">
-            <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/#more">Read More</a>
+            <a href="/2020/07/21/2020-07-21-deep-learning-base/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/22/2020-03-22-fabric-contract-deploy/" data-id="ckai8a2lc0044s8tmky2600mg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/21/2020-07-21-deep-learning-base/" data-id="ckcyskvrw009u7stmnbhize6s" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
 
     </footer>
   </div>
@@ -229,14 +212,14 @@
 
 
   
-    <article id="post-2020-03-20-ethereum-the-dao" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-17-cnn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/20/2020-03-20-ethereum-the-dao/" class="article-date">
-  <time datetime="2020-03-20T09:23:09.000Z" itemprop="datePublished">2020-03-20</time>
+    <a href="/2020/07/17/2020-07-17-cnn/" class="article-date">
+  <time datetime="2020-07-17T11:43:31.000Z" itemprop="datePublished">2020-07-17</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -247,7 +230,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/20/2020-03-20-ethereum-the-dao/">The DAO重入漏洞重现</a>
+      <a class="article-title" href="/2020/07/17/2020-07-17-cnn/">CNN实验</a>
     </h1>
   
 
@@ -255,20 +238,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近恰好被问到一些关于以太坊漏洞的问题，干脆就去用代码简单演练一下加深印象。以太坊the Dao事件是利用了智能合约里的一个重入漏洞，其本质是the DAO智能合约的代码有可能会一些仍未部署到链上的未知的代码。</p>
-<p>这里有两个很简单的智能合约，solidity版本为0.5.17。</p>
+        <h2 id="安装环境"><a class="markdownIt-Anchor" href="#安装环境"></a> 安装环境</h2>
+<p>这次安装环境有点复杂，只要是要安装pytorch比较烦，尤其是在我这种网络超级烂的地方。安装了一天，分享一下经验。</p>
+<p>原本用网上的资料，用<code>conda install pytorch torchvision cudatoolkit=9.0</code>安装，结果网络太烂，每次到下了100M左右就会掉线。所以，直接把报错的url复制出去，然后用IDM下载，下载好之后直接放到~/anaconda3/pkg底下，其中cudatoolkit的那个包需要把后缀从zip改为conda。</p>
+<p>接着直接从本地导入：</p>
         
           <p class="article-more-link">
-            <a href="/2020/03/20/2020-03-20-ethereum-the-dao/#more">Read More</a>
+            <a href="/2020/07/17/2020-07-17-cnn/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/20/2020-03-20-ethereum-the-dao/" data-id="ckai8a2ld0047s8tmqcfxv0tj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/17/2020-07-17-cnn/" data-id="ckcyskvrx009x7stmh2borvwi" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/漏洞/">漏洞</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
 
     </footer>
   </div>
@@ -277,14 +262,14 @@
 
 
   
-    <article id="post-2020-03-18-namecoin-regtest-deploy" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-16-classification-hw2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/" class="article-date">
-  <time datetime="2020-03-18T05:45:39.000Z" itemprop="datePublished">2020-03-18</time>
+    <a href="/2020/07/16/2020-07-16-classification-hw2/" class="article-date">
+  <time datetime="2020-07-16T11:41:37.000Z" itemprop="datePublished">2020-07-16</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -295,7 +280,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/">本地namecoin dns搭建</a>
+      <a class="article-title" href="/2020/07/16/2020-07-16-classification-hw2/">分类问题作业-2</a>
     </h1>
   
 
@@ -303,20 +288,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>想起当时研讨厅被问到namecoin问题时答不上来，接着给了我两个建议，看十来篇和namecoin相关的文章，或者是自己搭一个namecoin DNS试一试。文章实在是看不了了，不是说不想看，而是没得看，提到namecoin的文章很多，但关于namecoin的文章很少，所以就选择后者了。</p>
-<p>脑残DNS(ncdns，逃)是个GO语言项目，然后还有些小问题。想起如果不是之前一直在搞go的东西还真不知道怎么解决。</p>
+        <p>提交地址：<a href="https://www.kaggle.com/c/ml2020spring-hw2" target="_blank" rel="noopener">https://www.kaggle.com/c/ml2020spring-hw2</a></p>
+<p>作业范例：<a href="https://colab.research.google.com/drive1JaMKJU7hvnDoUfZjvUKzm9u-JLeX6B2C#scrollTo=DH3AJtvHjVJ7" target="_blank" rel="noopener">https://colab.research.google.com/drive1JaMKJU7hvnDoUfZjvUKzm9u-JLeX6B2C#scrollTo=DH3AJtvHjVJ7</a></p>
         
           <p class="article-more-link">
-            <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/#more">Read More</a>
+            <a href="/2020/07/16/2020-07-16-classification-hw2/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/18/2020-03-18-namecoin-regtest-deploy/" data-id="ckai8a2la0040s8tm9d7bsfev" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/16/2020-07-16-classification-hw2/" data-id="ckcyskvrt009r7stm7cifp5d3" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNS/">DNS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
     </footer>
   </div>
@@ -325,14 +310,14 @@
 
 
   
-    <article id="post-2020-03-12-hyperledger-fabric-network-running" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-15-classification-base" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/" class="article-date">
-  <time datetime="2020-03-12T12:08:11.000Z" itemprop="datePublished">2020-03-12</time>
+    <a href="/2020/07/15/2020-07-15-classification-base/" class="article-date">
+  <time datetime="2020-07-15T11:40:30.000Z" itemprop="datePublished">2020-07-15</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -343,7 +328,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/">超级账本 网络搭建</a>
+      <a class="article-title" href="/2020/07/15/2020-07-15-classification-base/">分类问题作业-课程内容整理</a>
     </h1>
   
 
@@ -351,19 +336,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>之前搞了好多天的实验，接着又学了一下别的杂七杂八的东西，今天总算能继续搭建fabric网络。之后如果可以的话，也写一下上次实验相关的东西吧。</p>
+        <h2 id="生成式模型"><a class="markdownIt-Anchor" href="#生成式模型"></a> 生成式模型</h2>
+<h3 id="朴素贝叶斯"><a class="markdownIt-Anchor" href="#朴素贝叶斯"></a> 朴素贝叶斯</h3>
+<p>假设现有输入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>可能分为两类<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">C_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">C_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。那么我们应该比较<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mn>1</mn></msub><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(C_1|x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mn>2</mn></msub><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(C_2|x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>，即<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>属于两类的概率。</p>
+<p>但一般上，我们无法直接得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mi>i</mi></msub><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(C_i|x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>，毕竟这是后验概率，没法直接得到。我们通过原有的数据，只能得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><msub><mi>C</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(x|C_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，也就是在类别<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>C</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">C_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>中，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>成立的概率是多少。这就像从多个盒子摸球的问题，我们直观看到的只能是在某个盒子里面不同颜色的球有多少个，而无法直观的判断某个颜色的球属于哪个盒子的概率。要得到这个结果，还需要演算，这就是朴素贝叶斯分类。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><msub><mi>C</mi><mn>0</mn></msub><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><msub><mi>C</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow><mrow><mo>∑</mo><mi>P</mi><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><msub><mi>C</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(C_0|x)=\frac{P(x|C_0)}{\sum P(x|C_i)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.36301em;vertical-align:-0.93601em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.93601em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
         
           <p class="article-more-link">
-            <a href="/2020/03/12/2020-03-12-hyperledger-fabric-network-running/#more">Read More</a>
+            <a href="/2020/07/15/2020-07-15-classification-base/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/12/2020-03-12-hyperledger-fabric-network-running/" data-id="ckai8a2l8003vs8tm0s9q360d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/15/2020-07-15-classification-base/" data-id="ckcyskvro009d7stmb0gshv21" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
     </footer>
   </div>
@@ -372,14 +362,14 @@
 
 
   
-    <article id="post-2020-02-13-hyperledger-fabric-role-of-nodes" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-15-regreesion-gradient-descent" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/" class="article-date">
-  <time datetime="2020-02-13T11:01:26.000Z" itemprop="datePublished">2020-02-13</time>
+    <a href="/2020/07/15/2020-07-15-regreesion-gradient-descent/" class="article-date">
+  <time datetime="2020-07-15T11:36:34.000Z" itemprop="datePublished">2020-07-15</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -390,7 +380,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/">超级账本 网络拓扑角色</a>
+      <a class="article-title" href="/2020/07/15/2020-07-15-regreesion-gradient-descent/">线性回归-第二阶段</a>
     </h1>
   
 
@@ -398,19 +388,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>超级账本(hyperledger fabric)是由IBM公司开发的一个企业级联盟链的项目，它致力于企业级的区块链。企业级的区块链本身就和我们平时接触到的区块链公链是存在着挺大的区别的，但这个区别主要还是在共识算法上。但是，超级账本和我们平时接触到的区块链公链的区别比这些还要更加的巨大。</p>
+        <p>之前做了一个很简单的线性回归模型，也得到了垃圾一样的结果，这次就尝试优化一下这个结果。</p>
         
           <p class="article-more-link">
-            <a href="/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/#more">Read More</a>
+            <a href="/2020/07/15/2020-07-15-regreesion-gradient-descent/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/13/2020-02-13-hyperledger-fabric-role-of-nodes/" data-id="ckai8a2l7003rs8tmj4piqjyy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/15/2020-07-15-regreesion-gradient-descent/" data-id="ckcyskvrs009o7stmvtnyvh8b" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/联盟链/">联盟链</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
     </footer>
   </div>
@@ -419,14 +409,14 @@
 
 
   
-    <article id="post-2020-02-03-schnorr-signature" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-14-codeforces-edu88" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/02/03/2020-02-03-schnorr-signature/" class="article-date">
-  <time datetime="2020-02-03T02:37:22.000Z" itemprop="datePublished">2020-02-03</time>
+    <a href="/2020/07/14/2020-07-14-codeforces-edu88/" class="article-date">
+  <time datetime="2020-07-14T11:18:31.000Z" itemprop="datePublished">2020-07-14</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/密码学/">密码学</a>
+    <a class="article-category-link" href="/categories/刷题记录/">刷题记录</a>
   </div>
 
   </div>
@@ -437,7 +427,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/03/2020-02-03-schnorr-signature/">schnorr签名及其多重签名介绍</a>
+      <a class="article-title" href="/2020/07/14/2020-07-14-codeforces-edu88/">codeforces edu 88</a>
     </h1>
   
 
@@ -445,20 +435,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近想要了解一下多重签名，但一开始总觉得无从下手；一方面是国内很少有将区块链技术与密码学知识一起介绍的文章，基本都是应用技术，极少数人关注底层的知识；另外就是我个人对数论、数理逻辑以及形式化表达了解比较少，密码学知识的基础也不算很稳固。因此在这方面的调查遇到了很多困难，甚至到现在还不太看得透数字签名验证的本质。</p>
-<p>以下内容由1篇论文和2篇博客总结，剩下的部分会在也许可能应该大概有的下一部分列举出(偷笑)，是关于BLS签名及其应用部分的。</p>
+        <p>好久没打了，就开了场虚拟赛，被捅成马蜂窝。。</p>
+<h2 id="c"><a class="markdownIt-Anchor" href="#c"></a> C</h2>
+<p>按顺序依次循环倒入一杯热水一杯冷水，然后再一杯热水一杯冷水，一直下去。给出热水温度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi></mrow><annotation encoding="application/x-tex">h</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span></span></span></span>，冷水温度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span>，目标温度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span>，求循环几次能最接近目标温度？如果倒了4杯热水，3杯冷水，最终水温是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mn>3</mn><mi>c</mi><mo>+</mo><mn>4</mn><mi>h</mi></mrow><mn>7</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{3c+4h}{7}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251079999999999em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801079999999999em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">7</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mathdefault mtight">c</span><span class="mbin mtight">+</span><span class="mord mtight">4</span><span class="mord mathdefault mtight">h</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。</p>
         
           <p class="article-more-link">
-            <a href="/2020/02/03/2020-02-03-schnorr-signature/#more">Read More</a>
+            <a href="/2020/07/14/2020-07-14-codeforces-edu88/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/03/2020-02-03-schnorr-signature/" data-id="ckai8a2kz003js8tmc4ei59yk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/14/2020-07-14-codeforces-edu88/" data-id="ckcyskvrq009h7stmx8l7kdvh" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/codeforces/">codeforces</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/刷题/">刷题</a></li></ul>
 
     </footer>
   </div>
@@ -467,14 +458,14 @@
 
 
   
-    <article id="post-2020-02-03-vmware-android-install" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-13-regreesion-base" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/02/03/2020-02-03-vmware-android-install/" class="article-date">
-  <time datetime="2020-02-03T01:32:52.000Z" itemprop="datePublished">2020-02-03</time>
+    <a href="/2020/07/13/2020-07-13-regreesion-base/" class="article-date">
+  <time datetime="2020-07-13T11:33:33.000Z" itemprop="datePublished">2020-07-13</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -485,7 +476,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/03/2020-02-03-vmware-android-install/">安卓8.1安装记录(vmware虚拟机)</a>
+      <a class="article-title" href="/2020/07/13/2020-07-13-regreesion-base/">线性回归-第一阶段</a>
     </h1>
   
 
@@ -493,21 +484,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="安装镜像"><a class="markdownIt-Anchor" href="#安装镜像"></a> 安装镜像</h2>
-<p>我这里使用的是安卓8.1，自己到官网上下载x86版的镜像，我选了32位的版本。</p>
-<p>镜像就像平常一样安装，分区格式化就跟linux安装一样，这种事应该安装过linux都能解决。安装好之后，会发现只有命令行系统，没有我们熟悉的安卓界面。</p>
+        <p><a href="https://www.kaggle.com/c/ml2020spring-hw1/data?select=train.csv" target="_blank" rel="noopener">kaggle的提交地址</a></p>
+<p>大概7月头看了李宏毅的课程，这次就写他一个线性回归的作业，顺便学点python的库，像numpy/pandas之类的东西。</p>
+<p>这次的作业是给一堆数据，根据前9天测量的气候数值，预测第10天的pm2.5的值。数据的项目很多，我作了一点弊，从网上其他人的答案里面知道了新的Pm2.5主要和之前的pm10,pm2.5和二氧化硫有关，所以就只用了这些数据提高学习效率。</p>
         
           <p class="article-more-link">
-            <a href="/2020/02/03/2020-02-03-vmware-android-install/#more">Read More</a>
+            <a href="/2020/07/13/2020-07-13-regreesion-base/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/03/2020-02-03-vmware-android-install/" data-id="ckai8a2l2003ls8tmxqmu4tjl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/13/2020-07-13-regreesion-base/" data-id="ckcyskvrr009k7stmfo3astdi" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/虚拟机/">虚拟机</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
     </footer>
   </div>
@@ -516,14 +507,14 @@
 
 
   
-    <article id="post-2019-12-20-eigamal" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-2020-07-12-ml-base-envir" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/12/20/2019-12-20-eigamal/" class="article-date">
-  <time datetime="2019-12-20T02:30:22.000Z" itemprop="datePublished">2019-12-20</time>
+    <a href="/2020/07/12/2020-07-12-ml-base-envir/" class="article-date">
+  <time datetime="2020-07-12T11:56:41.000Z" itemprop="datePublished">2020-07-12</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/密码学/">密码学</a>
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
   </div>
 
   </div>
@@ -534,7 +525,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/20/2019-12-20-eigamal/">EIGamal体系讲解</a>
+      <a class="article-title" href="/2020/07/12/2020-07-12-ml-base-envir/">机器学习基本环境安装</a>
     </h1>
   
 
@@ -542,22 +533,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>大概在8月的时候，暑假训练稍稍学过一下ECC，那时就直接google了一下，然后写了一篇博文。现在回看当时的博文，真的是太年轻了。</p>
-<p>其实当时的博文写的就是EIGamal体系的椭圆曲线，那时的理解真的是有点欠缺。</p>
-<p>本文将从DH密钥交换开始讲解，然后再简单讲解EIGamal体系。如果之后有空的话，会把ECC作为例子，该点会留作坑。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/20/2019-12-20-eigamal/#more">Read More</a>
-          </p>
-        
+        <p>有不少漏的，有心情再更把</p>
+<p><a href="https://blog.csdn.net/FreemanHu2020/article/details/104783596" target="_blank" rel="noopener">pyenv-virtualenv</a></p>
+<p><a href="https://www.cnblogs.com/yuxuefeng/articles/9235431.html" target="_blank" rel="noopener">Anaconda和Pycharm的安装和配置</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/20/2019-12-20-eigamal/" data-id="ckai8a2kt0034s8tmrv5g47kw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/12/2020-07-12-ml-base-envir/" data-id="ckcyskvrf009a7stmyey5zgco" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
     </footer>
   </div>
   
@@ -569,7 +554,7 @@
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -580,7 +565,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/刷题记录/">刷题记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
     </div>
   </div>
 
@@ -590,7 +575,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/acm/">acm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codeforces/">codeforces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/刷题/">刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
     </div>
   </div>
 
@@ -600,7 +585,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16.67px;">DNS</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14.44px;">arch</a> <a href="/tags/blockstack/" style="font-size: 13.33px;">blockstack</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12.22px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.22px;">fabric</a> <a href="/tags/github/" style="font-size: 11.11px;">github</a> <a href="/tags/go/" style="font-size: 11.11px;">go</a> <a href="/tags/linux/" style="font-size: 18.89px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13.33px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12.22px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17.78px;">以太坊</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11.11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13.33px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.33px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.33px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12.22px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 12.22px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15.56px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11.11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12.22px;">比特币</a> <a href="/tags/源码/" style="font-size: 11.11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14.44px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11.11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13.33px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11.11px;">超级账本</a>
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16px;">DNS</a> <a href="/tags/acm/" style="font-size: 10px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14px;">arch</a> <a href="/tags/blockstack/" style="font-size: 13px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/fabric/" style="font-size: 12px;">fabric</a> <a href="/tags/github/" style="font-size: 11px;">github</a> <a href="/tags/go/" style="font-size: 11px;">go</a> <a href="/tags/leetcode/" style="font-size: 11px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 13px;">刷题</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13px;">实验</a> <a href="/tags/密码学/" style="font-size: 13px;">密码学</a> <a href="/tags/数学/" style="font-size: 13px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 12px;">深度学习</a> <a href="/tags/源码/" style="font-size: 11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11px;">超级账本</a>
     </div>
   </div>
 
@@ -609,7 +594,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
     </div>
   </div>
 
@@ -622,23 +607,23 @@
       <ul>
         
           <li>
-            <a href="/2020/05/22/2020-05-22-temp/">Fri May 22 2020 00:00:00 GMT+0800 (GMT+08:00)</a>
+            <a href="/2020/07/23/2020-07-23-rnn-lstm/">RNN-lstm介绍</a>
           </li>
         
           <li>
-            <a href="/2020/03/28/2020-03-28-namecoin-regtest-deploy-simpified/">本地namecoin dns搭建(极简版)</a>
+            <a href="/2020/07/22/2020-07-22-semi-supervise/">半监督学习</a>
           </li>
         
           <li>
-            <a href="/2020/03/22/2020-03-22-fabric-contract-deploy/">超级账本 合约调试与部署</a>
+            <a href="/2020/07/21/2020-07-21-deep-learning-base/">深度学习基础</a>
           </li>
         
           <li>
-            <a href="/2020/03/20/2020-03-20-ethereum-the-dao/">The DAO重入漏洞重现</a>
+            <a href="/2020/07/17/2020-07-17-cnn/">CNN实验</a>
           </li>
         
           <li>
-            <a href="/2020/03/18/2020-03-18-namecoin-regtest-deploy/">本地namecoin dns搭建</a>
+            <a href="/2020/07/16/2020-07-16-classification-hw2/">分类问题作业-2</a>
           </li>
         
       </ul>

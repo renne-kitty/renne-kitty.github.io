@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>CNN实验 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安装环境 这次安装环境有点复杂，只要是要安装pytorch比较烦，尤其是在我这种网络超级烂的地方。安装了一天，分享一下经验。 原本用网上的资料，用conda install pytorch torchvision cudatoolkit=9.0安装，结果网络太烂，每次到下了100M左右就会掉线。所以，直接把报错的url复制出去，然后用IDM下载，下载好之后直接放到~/anaconda3/pkg底">
+<meta name="keywords" content="机器学习,深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN实验">
+<meta property="og:url" content="http://yoursite.com/2020/07/17/2020-07-17-cnn/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="安装环境 这次安装环境有点复杂，只要是要安装pytorch比较烦，尤其是在我这种网络超级烂的地方。安装了一天，分享一下经验。 原本用网上的资料，用conda install pytorch torchvision cudatoolkit=9.0安装，结果网络太烂，每次到下了100M左右就会掉线。所以，直接把报错的url复制出去，然后用IDM下载，下载好之后直接放到~/anaconda3/pkg底">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-23T12:10:23.413Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CNN实验">
+<meta name="twitter:description" content="安装环境 这次安装环境有点复杂，只要是要安装pytorch比较烦，尤其是在我这种网络超级烂的地方。安装了一天，分享一下经验。 原本用网上的资料，用conda install pytorch torchvision cudatoolkit=9.0安装，结果网络太烂，每次到下了100M左右就会掉线。所以，直接把报错的url复制出去，然后用IDM下载，下载好之后直接放到~/anaconda3/pkg底">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2020-07-17-cnn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/17/2020-07-17-cnn/" class="article-date">
+  <time datetime="2020-07-17T11:43:31.000Z" itemprop="datePublished">2020-07-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CNN实验
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="安装环境"><a class="markdownIt-Anchor" href="#安装环境"></a> 安装环境</h2>
+<p>这次安装环境有点复杂，只要是要安装pytorch比较烦，尤其是在我这种网络超级烂的地方。安装了一天，分享一下经验。</p>
+<p>原本用网上的资料，用<code>conda install pytorch torchvision cudatoolkit=9.0</code>安装，结果网络太烂，每次到下了100M左右就会掉线。所以，直接把报错的url复制出去，然后用IDM下载，下载好之后直接放到~/anaconda3/pkg底下，其中cudatoolkit的那个包需要把后缀从zip改为conda。</p>
+<p>接着直接从本地导入：</p>
+<a id="more"></a>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">conda install --use-local cudatoolkit-9.0-1.conda</span><br><span class="line">conda install --use-local pytorch-1.1.0-py3.7_cuda90_cudnn7_1.tar.bz2</span><br><span class="line"><span class="comment"># 先将包离线下来，放到文件夹里面，大概是~/anaconda3/pkg，然后离线安装这两个包</span></span><br><span class="line"></span><br><span class="line">conda install pytorch cudatoolkit=9.0 -c <span class="built_in">local</span></span><br><span class="line"><span class="comment"># 本地安装工具包</span></span><br><span class="line">conda install pytorch torchvision cudatoolkit=9.0</span><br><span class="line"><span class="comment"># 再检查一下有没有漏的</span></span><br><span class="line"></span><br><span class="line">pip config <span class="built_in">set</span> global.index-url https://mirrors.aliyun.com/pypi/simple/</span><br><span class="line">pip install opencv-python</span><br><span class="line"><span class="comment"># 用pip安装opencv</span></span><br></pre></td></tr></table></figure>
+<p>但是实际跑的时候发现好像有点不对的样子，我1650卡用的是10.2版本的coda。。所以，卸掉重新来过吧，把9.0版本换成10.2版本。今天用了近一天时间在弄这个东西。。</p>
+<h2 id="样例代码的坑"><a class="markdownIt-Anchor" href="#样例代码的坑"></a> 样例代码的坑</h2>
+<ol>
+<li>cuDNN error: CUDNN_STATUS_EXECUTION_FAILED</li>
+</ol>
+<p>遇到这个错误你就麻烦了，大概率是cuda版本和你安装的版本不对，在conda里卸掉原有的cuda-kit和pytorch重新安装过吧。</p>
+<ol start="2">
+<li>CUDA out of memory. Tried to allocate 256.00 MiB…</li>
+</ol>
+<p>这个应该很多人会遇到，毕竟感觉写代码那个人用的是1080的显卡。。我显存只有4G，所以直接就爆了，解决方法也很简单，把每个batch的数量降下来就好。它原本是一个batch有128张图片，现在降为64张，如果再爆炸就再继续降。</p>
+<h2 id="代码阅读"><a class="markdownIt-Anchor" href="#代码阅读"></a> 代码阅读</h2>
+<p>这部分涉及到的新知识比较多，无奈本人也没时间深入研究每一项细节，只能简单理解一下代码。基本部分包含两个，一个就是模型的定义，另一个是怎么用模型来工作。</p>
+<h3 id="模型定义"><a class="markdownIt-Anchor" href="#模型定义"></a> 模型定义</h3>
+<p>模型定义的是一个网络的序列，数据按顺序经过下面的每一层。其实之前主要不懂都集中在参数上，在这里我们必须参考一下pytorch的官方文档，有什么事情看文档是最好的，说的很清晰。</p>
+<p><a href="https://pytorch.org/docs/stable/nn.html" target="_blank" rel="noopener">pytorch官方文档</a></p>
+<p>首先看一下nn.Conv2d，这个函数里面的前几个参数分别是：输入通道、输出通道、卷积核大小、slide、padding。</p>
+<p>模型的输入我们也许应该按照每一个batch的照片来算，但这里其实用单张图片会更好理解。我向网络输入一张图片，其实就是输入了一个<code>128*128*3</code>的矩阵，但是卷积层它并不会考虑你图像的size是多少乘多少，反正它就是会将卷积核对全图扫一遍。</p>
+<p>而我们看到，第一层卷积核是3，但是它的形态并不是上课时看到的<code>3*3</code>的平面矩阵，而是<code>3*3*channel</code>那样的立方体，也就是第一层一个卷积核里面就有9个参数。</p>
+<p>每一个卷积核扫完全图后得到的是一个什么样的东西呢，这就涉及到后面两个参数slide和padding，虽然还有个表示空洞卷积的delicate(好像这么拼吧)，但这个现在应该还用不到。slide我们设为1，所以卷积核每次就会平移1，也就是每个点都会作为卷积核的中心计算依次，假如我们设为2，那会出现卷积核每次平移2的特点，那就少取了一些特征了。然后就是padding，它表示的是卷积的时候，在图像的周边会补上多少个像素，它默认是0，假如按照默认的来算，用<code>3*3</code>的卷积核，对<code>128*128</code>的图片经过卷积运算得到的矩阵大小会是<code>126*126</code>，因为最边边的那些都没法作为卷积核的中心来计算。我们现在将padding设为了1，那就将图像的边缘扩大1，而扩大的像素值默认设为了0。</p>
+<p>所以我们设stride为1，padding为0后，用<code>3*3</code>的卷积核得到的是一个<code>128*128*1</code>的矩阵。那假如我们定义c个卷积核，那将会得到一个<code>128*128*c</code>的矩阵。而这个c就是指输出通道，它通常指卷积核的个数。</p>
+<p>那接下来的batchNorm2d其实和以前做过的实验很相似，都是用正态分布来对整个batch进行归一化，然后将结果防止在<code>0-64</code>之间，假如是第一层的话。这样做能让梯度的差异相对统一，让每一维的数据差距少一点。</p>
+<p>接下来的MaxPool其实参数分别也是kernel、slide、padding，其实也是和上面的差不多意思。它定义了一个2*2的卷积核，然后每相隔2就计算一次，随后将<code>128*128</code>的矩阵压缩到<code>64*64</code>。</p>
+<p>之后有一行之前不太懂但现在懂了的代码，就是<code>out = out.view(out.size()[0], -1)</code>，原本不知道它out.size()输出的是什么，想着直接把它拉直应该就可以了，然后写了个(1,-1)果然就爆炸了。接着debug了一下，看到它的out.size其实是<code>batch*512*4*4</code>的四维矩阵，因为算了batch，所以不能直接拉成一位，应该向代码那样，按照batch里的每个元素，把其它的拉成一维。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Classifier</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Classifier, self).__init__()</span><br><span class="line">        <span class="comment"># torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding)</span></span><br><span class="line">        <span class="comment"># torch.nn.MaxPool2d(kernel_size, stride, padding)</span></span><br><span class="line">        <span class="comment"># input 維度 [3, 128, 128] 三通道图像，每张图像的大小128*128</span></span><br><span class="line">        self.cnn = nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>),  <span class="comment"># [64, 128, 128]</span></span><br><span class="line">            nn.BatchNorm2d(<span class="number">64</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>),  <span class="comment"># [64, 64, 64]</span></span><br><span class="line"></span><br><span class="line">            nn.Conv2d(<span class="number">64</span>, <span class="number">128</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>),  <span class="comment"># [128, 64, 64]</span></span><br><span class="line">            nn.BatchNorm2d(<span class="number">128</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>),  <span class="comment"># [128, 32, 32]</span></span><br><span class="line"></span><br><span class="line">            nn.Conv2d(<span class="number">128</span>, <span class="number">256</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>),  <span class="comment"># [256, 32, 32]</span></span><br><span class="line">            nn.BatchNorm2d(<span class="number">256</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>),  <span class="comment"># [256, 16, 16]</span></span><br><span class="line"></span><br><span class="line">            nn.Conv2d(<span class="number">256</span>, <span class="number">512</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>),  <span class="comment"># [512, 16, 16]</span></span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>),  <span class="comment"># [512, 8, 8]</span></span><br><span class="line"></span><br><span class="line">            nn.Conv2d(<span class="number">512</span>, <span class="number">512</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>),  <span class="comment"># [512, 8, 8]</span></span><br><span class="line">            nn.BatchNorm2d(<span class="number">512</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>),  <span class="comment"># [512, 4, 4]</span></span><br><span class="line">        )</span><br><span class="line">        self.fc = nn.Sequential(</span><br><span class="line">            <span class="comment"># xA^T +b</span></span><br><span class="line">            nn.Linear(<span class="number">512</span> * <span class="number">4</span> * <span class="number">4</span>, <span class="number">1024</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">1024</span>, <span class="number">512</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">512</span>, <span class="number">11</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        out = self.cnn(x)</span><br><span class="line">        out = out.view(out.size()[<span class="number">0</span>], <span class="number">-1</span>)</span><br><span class="line">        <span class="comment"># 没有亚平，取出来64*8192*3</span></span><br><span class="line">        <span class="comment"># out = out.view(-1)</span></span><br><span class="line">        <span class="keyword">return</span> self.fc(out)</span><br></pre></td></tr></table></figure>
+<h3 id="训练及输出"><a class="markdownIt-Anchor" href="#训练及输出"></a> 训练及输出</h3>
+<p>深度学习的这种代码和其它的代码不太一样，它有cpu部分也有gpu部分，由于运用的是两部分的存储，而gpu显存也用了一部分内存的地址。因此在每一部分，我们都得定义它是在哪个设备上跑。</p>
+<p>比如毫无疑问的model，得定义在gpu上跑，我们用n卡用的就是cuda库。然后计算交叉熵那种那么复杂的计算就放cpu上比较好。</p>
+<p>首先我们也是定义了4个参数，model也就是我们刚刚的模型，loss是计算损失函数的方式由于是分类问题，我们还是适用交叉熵。接下来的optimizer就是定义怎么样进行梯度下降，在收到一批的梯度更新时，它会做写什么。这里是选用了Adam作为梯度下降计算方法，然后自己设定一个learning-rate。</p>
+<p>然后的epoch数量其实得根据loss下降的情况来设，我虽然沿用它原本的30,但在我机子上跑速度是很慢的。</p>
+<p>在每个epoch用model.train是开启dropout等优化策略，对于一个model，不管是训练的还是测试的都只是它的一个输入和输出。我们需要采取相应的模式应对相应的需求，比如对于输入数据，用的是train模式它开启了dropout等优化策略，而后面的eval策略则关闭了dropout这些功能，就像原理讲的通过乘上某个权重来调整了所有的参数。接下来在测试部分适用的no_grad更是如此，采用的是不更新任何梯度的方式，毕竟测试数据只需要采取原本的参数来计算数据就可以了。</p>
+<p>现在唯一不懂的一点就是loss是怎么和optimizer和model交互的？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">model = Classifier().cuda()</span><br><span class="line">loss = nn.CrossEntropyLoss()</span><br><span class="line">optimizer = torch.optim.Adam(model.parameters(), lr=<span class="number">0.001</span>)</span><br><span class="line">num_epoch = <span class="number">30</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(num_epoch):</span><br><span class="line">    epoch_start_time = time.time()</span><br><span class="line">    train_acc = <span class="number">0.0</span></span><br><span class="line">    train_loss = <span class="number">0.0</span></span><br><span class="line">    val_acc = <span class="number">0.0</span></span><br><span class="line">    val_loss = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    model.train()</span><br><span class="line">    <span class="keyword">for</span> i, data <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">        optimizer.zero_grad() <span class="comment"># 初始化optimizer的梯度变化，也就是归零当前的梯度变化值</span></span><br><span class="line">        train_pred = model(data[<span class="number">0</span>].cuda())</span><br><span class="line">        batch_loss = loss(train_pred, data[<span class="number">1</span>].cuda())</span><br><span class="line">        batch_loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line"></span><br><span class="line">        train_acc += np.sum(np.argmax(train_pred.cpu().data.numpy(), axis=<span class="number">1</span>) == data[<span class="number">1</span>].numpy())</span><br><span class="line">        train_loss += batch_loss.item()</span><br><span class="line"></span><br><span class="line">    model.eval()</span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> i, data <span class="keyword">in</span> enumerate(val_loader):</span><br><span class="line">            val_pred = model(data[<span class="number">0</span>].cuda())</span><br><span class="line">            batch_loss = loss(val_pred, data[<span class="number">1</span>].cuda())</span><br><span class="line"></span><br><span class="line">            val_acc += np.sum(np.argmax(val_pred.cpu().data.numpy(), axis=<span class="number">1</span>) == data[<span class="number">1</span>].numpy())</span><br><span class="line">            val_loss += batch_loss.item()</span><br><span class="line"></span><br><span class="line">        print(<span class="string">'[%03d/%03d] %2.2f sec(s) Train Acc: %3.6f Loss: %3.6f | Val Acc: %3.6f loss: %3.6f'</span> % \</span><br><span class="line">              (epoch + <span class="number">1</span>, num_epoch, time.time() - epoch_start_time, \</span><br><span class="line">               train_acc / train_set.__len__(), train_loss / train_set.__len__(), val_acc / val_set.__len__(),</span><br><span class="line">               val_loss / val_set.__len__()))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/17/2020-07-17-cnn/" data-id="ckcyskvrx009x7stmh2borvwi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/21/2020-07-21-deep-learning-base/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          深度学习基础
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/16/2020-07-16-classification-hw2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">分类问题作业-2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/刷题记录/">刷题记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/acm/">acm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codeforces/">codeforces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/刷题/">刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16px;">DNS</a> <a href="/tags/acm/" style="font-size: 10px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14px;">arch</a> <a href="/tags/blockstack/" style="font-size: 13px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/fabric/" style="font-size: 12px;">fabric</a> <a href="/tags/github/" style="font-size: 11px;">github</a> <a href="/tags/go/" style="font-size: 11px;">go</a> <a href="/tags/leetcode/" style="font-size: 11px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 13px;">刷题</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13px;">实验</a> <a href="/tags/密码学/" style="font-size: 13px;">密码学</a> <a href="/tags/数学/" style="font-size: 13px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 12px;">深度学习</a> <a href="/tags/源码/" style="font-size: 11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11px;">超级账本</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/07/23/2020-07-23-rnn-lstm/">RNN-lstm介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/22/2020-07-22-semi-supervise/">半监督学习</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/21/2020-07-21-deep-learning-base/">深度学习基础</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/17/2020-07-17-cnn/">CNN实验</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/16/2020-07-16-classification-hw2/">分类问题作业-2</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
