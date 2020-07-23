@@ -69,6 +69,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2020-07-23-git-multi-accounts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/07/23/2020-07-23-git-multi-accounts/" class="article-date">
+  <time datetime="2020-07-23T13:15:25.000Z" itemprop="datePublished">2020-07-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/23/2020-07-23-git-multi-accounts/">git多账号管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前稍稍配了一下多个github的ssh管理。</p>
+<p>由于原本的ssh是在<code>~/.ssh/config</code>下配置的，而且由于github是禁止多个账号同用一个密钥的，所以在push的时候很容易直接就提示permission deny。</p>
+<p>解决方式很简单，就是变一下config文件。然后，将所有的github.com都换成对应的Host就可以了，在ssh的时候会转换的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># github</span><br><span class="line">Host abc.github.com</span><br><span class="line">HostName github.com</span><br><span class="line">IdentityFile ~\.ssh\key1</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">User git</span><br><span class="line"></span><br><span class="line">Host abc-def.github.com</span><br><span class="line">HostName github.com</span><br><span class="line">IdentityFile ~\.ssh\key2</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">User git</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-git-multi-accounts/" data-id="ckcytmb870087pgtmay22om91" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2020-07-23-rnn-lstm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/07/23/2020-07-23-rnn-lstm/" class="article-date">
@@ -105,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-rnn-lstm/" data-id="ckcyskvs700a47stmijhjz76o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-rnn-lstm/" data-id="ckcytmb860084pgtmqfabrui4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
@@ -152,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/22/2020-07-22-semi-supervise/" data-id="ckcyskvs600a17stm2avwwv15" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/22/2020-07-22-semi-supervise/" data-id="ckcytmb840080pgtm0wn69yr9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
@@ -200,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/21/2020-07-21-deep-learning-base/" data-id="ckcyskvrw009u7stmnbhize6s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/21/2020-07-21-deep-learning-base/" data-id="ckcytmb83007xpgtmi0pg8w28" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
@@ -250,7 +296,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/17/2020-07-17-cnn/" data-id="ckcyskvrx009x7stmh2borvwi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/17/2020-07-17-cnn/" data-id="ckcytmb81007tpgtm74lea5q0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
@@ -298,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/16/2020-07-16-classification-hw2/" data-id="ckcyskvrt009r7stm7cifp5d3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/16/2020-07-16-classification-hw2/" data-id="ckcytmb7r007qpgtmhxmg9zpb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
@@ -350,7 +396,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/15/2020-07-15-classification-base/" data-id="ckcyskvro009d7stmb0gshv21" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/15/2020-07-15-classification-base/" data-id="ckcytmb7g007fpgtmzgaewhca" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
@@ -397,7 +443,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/15/2020-07-15-regreesion-gradient-descent/" data-id="ckcyskvrs009o7stmvtnyvh8b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/15/2020-07-15-regreesion-gradient-descent/" data-id="ckcytmb7j007mpgtmgr550xdv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
@@ -446,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/14/2020-07-14-codeforces-edu88/" data-id="ckcyskvrq009h7stmx8l7kdvh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/14/2020-07-14-codeforces-edu88/" data-id="ckcytmb7i007jpgtm5tazpqnj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/codeforces/">codeforces</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/刷题/">刷题</a></li></ul>
@@ -495,7 +541,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/13/2020-07-13-regreesion-base/" data-id="ckcyskvrr009k7stmfo3astdi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/13/2020-07-13-regreesion-base/" data-id="ckcytmb7d0077pgtmh3s02jok" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
@@ -507,54 +553,11 @@
 
 
   
-    <article id="post-2020-07-12-ml-base-envir" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/12/2020-07-12-ml-base-envir/" class="article-date">
-  <time datetime="2020-07-12T11:56:41.000Z" itemprop="datePublished">2020-07-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/12/2020-07-12-ml-base-envir/">机器学习基本环境安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>有不少漏的，有心情再更把</p>
-<p><a href="https://blog.csdn.net/FreemanHu2020/article/details/104783596" target="_blank" rel="noopener">pyenv-virtualenv</a></p>
-<p><a href="https://www.cnblogs.com/yuxuefeng/articles/9235431.html" target="_blank" rel="noopener">Anaconda和Pycharm的安装和配置</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/12/2020-07-12-ml-base-envir/" data-id="ckcyskvrf009a7stmyey5zgco" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -585,7 +588,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16px;">DNS</a> <a href="/tags/acm/" style="font-size: 10px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14px;">arch</a> <a href="/tags/blockstack/" style="font-size: 13px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/fabric/" style="font-size: 12px;">fabric</a> <a href="/tags/github/" style="font-size: 11px;">github</a> <a href="/tags/go/" style="font-size: 11px;">go</a> <a href="/tags/leetcode/" style="font-size: 11px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 13px;">刷题</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13px;">实验</a> <a href="/tags/密码学/" style="font-size: 13px;">密码学</a> <a href="/tags/数学/" style="font-size: 13px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 12px;">深度学习</a> <a href="/tags/源码/" style="font-size: 11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11px;">超级账本</a>
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16px;">DNS</a> <a href="/tags/acm/" style="font-size: 10px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14px;">arch</a> <a href="/tags/blockstack/" style="font-size: 13px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/fabric/" style="font-size: 12px;">fabric</a> <a href="/tags/github/" style="font-size: 12px;">github</a> <a href="/tags/go/" style="font-size: 11px;">go</a> <a href="/tags/leetcode/" style="font-size: 11px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 11px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 13px;">刷题</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13px;">实验</a> <a href="/tags/密码学/" style="font-size: 13px;">密码学</a> <a href="/tags/数学/" style="font-size: 13px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 12px;">深度学习</a> <a href="/tags/源码/" style="font-size: 11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11px;">超级账本</a>
     </div>
   </div>
 
@@ -607,6 +610,10 @@
       <ul>
         
           <li>
+            <a href="/2020/07/23/2020-07-23-git-multi-accounts/">git多账号管理</a>
+          </li>
+        
+          <li>
             <a href="/2020/07/23/2020-07-23-rnn-lstm/">RNN-lstm介绍</a>
           </li>
         
@@ -620,10 +627,6 @@
         
           <li>
             <a href="/2020/07/17/2020-07-17-cnn/">CNN实验</a>
-          </li>
-        
-          <li>
-            <a href="/2020/07/16/2020-07-16-classification-hw2/">分类问题作业-2</a>
           </li>
         
       </ul>
