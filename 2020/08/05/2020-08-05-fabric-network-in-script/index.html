@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>利用测试网络的脚本搭建超级账本2.0网络 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这部分基本是参照文档来弄的： https://hyperledger-fabric.readthedocs.io/en/latest/deploy_chaincode.html#install-the-chaincode-package">
+<meta name="keywords" content="linux,区块链,fabric">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用测试网络的脚本搭建超级账本2.0网络">
+<meta property="og:url" content="http://yoursite.com/2020/08/05/2020-08-05-fabric-network-in-script/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="这部分基本是参照文档来弄的： https://hyperledger-fabric.readthedocs.io/en/latest/deploy_chaincode.html#install-the-chaincode-package">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-12T14:28:57.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用测试网络的脚本搭建超级账本2.0网络">
+<meta name="twitter:description" content="这部分基本是参照文档来弄的： https://hyperledger-fabric.readthedocs.io/en/latest/deploy_chaincode.html#install-the-chaincode-package">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2020-08-05-fabric-network-in-script" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/05/2020-08-05-fabric-network-in-script/" class="article-date">
+  <time datetime="2020-08-05T14:21:43.000Z" itemprop="datePublished">2020-08-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      利用测试网络的脚本搭建超级账本2.0网络
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这部分基本是参照文档来弄的：<br>
+<a href="https://hyperledger-fabric.readthedocs.io/en/latest/deploy_chaincode.html#install-the-chaincode-package" target="_blank" rel="noopener">https://hyperledger-fabric.readthedocs.io/en/latest/deploy_chaincode.html#install-the-chaincode-package</a></p>
+<a id="more"></a>
+<h2 id="下载安装环境"><a class="markdownIt-Anchor" href="#下载安装环境"></a> 下载安装环境</h2>
+<p>这几月来，IBM比以前良心了很多，不少手动搭建的事情现在都可以用一个脚本直接一键搭建。这个脚本会帮忙下载fabric-samples以及一堆docker镜像，也就是说不用自己再一个个下载镜像了，但运行这个脚本需要自己安装好像docker之类的基本环境。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://bit.ly/2ysbOFE | bash</span><br></pre></td></tr></table></figure>
+<p>把环境下载好之后，真感觉换成2.0版本工作是完全正确的。除了有更广泛的共识算法支持以外，还能有更小的容器环境。之前运行1.0版本时，哪个容器都是几百M甚至1G的，现在大概只用了原本的五分之一。</p>
+<h2 id="测试网络搭建"><a class="markdownIt-Anchor" href="#测试网络搭建"></a> 测试网络搭建</h2>
+<p>test-network里面提供了一个测试用的网络环境搭建，环境一共包括两个组织<code>Org1</code>和<code>Org2</code>，两个组织有着自己的MSP证书，也就是类似于两个公私密钥对。</p>
+<p>执行<code>createChannel</code>会在两个组织间创建一个通道，智能合约是在通道内运行的，在fabric系统里，一切系统环境的管理都是通道的管理</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> fabric-samples/<span class="built_in">test</span>-network</span><br><span class="line">./network.sh down</span><br><span class="line">./network.sh up createChannel</span><br></pre></td></tr></table></figure>
+<p>开启监视器，我们需要用一些脚本来监视整个网络的情况，不然要像以前那样一个个容器执行<code>docker logs</code>就比较麻烦了。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># on fabric/test-network</span></span><br><span class="line">cp ../commercial-paper/organization/digibank/configuration/cli/monitordocker.sh .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里输入的参数是新建网络的名称，如果翻看前面的脚本能看到网络的名称是net_test。</span></span><br><span class="line">./monitordocker.sh net_test</span><br></pre></td></tr></table></figure>
+<p>运行时会下载一个监视用的docker，虽然现在输出是空白，因为它执行的是输出日志，现在还没运行链码那肯定是空的。</p>
+<h2 id="安装链码"><a class="markdownIt-Anchor" href="#安装链码"></a> 安装链码</h2>
+<p>在安装链码之前我们需要检查一下我们本地的环境，我们将要安装的是样例下面的<code>asset-transfer-basic</code>的链码。由于我之后都打算用go语言开发，所以直接查看go版本的链码，下面已经构建了go.mod的环境，上面已经写好了我们所需要的环境。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">go.mod内容：</span><br><span class="line"></span><br><span class="line">module github.com/hyperledger/fabric-samples/asset-transfer-basic/chaincode-go</span><br><span class="line">go 1.14</span><br><span class="line">require (</span><br><span class="line">	github.com/golang/protobuf v1.3.2</span><br><span class="line">	github.com/hyperledger/fabric-chaincode-go v0.0.0-20200424173110-d7076418f212</span><br><span class="line">	github.com/hyperledger/fabric-contract-api-go v1.1.0</span><br><span class="line">	github.com/hyperledger/fabric-protos-go v0.0.0-20200424173316-dd554ba3746e</span><br><span class="line">	github.com/stretchr/testify v1.5.1</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>所以如果go语言的版本低于1.14的可以重新去下载了，然后再执行一下<code>go build</code>看看有没有出错就可以了，如果有出错也许得检查一下其它依赖库了。</p>
+<p>如果查看一下它源码，能看到它之后会调用chaincode文件夹里的代码，之后在编写时可以参照一下test内容可以在部署上去之前做本地的测试。</p>
+<p>接着需要注意一点，我们在正式编码的时候也许会使用一些不那么标准的库，这时需要给变量赋值<code>GO111MODULE=on go mod vendor</code>。注意这个环境变量在不同的go语言环境下运行的结果是不同的，比如在go 1.14中会将库安装在vendor文件夹下，这样在部署进背书节点的docker时，能将依赖库直接放在文件夹内就能直接调用了。</p>
+<p>接下来部署链码，我们需要先定义一下环境变量，把fabric的cli加入环境变量内，在之前1.0版本的测试里，我们是需要再额外创建一个容器来弄cli的，现在直接在环境变量注入就可以了。我们需要弄两个环境变量，第一个是cli的工具，包括<code>peer</code>、<code>crypto-gen</code>之类的；第二个是每一类容器的配置，包括排序节点、peer节点之类的。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;PWD&#125;</span>/../bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> FABRIC_CFG_PATH=<span class="variable">$PWD</span>/../config/</span><br></pre></td></tr></table></figure>
+<p>接下来我们需要打包里链码，这是相对于之前用的1.0版本里多出来的步骤。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer lifecycle chaincode package basic.tar.gz --path ../asset-transfer-basic/chaincode-go/ --lang golang --label basic_1.0</span><br></pre></td></tr></table></figure>
+<p>在打包完成后，我们可以查看一下basic.tar.gz这个压缩包，这个压缩包里面包含了原本的路径以及一些和代码相关的信息。</p>
+<p>打包完成后就可以开始正式的安装了，代码的安装是以peer为单位的，如果要在哪些peer上运行这份代码，就得在哪些peer上安装。毕竟fabric和以太坊不一样，fabric的智能合约不一定对整个网络都是开源的，可以是只有参与者才知道代码的逻辑。</p>
+<p>代码的安装是以环境变量的方式注入，假设现在需要在peer0.org1.example.com这个节点上安装链码，环境变量的信息也是和字面上的一样：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ENABLED=<span class="literal">true</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_LOCALMSPID=<span class="string">"Org1MSP"</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ROOTCERT_FILE=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_MSPCONFIGPATH=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_ADDRESS=localhost:7051</span><br><span class="line"></span><br><span class="line">peer lifecycle chaincode install basic.tar.gz</span><br></pre></td></tr></table></figure>
+<p>假如执行后得到200的代码返回，就说明安装成功了，比如我这里就返回了成功的消息以及这份链码的唯一标识符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2020-07-27 16:24:39.108 CST [cli.lifecycle.chaincode] submitInstallProposal -&gt; INFO 001 Installed remotely: response:&lt;status:200 payload:&quot;\nJbasic_1.0:4362464e9f08ea7a76c93da32af5adeb944c227161034bbee2523c20ea6f3c93\022\tbasic_1.0&quot; &gt;</span><br><span class="line">2020-07-27 16:24:39.108 CST [cli.lifecycle.chaincode] submitInstallProposal -&gt; INFO 002 Chaincode code package identifier: basic_1.0:4362464e9f08ea7a76c93da32af5adeb944c227161034bbee2523c20ea6f3c93</span><br></pre></td></tr></table></figure>
+<p>那接下来我们需要对Org2的主节点也执行安装(这里官方给出的样例明显是写重复了)：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CORE_PEER_LOCALMSPID=<span class="string">"Org2MSP"</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ROOTCERT_FILE=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_MSPCONFIGPATH=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_ADDRESS=localhost:9051</span><br><span class="line"></span><br><span class="line">peer lifecycle chaincode install basic.tar.gz</span><br></pre></td></tr></table></figure>
+<p>接下来的一点也是2.0版本对于1.0版本的不同，每份新安装的代码都需要超过半数以上节点同意(Approve)才能被初始化并使用。对于新安装的链码，都会根据名字、哈希等元数据生成当前的一个ID。我们需要记下这个ID，并同意这个链码。</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">peer lifecycle chaincode queryinstalled</span><br><span class="line"><span class="built_in">export</span> CC_PACKAGE_ID=basic_1.0:4362464e9f08ea7a76c93da32af5adeb944c227161034bbee2523c20ea6f3c93</span><br><span class="line">peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name basic --version 1.0 --package-id <span class="variable">$CC_PACKAGE_ID</span> --sequence 1 --tls --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</span><br></pre></td></tr></table></figure>
+<p>如果成功就会向链上发布一份交易</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2020-07-27 16:58:00.237 CST [chaincodeCmd] ClientWait -&gt; INFO 001 txid [4fb544ab3caed64449843a27c5d6b7db45bc7e11a6dabdd3327a7d576b06ac14] committed with status (VALID) at</span><br></pre></td></tr></table></figure>
+<p>由于现在是切换到org2去同意这份链码的，因此我们还需要返回到org1上去同意：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CORE_PEER_LOCALMSPID=<span class="string">"Org1MSP"</span></span><br><span class="line"><span class="built_in">export</span> CORE_PEER_MSPCONFIGPATH=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_TLS_ROOTCERT_FILE=<span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt</span><br><span class="line"><span class="built_in">export</span> CORE_PEER_ADDRESS=localhost:7051</span><br><span class="line"></span><br><span class="line">peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name basic --version 1.0 --package-id <span class="variable">$CC_PACKAGE_ID</span> --sequence 1 --tls --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要注意sequence参数，假如升级了链码，需要增加上面的值</span></span><br></pre></td></tr></table></figure>
+<p>虽然说对于一份链码是需要超过半数以上才能初始化并运作，但假如某个单位它并没有同意这份代码，它所有提交的交易都不能被背书，所以最好还是全部节点都执行Approve比较好。</p>
+<p>最后，检查一下某份链码被同意的程度：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name basic --version 1.0 --sequence 1 --tls --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --output json</span><br></pre></td></tr></table></figure>
+<p>在执行完Approal操作得到过半数节点同意以后，我们需要执行commit操作，在commit以后，这份链码就可以正式被使用了：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --channelID mychannel --name basic --version 1.0 --sequence 1 --tls --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses localhost:7051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt</span><br></pre></td></tr></table></figure>
+<p>最后查一下commit的情况</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer lifecycle chaincode querycommitted --channelID mychannel --name basic --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</span><br></pre></td></tr></table></figure>
+<h2 id="初始化并执行链码"><a class="markdownIt-Anchor" href="#初始化并执行链码"></a> 初始化并执行链码</h2>
+<p>在执行链码以后，首先得需要一个组织发起初始化链码的操作，这个部分意义是和1.0版本相同，但api不一样。</p>
+<p>需要在两个组织上都执行init操作</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile <span class="variable">$&#123;PWD&#125;</span>/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles <span class="variable">$&#123;PWD&#125;</span>/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c <span class="string">'&#123;"function":"initLedger","Args":[]&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>接着在某个组织上查询一下就能看到链码调用的结果了</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C mychannel -n basic -c <span class="string">'&#123;"Args":["getAllAssets"]&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>接着，假如我们对链码不太满意，可以选择更新链码，更新链码的内容不仅限于代码，还能更改背书策略。因为在写链码时，数据是存储在底层的CouchDB上的，它是一个kv数据库，我们改代码也是改逻辑，而DB上键对应值是不会改变的。</p>
+<p>这里只稍稍提一下更新链码的事情，它的操作和前面是一模一样的，也是经过install、approve、commit三步。2.0版本和1.0版本不同，在peer lifecycle里并没有直接提供upgrade操作，我们需要在打包链码时注意一下编号就可以了。</p>
+<h2 id="背书策略"><a class="markdownIt-Anchor" href="#背书策略"></a> 背书策略</h2>
+<p>在1.0版本里，背书策略是实例化链码(instantiate)或者是在升级(upgrade)时才需要填写的，而在2.0版本里，它可以直接写在网络配置链也就是<code>config.tx</code>中，在这个样例也就是在<code>configtx/configtx.yaml</code>中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/05/2020-08-05-fabric-network-in-script/" data-id="ckdrgz4x100alnstmjg28vslr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/12/2020-08-12-seq2seq-auto-encoder/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          RNN-seq2seq
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/23/2020-07-23-git-multi-accounts/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">git多账号管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/xargs/">xargs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/刷题记录/">刷题记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/acm/">acm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codeforces/">codeforces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/刷题/">刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 16px;">DNS</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/acm/" style="font-size: 10px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 14px;">arch</a> <a href="/tags/blockstack/" style="font-size: 13px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 12px;">docker</a> <a href="/tags/fabric/" style="font-size: 13px;">fabric</a> <a href="/tags/github/" style="font-size: 12px;">github</a> <a href="/tags/go/" style="font-size: 11px;">go</a> <a href="/tags/leetcode/" style="font-size: 11px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19px;">linux</a> <a href="/tags/namecoin/" style="font-size: 13px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 12px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 11px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 17px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 13px;">刷题</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 11px;">大数据</a> <a href="/tags/实验/" style="font-size: 13px;">实验</a> <a href="/tags/密码学/" style="font-size: 13px;">密码学</a> <a href="/tags/数学/" style="font-size: 13px;">数学</a> <a href="/tags/智能合约/" style="font-size: 12px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 15px;">根域名</a> <a href="/tags/概率论/" style="font-size: 11px;">概率论</a> <a href="/tags/比特币/" style="font-size: 12px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 13px;">深度学习</a> <a href="/tags/源码/" style="font-size: 11px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/编程语言/" style="font-size: 11px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 13px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 11px;">超级账本</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/12/2020-08-12-xargs/">xargs命令使用例子</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/12/2020-08-12-seq2seq-auto-encoder/">RNN-seq2seq</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/05/2020-08-05-fabric-network-in-script/">利用测试网络的脚本搭建超级账本2.0网络</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/23/2020-07-23-git-multi-accounts/">git多账号管理</a>
+          </li>
+        
+          <li>
+            <a href="/2020/07/23/2020-07-23-rnn-lstm/">RNN-lstm介绍</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
