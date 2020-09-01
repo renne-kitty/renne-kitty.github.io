@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css">
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hyperledger Fabric-模拟脚本搭建（五）链码安装和执行 | Renne&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="也是像之前那样，自编脚本模拟它的行为，此处模仿自deployCC function。不知道它为什么会在初始化的时候会报错，说这个链码不需要初始化，我也不知道为什么。之后我直接不用lifecycle来invoke它的初始函数，这样就解决了。 这部分的脚本基本按照之前脚本布置时候的情况编写，其中唯一改变的是是否必须初始化这项，虽然在这里没有设置必须初始化的功能，但也可以通过手动初始化的方式执行初始化。">
+<meta name="keywords" content="linux,区块链,超级账本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hyperledger Fabric-模拟脚本搭建（五）链码安装和执行">
+<meta property="og:url" content="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-5/index.html">
+<meta property="og:site_name" content="Renne&#39;s Blog">
+<meta property="og:description" content="也是像之前那样，自编脚本模拟它的行为，此处模仿自deployCC function。不知道它为什么会在初始化的时候会报错，说这个链码不需要初始化，我也不知道为什么。之后我直接不用lifecycle来invoke它的初始函数，这样就解决了。 这部分的脚本基本按照之前脚本布置时候的情况编写，其中唯一改变的是是否必须初始化这项，虽然在这里没有设置必须初始化的功能，但也可以通过手动初始化的方式执行初始化。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-09-01T07:23:26.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hyperledger Fabric-模拟脚本搭建（五）链码安装和执行">
+<meta name="twitter:description" content="也是像之前那样，自编脚本模拟它的行为，此处模仿自deployCC function。不知道它为什么会在初始化的时候会报错，说这个链码不需要初始化，我也不知道为什么。之后我直接不用lifecycle来invoke它的初始函数，这样就解决了。 这部分的脚本基本按照之前脚本布置时候的情况编写，其中唯一改变的是是否必须初始化这项，虽然在这里没有设置必须初始化的功能，但也可以通过手动初始化的方式执行初始化。">
+  
+    <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+	<div id="header-touxiang"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Renne&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">built on 2019-06-20</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2020-09-01-hlf-simulation-5" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/01/2020-09-01-hlf-simulation-5/" class="article-date">
+  <time datetime="2020-09-01T07:11:40.000Z" itemprop="datePublished">2020-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hyperledger Fabric-模拟脚本搭建（五）链码安装和执行
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>也是像之前那样，自编脚本模拟它的行为，此处模仿自deployCC function。不知道它为什么会在初始化的时候会报错，说这个链码不需要初始化，我也不知道为什么。之后我直接不用lifecycle来invoke它的初始函数，这样就解决了。</p>
+<p>这部分的脚本基本按照之前脚本布置时候的情况编写，其中唯一改变的是是否必须初始化这项，虽然在这里没有设置必须初始化的功能，但也可以通过手动初始化的方式执行初始化。</p>
+<a id="more"></a>
+<h2 id="环境的注入"><a class="markdownIt-Anchor" href="#环境的注入"></a> 环境的注入</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">CHANNEL_NAME=channel</span><br><span class="line">CC_SRC_PATH=<span class="string">"./asset-transfer-basic/chaincode-go"</span></span><br><span class="line">CC_RUNTIME_LANGUAGE=golang</span><br><span class="line">CC_NAME=<span class="string">"basic"</span></span><br><span class="line">CC_VERSION=1.0</span><br><span class="line"><span class="built_in">export</span> FABRIC_CFG_PATH=<span class="variable">$&#123;PWD&#125;</span>/../config</span><br><span class="line"></span><br><span class="line">. ./envVar.sh</span><br></pre></td></tr></table></figure>
+<h2 id="链码打包"><a class="markdownIt-Anchor" href="#链码打包"></a> 链码打包</h2>
+<p>现在我们不用向以前那样映射代码的完整路径，直接打包然后可以根据ID来确认，我们这里设置了由组织1来打包链码数据。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">packageCC</span></span>() &#123;</span><br><span class="line">    ORG=<span class="variable">$1</span></span><br><span class="line">    setGlobals <span class="variable">$ORG</span></span><br><span class="line">    peer lifecycle chaincode package <span class="variable">$&#123;CC_NAME&#125;</span>.tar.gz --path <span class="variable">$&#123;CC_SRC_PATH&#125;</span> --lang <span class="variable">$&#123;CC_RUNTIME_LANGUAGE&#125;</span> --label <span class="variable">$&#123;CC_NAME&#125;</span>_<span class="variable">$&#123;CC_VERSION&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">packageCC 1</span><br></pre></td></tr></table></figure>
+<h2 id="链码安装"><a class="markdownIt-Anchor" href="#链码安装"></a> 链码安装</h2>
+<p>在实际执行时，需要组织1把生成好的链码发送给各个组织，然后各个组织经检查后才自行安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">installCC</span></span>() &#123;</span><br><span class="line">    ORG=<span class="variable">$1</span></span><br><span class="line">    setGlobals <span class="variable">$ORG</span></span><br><span class="line">    peer lifecycle chaincode install <span class="variable">$&#123;CC_NAME&#125;</span>.tar.gz</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">installCC 1</span><br><span class="line">installCC 2</span><br></pre></td></tr></table></figure>
+<h2 id="链码安装查询"><a class="markdownIt-Anchor" href="#链码安装查询"></a> 链码安装查询</h2>
+<p>就是查一下自己链码的安装情况怎么样，看看安装链码的哈希是多少而已，这保证了链码的不可篡改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">queryInstalled</span></span>() &#123;</span><br><span class="line">    ORG=<span class="variable">$1</span></span><br><span class="line">    setGlobals <span class="variable">$ORG</span></span><br><span class="line">    peer lifecycle chaincode queryinstalled &gt;&amp; queryResult.txt</span><br><span class="line">    PACKAGE_ID=$(sed -n <span class="string">"/<span class="variable">$&#123;CC_NAME&#125;</span>_<span class="variable">$&#123;CC_VERSION&#125;</span>/&#123;s/^Package ID: //; s/, Label:.*$//; p;&#125;"</span> queryResult.txt)</span><br><span class="line">    cat queryResult.txt</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$PACKAGE_ID</span>"</span></span><br><span class="line">    rm queryResult.txt</span><br><span class="line">&#125;</span><br><span class="line">queryInstalled 1</span><br></pre></td></tr></table></figure>
+<h2 id="链码投票approve"><a class="markdownIt-Anchor" href="#链码投票approve"></a> 链码投票(approve)</h2>
+<p>这个名词我不知道该怎么翻译，现在应该还没有正式的官方中文翻译吧，它其实就是看看那些成员同意这份链码而已，在多数同意后才能正式上线。虽然是多数同意，但强烈建议全部都得同意，因为如果没有全部同意，之后没同意的人是不可以调用这份链码的，即使你安装了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">CC_SEQUENCE=1</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">approveForMyOrg</span></span>() &#123;</span><br><span class="line">    ORG=<span class="variable">$1</span></span><br><span class="line">    setGlobals <span class="variable">$ORG</span></span><br><span class="line">    peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.rennec.com --tls --cafile <span class="variable">$ORDERER_CA</span> --channelID <span class="variable">$CHANNEL_NAME</span> --name <span class="variable">$&#123;CC_NAME&#125;</span> --version <span class="variable">$&#123;CC_VERSION&#125;</span> --package-id <span class="string">"<span class="variable">$&#123;PACKAGE_ID&#125;</span>"</span> --sequence <span class="variable">$&#123;CC_SEQUENCE&#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">checkCommitReadiness</span></span>() &#123;</span><br><span class="line">    ORG=<span class="variable">$1</span></span><br><span class="line">    setGlobals <span class="variable">$ORG</span></span><br><span class="line">    peer lifecycle chaincode checkcommitreadiness --channelID <span class="variable">$CHANNEL_NAME</span> --name <span class="variable">$&#123;CC_NAME&#125;</span> --version <span class="variable">$&#123;CC_VERSION&#125;</span> --sequence <span class="variable">$&#123;CC_SEQUENCE&#125;</span> --output json</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">approveForMyOrg 1</span><br><span class="line">checkCommitReadiness 1</span><br><span class="line">checkCommitReadiness 2</span><br><span class="line"></span><br><span class="line">approveForMyOrg 2</span><br><span class="line">checkCommitReadiness 1</span><br><span class="line">checkCommitReadiness 2</span><br></pre></td></tr></table></figure>
+<h2 id="链码确认commit"><a class="markdownIt-Anchor" href="#链码确认commit"></a> 链码确认(commit)</h2>
+<p>2.0版本多出来这两个阶段，虽然明显是模仿PBFT算法的，但中文名字还是不知道怎么讲。。commit就是刚刚投过票的人，发交易表示知道有多数人同意了这样，这东西大概能用PBFT的思路来理解吧。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">commitChaincodeDefinition</span></span>() &#123;</span><br><span class="line">  parsePeerConnectionParameters <span class="variable">$@</span></span><br><span class="line">  peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.rennec.com --tls --cafile <span class="variable">$ORDERER_CA</span> --channelID <span class="variable">$CHANNEL_NAME</span> --name <span class="variable">$&#123;CC_NAME&#125;</span> <span class="variable">$PEER_CONN_PARMS</span> --version <span class="variable">$&#123;CC_VERSION&#125;</span> --sequence <span class="variable">$&#123;CC_SEQUENCE&#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">queryCommited</span></span>() &#123;</span><br><span class="line">  ORG=<span class="variable">$1</span></span><br><span class="line">  setGlobals <span class="variable">$ORG</span></span><br><span class="line">  peer lifecycle chaincode querycommitted --channelID <span class="variable">$CHANNEL_NAME</span> --name <span class="variable">$&#123;CC_NAME&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">commitChaincodeDefinition 1 2</span><br><span class="line"></span><br><span class="line">queryCommited 1</span><br><span class="line">queryCommited 2</span><br></pre></td></tr></table></figure>
+<h2 id="链码调用"><a class="markdownIt-Anchor" href="#链码调用"></a> 链码调用</h2>
+<p>虽然我这部分是执行初始化的功能，其实这里填上别的函数就可以执行其它函数的功能，因为在这份智能合约里面并没有说必须初始化。虽然现在版本和1.0版本初始化的函数名字变了，但总体来讲还是差不多的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CC_INIT_FCN=initLedger</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">chaincodeInvokeInit</span></span>() &#123;</span><br><span class="line">  parsePeerConnectionParameters <span class="variable">$@</span></span><br><span class="line">  fcn_call=<span class="string">'&#123;"function":"initLedger","Args":[]&#125;'</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"invoke function call:<span class="variable">$&#123;fcn_call&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">  peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.rennec.com --tls --cafile <span class="variable">$ORDERER_CA</span> --channelID <span class="variable">$CHANNEL_NAME</span> --name <span class="variable">$&#123;CC_NAME&#125;</span> <span class="variable">$PEER_CONN_PARMS</span> -c $<span class="string">"<span class="variable">$fcn_call</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">chaincodeInvokeInit 1 2</span><br></pre></td></tr></table></figure>
+<h2 id="链码查询"><a class="markdownIt-Anchor" href="#链码查询"></a> 链码查询</h2>
+<p>刚刚那部分是写操作，这里就是写操作里对应的读操作，它们是用不同的权限的，这里的读操作是所有人都可以执行的，并不需要多数同意的原则。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">chaincodeQuery</span></span>() &#123;</span><br><span class="line">  ORG=<span class="variable">$1</span></span><br><span class="line">  setGlobals <span class="variable">$ORG</span></span><br><span class="line">  fcn_call=<span class="string">'&#123;"Args":["getAllAssets"]&#125;'</span></span><br><span class="line">  peer chaincode query -C <span class="variable">$CHANNEL_NAME</span> -n <span class="variable">$&#123;CC_NAME&#125;</span> -c <span class="string">'&#123;"Args":["getAllAssets"]&#125;'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">chaincodeQuery 1</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-5/" data-id="ckejmmkiq00b1astm5tbeofga" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/01/2020-09-01-hlf-simulation-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hyperledger Fabric-模拟脚本搭建（三）容器启动
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/01/2020-09-01-hlf-simulation-7/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/刷题记录/">刷题记录</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/区块链/">区块链</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/大数据/">大数据</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/密码学/">密码学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/根域名/">根域名</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程语言/">编程语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DHT/">DHT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/acm/">acm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/arch/">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blockstack/">blockstack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/codeforces/">codeforces</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ctf/">ctf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fabric/">fabric</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/namecoin/">namecoin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zookeeper/">zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/以太坊/">以太坊</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/刷题/">刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/刷题记录/">刷题记录</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区块链/">区块链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实验/">实验</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/密码学/">密码学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/根域名/">根域名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/概率论/">概率论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/比特币/">比特币</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深度学习/">深度学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/漏洞/">漏洞</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程语言/">编程语言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/联盟链/">联盟链</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/虚拟机/">虚拟机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 15.45px;">DNS</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/RNN/" style="font-size: 10.91px;">RNN</a> <a href="/tags/acm/" style="font-size: 10.91px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 13.64px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.73px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 11.82px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.73px;">fabric</a> <a href="/tags/github/" style="font-size: 11.82px;">github</a> <a href="/tags/go/" style="font-size: 10.91px;">go</a> <a href="/tags/leetcode/" style="font-size: 10.91px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19.09px;">linux</a> <a href="/tags/namecoin/" style="font-size: 12.73px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 11.82px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10.91px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 16.36px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 12.73px;">刷题</a> <a href="/tags/刷题记录/" style="font-size: 10px;">刷题记录</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 10.91px;">大数据</a> <a href="/tags/实验/" style="font-size: 12.73px;">实验</a> <a href="/tags/密码学/" style="font-size: 12.73px;">密码学</a> <a href="/tags/数学/" style="font-size: 12.73px;">数学</a> <a href="/tags/智能合约/" style="font-size: 11.82px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18.18px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 14.55px;">根域名</a> <a href="/tags/概率论/" style="font-size: 10.91px;">概率论</a> <a href="/tags/比特币/" style="font-size: 11.82px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 13.64px;">深度学习</a> <a href="/tags/源码/" style="font-size: 10.91px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 14.55px;">算法</a> <a href="/tags/编程语言/" style="font-size: 10.91px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 12.73px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 17.27px;">超级账本</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/09/03/2020-09-03-rnn-movie-review-sentiment-classification/">RNN-电影评论情感分析</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-8/">Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-1/">Hyperledger Fabric-模拟脚本搭建（一）密钥的分布式生成</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-2/">Hyperledger Fabric-模拟脚本搭建（二）创世区块及配置交易生成</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-3/">Hyperledger Fabric-模拟脚本搭建（三）容器启动</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Renne<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
