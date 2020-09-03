@@ -6,20 +6,20 @@
   
 
   
-  <title>Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交 | Renne&#39;s Blog</title>
+  <title>Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入 | Renne&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入 新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。">
+  <meta name="description" content="新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。">
 <meta name="keywords" content="linux,区块链,超级账本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交">
+<meta property="og:title" content="Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入">
 <meta property="og:url" content="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-8/index.html">
 <meta property="og:site_name" content="Renne&#39;s Blog">
-<meta property="og:description" content="Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入 新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。">
+<meta property="og:description" content="新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-01T07:25:58.858Z">
+<meta property="og:updated_time" content="2020-09-03T09:30:46.365Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交">
-<meta name="twitter:description" content="Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入 新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。">
+<meta name="twitter:title" content="Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入">
+<meta name="twitter:description" content="新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。">
   
     <link rel="alternate" href="/atom.xml" title="Renne&#39;s Blog" type="application/atom+xml">
   
@@ -90,7 +90,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交
+      Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入
     </h1>
   
 
@@ -98,15 +98,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入</p>
-<p>新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。</p>
+        <p>新组织的通道加入和以往没什么区别，也是得先获取该通道的上帝区块，然后再根据这个上帝区块加入到新通道里面。因为我们已经在原本的地方执行完得到新的配置了，因此已经有权限加入。</p>
 <a id="more"></a>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">CHANNEL_NAME=<span class="string">"channel"</span></span><br><span class="line">DELAY=<span class="string">"3"</span></span><br><span class="line">TIMEOUT=<span class="string">"10"</span></span><br><span class="line">VERBOSE=<span class="string">"false"</span></span><br><span class="line"></span><br><span class="line">. ./envVar.sh</span><br><span class="line"><span class="built_in">export</span> FABRIC_CFG_PATH=<span class="variable">$PWD</span>/../../config</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">joinChannel</span></span>() &#123;</span><br><span class="line">  ORG=<span class="variable">$1</span></span><br><span class="line">  setGlobals <span class="variable">$ORG</span></span><br><span class="line">  peer channel join -b <span class="variable">$CHANNEL_NAME</span>.block</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fetchGenesisBlock</span></span>() &#123;</span><br><span class="line">  setGlobals 3</span><br><span class="line">  peer channel fetch 0 <span class="variable">$CHANNEL_NAME</span>.block -o localhost:7050 --ordererTLSHostnameOverride orderer.rennec.com -c <span class="variable">$CHANNEL_NAME</span> --tls --cafile <span class="variable">$ORDERER_CA</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchGenesisBlock</span><br><span class="line">joinChannel 3</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-8/" data-id="ckejmmkiw00beastm328jn1xn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-8/" data-id="ckemm0xnl006lkwtm9w6pv9si" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
@@ -191,7 +190,7 @@
           </li>
         
           <li>
-            <a href="/2020/09/01/2020-09-01-hlf-simulation-8/">Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交</a>
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-8/">Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入</a>
           </li>
         
           <li>
