@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Renne&#39;s Blog">
 <meta property="og:description" content="BLS签名也是和Schnorr类似，提出了一种签名的模型，并通过了安全性验证，将签名问题规约到了离散对数难题。它和Schnorr有一点比较相似，就是能够好的实现签名的聚合。但它也和Schnorr不一样，它是基于双线性映射构造的，和普通的基于椭圆曲线的ECDSA不太一样。虽然都是在椭圆曲线的空间里运算但运算的过程要复杂不少，速度也相对慢一点，而且比特币的secp256k1并不能满足这种双线性映射的运">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-09T10:38:23.461Z">
+<meta property="og:updated_time" content="2020-09-10T02:06:37.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BLS签名">
 <meta name="twitter:description" content="BLS签名也是和Schnorr类似，提出了一种签名的模型，并通过了安全性验证，将签名问题规约到了离散对数难题。它和Schnorr有一点比较相似，就是能够好的实现签名的聚合。但它也和Schnorr不一样，它是基于双线性映射构造的，和普通的基于椭圆曲线的ECDSA不太一样。虽然都是在椭圆曲线的空间里运算但运算的过程要复杂不少，速度也相对慢一点，而且比特币的secp256k1并不能满足这种双线性映射的运">
@@ -99,10 +99,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>BLS签名也是和Schnorr类似，提出了一种签名的模型，并通过了安全性验证，将签名问题规约到了离散对数难题。它和Schnorr有一点比较相似，就是能够好的实现签名的聚合。但它也和Schnorr不一样，它是基于双线性映射构造的，和普通的基于椭圆曲线的ECDSA不太一样。虽然都是在椭圆曲线的空间里运算但运算的过程要复杂不少，速度也相对慢一点，而且比特币的secp256k1并不能满足这种双线性映射的运算。</p>
+<a id="more"></a>
 <p>参考资料：</p>
-<p><a href="https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716" target="_blank" rel="noopener">https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716</a></p>
-<p><a href="https://www.chainnews.com/articles/593176727048.htm" target="_blank" rel="noopener">https://www.chainnews.com/articles/593176727048.htm</a></p>
-<p>期刊文章：Short signatures from the Weil pairing</p>
+<p><a href="https://medium.com/cryptoadvance/bls-signatures-better-than-schnorr-5a7fe30ea716" target="_blank" rel="noopener">BLS signatures: better than Schnorr - Medium</a></p>
+<p><a href="https://www.chainnews.com/articles/593176727048.htm" target="_blank" rel="noopener">BLS 签名和基于 BLS 签名的门限签名 - 链闻</a></p>
+<p><a href="https://link.springer.com/content/pdf/10.1007/s00145-004-0314-9.pdf" target="_blank" rel="noopener">期刊文章：Short signatures from the Weil pairing</a></p>
 <h2 id="双线性映射curves-pairing"><a class="markdownIt-Anchor" href="#双线性映射curves-pairing"></a> 双线性映射(Curves pairing)</h2>
 <p>双线性映射是一种在某类椭圆曲线中满足的一个pair的运算，假如我们选取椭圆曲线上的两个点<strong>P</strong>和<strong>Q</strong>，运算<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mo stretchy="false">(</mo><mi>P</mi><mo separator="true">,</mo><mi>Q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">e(P,Q)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">e</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">Q</span><span class="mclose">)</span></span></span></span>是一个将二维的点映射到一维空间的运算。</p>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>e</mi><mo stretchy="false">(</mo><mi>P</mi><mo separator="true">,</mo><mi>Q</mi><mo stretchy="false">)</mo><mo>→</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">e(P,Q) \rightarrow n 
@@ -210,7 +211,7 @@ e(G,S&#x27;)&amp;=e(P&#x27;,H(P,m)) \\
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/09/09/2020-09-09-bls-sig/" data-id="ckev92t60009bbotm5l8vgoi8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/09/09/2020-09-09-bls-sig/" data-id="ckew68cj0006pbstmletyu49q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/密码学/">密码学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
