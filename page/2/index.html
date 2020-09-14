@@ -69,6 +69,197 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2020-09-01-hlf-simulation-4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/01/2020-09-01-hlf-simulation-4/" class="article-date">
+  <time datetime="2020-09-01T07:14:40.000Z" itemprop="datePublished">2020-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/01/2020-09-01-hlf-simulation-4/">Hyperledger Fabric-模拟脚本搭建（四）通道配置及成员配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上节我们是启动了整个网络，其实就是启动了系统链，此时可以在系统链里面加入配置交易，来设置成员信息。在配置的过程我们分为两部分，首先是环境变量的配置，在注入好环境变量以后才是网络的启动。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-4/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-4/" data-id="ckexkzsmr006ml4tmpj6cf1yw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2020-09-01-hlf-simulation-3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/01/2020-09-01-hlf-simulation-3/" class="article-date">
+  <time datetime="2020-09-01T07:13:40.000Z" itemprop="datePublished">2020-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/01/2020-09-01-hlf-simulation-3/">Hyperledger Fabric-模拟脚本搭建（三）容器启动</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我们都知道，hyperledger fabric能用标准语言(standard language)来做智能合约的语言，其中重点在它用docker来统一环境。比如在比特币我们用输入输出脚本来自定义验证，在以太坊我们用EVM来处理之智能合约相关的内容，在本质上它们其实都是在各个节点间弄了一套统一的环境，只是在hyperledger fabric它用了docker来做统一环境而已。</p>
+<p>因为每台机器不仅仅会启动一个docker，而且会注入不少的环境变量，我们使用docker-compose来做环境的注入。那在启动前，我们需要编写好几个容器的docker-compose文件。我们一共设置了三个测试节点，其中一个排序节点，两个隶属不同组织的peer节点。在实际运行中，我们可能会有多个排序节点和多个Peer节点，在这里我们为了学习都只先建立一个。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-3/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-3/" data-id="ckexkzsmp006il4tmdvdoatud" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2020-09-01-hlf-simulation-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/01/2020-09-01-hlf-simulation-2/" class="article-date">
+  <time datetime="2020-09-01T07:12:40.000Z" itemprop="datePublished">2020-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/01/2020-09-01-hlf-simulation-2/">Hyperledger Fabric-模拟脚本搭建（二）创世区块及配置交易生成</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>记得之前在1.0版本的学习中，我使用的是单节点直接生成多个组织的密钥，并且直接用这些密钥来创建各个组织的系统配置通道。但这样的做法在实际中是不管用的，毕竟没人想让自己的密钥必须经过他人之手才到自己的手里，不然非对称加密就没什么意义了。</p>
+<p>hyperledger fabric使用msp证书做身份认证，Membership Service Provider (MSP)。他其实就和平时的证书差不多，也是一个公钥由CA签了名而已。我们之前在solo模式，可以直接用没有CA签名的MSP证书，如果想要用RAFT做共识，我们至少要一个由自签名的MSP证书才可以，然后开启TLS才可以。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-2/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-2/" data-id="ckexkzsmc0061l4tmgnm3gze0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2020-09-01-hlf-simulation-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/01/2020-09-01-hlf-simulation-1/" class="article-date">
+  <time datetime="2020-09-01T07:11:40.000Z" itemprop="datePublished">2020-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/区块链/">区块链</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/01/2020-09-01-hlf-simulation-1/">Hyperledger Fabric-模拟脚本搭建（一）密钥的分布式生成</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>记得之前在1.0版本的学习中，我使用的是单节点直接生成多个组织的密钥，并且直接用这些密钥来创建各个组织的系统配置通道。但这样的做法在实际中是不管用的，毕竟没人想让自己的密钥必须经过他人之手才到自己的手里，不然非对称加密就没什么意义了。</p>
+<p>hyperledger fabric使用msp证书做身份认证，Membership Service Provider (MSP)。他其实就和平时的证书差不多，也是一个公钥由CA签了名而已。我们之前在solo模式，可以直接用没有CA签名的MSP证书，如果想要用RAFT做共识，我们至少要一个由自签名的MSP证书才可以，然后开启TLS才可以。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/09/01/2020-09-01-hlf-simulation-1/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/09/01/2020-09-01-hlf-simulation-1/" data-id="ckexkzsmh0068l4tma2ysasjo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/超级账本/">超级账本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2020-08-18-zhejiang-provience-contest-of-19" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/18/2020-08-18-zhejiang-provience-contest-of-19/" class="article-date">
@@ -95,7 +286,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>昨天没事开了一场8小时的比赛，都好久没刷题刷的这么猛了，有点想起以前的时光了。省赛的题目比起全国赛简单不少，刷起来也爽快不少，一个人打3个人的比赛还是开8小时包上吃饭的时间比较好。听说这场是5题上半部分有铜，7题是银，9题是金。我也是在大概7个多小时才A掉第8题，大概就是省银上部分水平吧，有些退步了，但对于一个退役人员来说也算挺开心了。在最后补了第9道的C，WA了应该都十多次了，才发现一些小bug。</p>
+        <p>昨天没事开了一场8小时的比赛，都好久没刷题刷的这么猛了，有点想起以前的时光了。省赛的题目比起全国赛简单不少，刷起来也爽快不少，一个人打3个人的比赛还是开8小时包上吃饭的时间比较好。听说这场是5题上半部分有铜，7题是银，9题是金。我也是在大概7个多小时才A掉第8题，大概就是省银上部分水平吧，有些退步了，但对于一个退役人员来说也算挺开心了。在最后补了第9道的C，WA了应该都十多次了，才发现一些小bug。后来把A给补掉了，感觉就是一道国银的题目而已。</p>
 <p>那题解就按照出题的顺序来吧。</p>
 <p>题目链接：<a href="https://vjudge.net/contest/298098" target="_blank" rel="noopener">The 16th Zhejiang Provincial Collegiate Programming Contest Sponsored by TuSimple - vJudge</a></p>
         
@@ -106,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/18/2020-08-18-zhejiang-provience-contest-of-19/" data-id="ckew68ciq0061bstmtz4jedom" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/18/2020-08-18-zhejiang-provience-contest-of-19/" data-id="ckexkzsmf0064l4tmw9iv499k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/acm/">acm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/刷题记录/">刷题记录</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -153,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/2020-08-12-seq2seq-auto-encoder/" data-id="ckew68cio005ubstmut3e2srt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/2020-08-12-seq2seq-auto-encoder/" data-id="ckexkzsm4005ql4tmwuk6df05" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RNN/">RNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
@@ -200,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/2020-08-12-xargs/" data-id="ckew68cip005xbstmzbwjt7y6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/2020-08-12-xargs/" data-id="ckexkzsma005xl4tm902gchtl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -248,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/05/2020-08-05-fabric-network-in-script/" data-id="ckew68cil005nbstm9mirdbwk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/05/2020-08-05-fabric-network-in-script/" data-id="ckexkzsm7005ul4tmpfiwh7fj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fabric/">fabric</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区块链/">区块链</a></li></ul>
@@ -294,7 +485,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-git-multi-accounts/" data-id="ckew68cij005jbstmyah11n60" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-git-multi-accounts/" data-id="ckexkzslx005jl4tmqmkgtxod" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
@@ -342,203 +533,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-rnn-lstm/" data-id="ckew68cim005qbstmdokadtbm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/23/2020-07-23-rnn-lstm/" data-id="ckexkzsm1005nl4tm6iplkwqc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2020-07-22-semi-supervise" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/22/2020-07-22-semi-supervise/" class="article-date">
-  <time datetime="2020-07-22T11:48:33.000Z" itemprop="datePublished">2020-07-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/22/2020-07-22-semi-supervise/">半监督学习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>半监督学习介于监督学习和无监督学习之间，我们理解有监督和无监督常用的方式是看看它有没有label，而半监督其实就是有少数有label的数据，然后又大量的无label的数据，也不知道他们的正确性怎么样。假如我们只利用有Label的数据去学习，我们获取到的信息量或许会挺低的，如果能用上那些无label数据辅助学习，那效果就会好很多。</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/07/22/2020-07-22-semi-supervise/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/22/2020-07-22-semi-supervise/" data-id="ckew68cih005cbstmme6uh4d2" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2020-07-21-deep-learning-base" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/21/2020-07-21-deep-learning-base/" class="article-date">
-  <time datetime="2020-07-21T11:44:54.000Z" itemprop="datePublished">2020-07-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/21/2020-07-21-deep-learning-base/">深度学习基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>从前面的课程我们可以知道，像逻辑回归这样的问题其实只是深度学习神经元的其中一个例子。神经网络里，也是通过很多个这样子的运算级联，然后算出最终的结果。</p>
-<p>这个部分很多内容都只是知道，但还没能理解，毕竟没有实打实的实践过，也许之后的理解会有所出入。</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/07/21/2020-07-21-deep-learning-base/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/21/2020-07-21-deep-learning-base/" data-id="ckew68cii005gbstmvfv6svih" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2020-07-17-cnn" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/17/2020-07-17-cnn/" class="article-date">
-  <time datetime="2020-07-17T11:43:31.000Z" itemprop="datePublished">2020-07-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/17/2020-07-17-cnn/">CNN实验</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="安装环境"><a class="markdownIt-Anchor" href="#安装环境"></a> 安装环境</h2>
-<p>这次安装环境有点复杂，只要是要安装pytorch比较烦，尤其是在我这种网络超级烂的地方。安装了一天，分享一下经验。</p>
-<p>原本用网上的资料，用<code>conda install pytorch torchvision cudatoolkit=9.0</code>安装，结果网络太烂，每次到下了100M左右就会掉线。所以，直接把报错的url复制出去，然后用IDM下载，下载好之后直接放到~/anaconda3/pkg底下，其中cudatoolkit的那个包需要把后缀从zip改为conda。</p>
-<p>接着直接从本地导入：</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/07/17/2020-07-17-cnn/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/17/2020-07-17-cnn/" data-id="ckew68cie0055bstmpr6n2k3g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深度学习/">深度学习</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2020-07-16-classification-hw2" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/07/16/2020-07-16-classification-hw2/" class="article-date">
-  <time datetime="2020-07-16T11:41:37.000Z" itemprop="datePublished">2020-07-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/机器学习/">机器学习</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/16/2020-07-16-classification-hw2/">分类问题作业-2</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>提交地址：<a href="https://www.kaggle.com/c/ml2020spring-hw2" target="_blank" rel="noopener">https://www.kaggle.com/c/ml2020spring-hw2</a></p>
-<p>作业范例：<a href="https://colab.research.google.com/drive1JaMKJU7hvnDoUfZjvUKzm9u-JLeX6B2C#scrollTo=DH3AJtvHjVJ7" target="_blank" rel="noopener">https://colab.research.google.com/drive1JaMKJU7hvnDoUfZjvUKzm9u-JLeX6B2C#scrollTo=DH3AJtvHjVJ7</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2020/07/16/2020-07-16-classification-hw2/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/07/16/2020-07-16-classification-hw2/" data-id="ckew68cif0059bstmlgafz7yb" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
 
     </footer>
   </div>
@@ -582,7 +580,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 15.83px;">DNS</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/RNN/" style="font-size: 10.83px;">RNN</a> <a href="/tags/acm/" style="font-size: 10.83px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 13.33px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.5px;">fabric</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/go/" style="font-size: 10.83px;">go</a> <a href="/tags/leetcode/" style="font-size: 10.83px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19.17px;">linux</a> <a href="/tags/namecoin/" style="font-size: 12.5px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 11.67px;">node.js</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/ssh/" style="font-size: 10.83px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 16.67px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 12.5px;">刷题</a> <a href="/tags/刷题记录/" style="font-size: 10px;">刷题记录</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 10.83px;">大数据</a> <a href="/tags/实验/" style="font-size: 12.5px;">实验</a> <a href="/tags/密码学/" style="font-size: 13.33px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.33px;">数学</a> <a href="/tags/智能合约/" style="font-size: 11.67px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18.33px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 14.17px;">根域名</a> <a href="/tags/概率论/" style="font-size: 10.83px;">概率论</a> <a href="/tags/比特币/" style="font-size: 11.67px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 13.33px;">深度学习</a> <a href="/tags/源码/" style="font-size: 10.83px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 15px;">算法</a> <a href="/tags/编程语言/" style="font-size: 10.83px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 12.5px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 17.5px;">超级账本</a>
+      <a href="/tags/DHT/" style="font-size: 10px;">DHT</a> <a href="/tags/DNS/" style="font-size: 15.83px;">DNS</a> <a href="/tags/NLP/" style="font-size: 10px;">NLP</a> <a href="/tags/RNN/" style="font-size: 10.83px;">RNN</a> <a href="/tags/acm/" style="font-size: 11.67px;">acm</a> <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/arch/" style="font-size: 13.33px;">arch</a> <a href="/tags/blockstack/" style="font-size: 12.5px;">blockstack</a> <a href="/tags/codeforces/" style="font-size: 10px;">codeforces</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/tags/fabric/" style="font-size: 12.5px;">fabric</a> <a href="/tags/github/" style="font-size: 11.67px;">github</a> <a href="/tags/go/" style="font-size: 10.83px;">go</a> <a href="/tags/leetcode/" style="font-size: 10.83px;">leetcode</a> <a href="/tags/linux/" style="font-size: 19.17px;">linux</a> <a href="/tags/namecoin/" style="font-size: 12.5px;">namecoin</a> <a href="/tags/node-js/" style="font-size: 11.67px;">node.js</a> <a href="/tags/python/" style="font-size: 11.67px;">python</a> <a href="/tags/ssh/" style="font-size: 11.67px;">ssh</a> <a href="/tags/zookeeper/" style="font-size: 10px;">zookeeper</a> <a href="/tags/以太坊/" style="font-size: 16.67px;">以太坊</a> <a href="/tags/刷题/" style="font-size: 12.5px;">刷题</a> <a href="/tags/刷题记录/" style="font-size: 10.83px;">刷题记录</a> <a href="/tags/区块链/" style="font-size: 20px;">区块链</a> <a href="/tags/大数据/" style="font-size: 10.83px;">大数据</a> <a href="/tags/实验/" style="font-size: 12.5px;">实验</a> <a href="/tags/密码学/" style="font-size: 15px;">密码学</a> <a href="/tags/数学/" style="font-size: 13.33px;">数学</a> <a href="/tags/智能合约/" style="font-size: 11.67px;">智能合约</a> <a href="/tags/机器学习/" style="font-size: 18.33px;">机器学习</a> <a href="/tags/根域名/" style="font-size: 14.17px;">根域名</a> <a href="/tags/概率论/" style="font-size: 10.83px;">概率论</a> <a href="/tags/比特币/" style="font-size: 11.67px;">比特币</a> <a href="/tags/深度学习/" style="font-size: 13.33px;">深度学习</a> <a href="/tags/源码/" style="font-size: 10.83px;">源码</a> <a href="/tags/漏洞/" style="font-size: 10px;">漏洞</a> <a href="/tags/算法/" style="font-size: 17.5px;">算法</a> <a href="/tags/编程语言/" style="font-size: 10.83px;">编程语言</a> <a href="/tags/联盟链/" style="font-size: 12.5px;">联盟链</a> <a href="/tags/虚拟机/" style="font-size: 10px;">虚拟机</a> <a href="/tags/超级账本/" style="font-size: 17.5px;">超级账本</a>
     </div>
   </div>
 
@@ -604,23 +602,23 @@
       <ul>
         
           <li>
+            <a href="/2020/09/18/2020-09-18-musig-simulation/">从实现角度理解MuSig</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/16/2020-09-16-signore-simulation/">从实现角度理解Schnorr签名</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/14/2020-09-14-2019-ccpc-online/">2019-ccpc网络赛</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/11/2020-09-11-ssh-forbiden-password-login/">ssh免密码登录及禁止密码登录</a>
+          </li>
+        
+          <li>
             <a href="/2020/09/09/2020-09-09-bls-sig/">BLS签名</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/03/2020-09-03-rnn-movie-review-sentiment-classification/">RNN-电影评论情感分析</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/01/2020-09-01-hlf-simulation-8/">Hyperledger Fabric-模拟脚本搭建（八）新组织通道加入</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/01/2020-09-01-hlf-simulation-7/">Hyperledger Fabric-模拟脚本搭建（七）新组织区块生成及提交</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/01/2020-09-01-hlf-simulation-6/">Hyperledger Fabric-模拟脚本搭建（六）新组织生成</a>
           </li>
         
       </ul>
